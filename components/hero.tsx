@@ -12,93 +12,82 @@ export function Hero() {
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="grain relative isolate flex min-h-[100svh] items-end overflow-hidden"
+      className="relative isolate overflow-hidden border-b border-border bg-background"
     >
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <Image
-          src="/images/arab-banner.webp"
-          alt="بنر عرب ريفورجر الرسمي للرول بلاي"
-          fill
-          priority
-          sizes="100vw"
-          className="animate-hero-zoom object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-l from-background/80 via-transparent to-transparent" />
-      </div>
-
-      <div className="mx-auto w-full max-w-7xl px-5 pb-16 pt-32 md:px-8 md:pb-24">
-        <div className="max-w-3xl">
-          <p
-            className="animate-fade-up flex items-center gap-3 font-display text-xs tracking-[0.4em] text-accent md:text-sm"
-            dir="ltr"
-            style={{ animationDelay: "200ms" }}
-          >
-            <span className="h-px w-12 bg-accent" />
-            ARMA REFORGER · ARABIC ROLEPLAY
-          </p>
-
-          <h1
-            id="hero-title"
-            className="animate-fade-up mt-6 font-display text-6xl font-bold leading-[0.9] tracking-tight text-foreground sm:text-7xl md:text-8xl lg:text-9xl"
-            dir="ltr"
-            style={{ animationDelay: "350ms", textAlign: "right" }}
-          >
-            ARAB
-            <br />
-            <span className="text-transparent [-webkit-text-stroke:2px_var(--foreground)]">
-              REFORGER
-            </span>
-          </h1>
-
-          <p
-            className="animate-fade-up mt-6 text-2xl font-bold text-foreground md:text-4xl"
-            style={{ animationDelay: "500ms" }}
-          >
-            عالمك، قصتك، قراراتك
-          </p>
-          <p
-            className="animate-fade-up mt-4 max-w-xl text-pretty text-base leading-relaxed text-foreground/75 md:text-lg"
-            style={{ animationDelay: "600ms" }}
-          >
-            تجربة رول بلاي عربية واقعية على محرك Arma Reforger. اختر طريقك بين الحياة
-            المدنية، الخدمة الحكومية، أو عالم الجريمة المنظمة.
-          </p>
-
-          <div
-            className="animate-fade-up mt-10 flex flex-col gap-3 sm:flex-row"
-            style={{ animationDelay: "750ms" }}
-          >
-            <PrimaryLink href="/roleplay">اكتشف عالمنا</PrimaryLink>
-            <SecondaryLink href="/join">انضم إلى المجتمع</SecondaryLink>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_30%,rgba(163,118,42,0.12),transparent_65%)]"
+      />
+      <div className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-28 md:px-8 md:pb-16 md:pt-36 lg:pt-44">
+        <div className="grid min-w-0 items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+          <div className="min-w-0">
+            <p
+              className="flex flex-wrap items-center gap-3 font-display text-[10px] tracking-[0.2em] text-accent sm:text-xs"
+              dir="ltr"
+            >
+              <span className="h-px w-8 shrink-0 bg-accent" />
+              ARMA REFORGER · ARABIC ROLEPLAY
+            </p>
+            <h1
+              id="hero-title"
+              className="mt-6 font-display text-[clamp(2.75rem,7vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-foreground"
+              dir="ltr"
+              style={{ textAlign: "right" }}
+            >
+              ARAB
+              <br />
+              <span className="text-[#c49b54]">REFORGER</span>
+            </h1>
+            <p className="mt-6 text-2xl font-bold leading-relaxed text-foreground md:text-3xl">
+              عالمك، قصتك، قراراتك
+            </p>
+            <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-foreground/75 md:text-lg">
+              تجربة رول بلاي عربية واقعية على محرك Arma Reforger. اختر طريقك بين الحياة
+              المدنية، الخدمة الحكومية، أو عالم الجريمة المنظمة.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <PrimaryLink href="/roleplay">اكتشف عالمنا</PrimaryLink>
+              <SecondaryLink href="/join">انضم إلى المجتمع</SecondaryLink>
+            </div>
           </div>
+
+          <figure className="order-first min-w-0 lg:order-none">
+            <div className="relative overflow-hidden rounded-sm border border-[#b58a45]/40 bg-[#17130c] shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+              <Image
+                src="/images/arab-banner.webp"
+                alt="بنر عرب ريفورجر الرسمي: شعار السيرفر الذهبي واسم ARAB REFORGER ARMA RP"
+                width={1920}
+                height={1080}
+                priority
+                sizes="(min-width: 1440px) 720px, (min-width: 1024px) 55vw, 100vw"
+                className="block h-auto w-full object-contain"
+              />
+            </div>
+            <figcaption className="mt-4 flex items-center justify-between gap-4 font-display text-[10px] tracking-[0.2em] text-[#c49b54]/80 sm:text-xs" dir="ltr">
+              <span>ARAB REFORGER</span>
+              <span>ROLEPLAY COMMUNITY</span>
+            </figcaption>
+          </figure>
         </div>
 
-        <dl
-          className="animate-fade-up mt-16 grid grid-cols-3 gap-px border border-border bg-border md:max-w-2xl"
-          style={{ animationDelay: "900ms" }}
-        >
+        <dl className="mt-12 grid grid-cols-3 gap-px border border-border bg-border md:mt-16">
           {stats.map((s) => (
-            <div key={s.label} className="flex flex-col gap-1 bg-background/80 p-4 backdrop-blur-sm md:p-5">
-              <dt className="order-2 text-xs leading-snug text-muted md:text-sm">{s.label}</dt>
-              <dd className="order-1 font-display text-2xl font-bold text-foreground md:text-3xl" dir="ltr">
+            <div key={s.label} className="flex min-w-0 flex-col gap-2 bg-background p-4 text-center sm:p-6">
+              <dt className="order-2 text-xs leading-relaxed text-muted md:text-sm">{s.label}</dt>
+              <dd className="order-1 font-display text-2xl font-bold text-[#c49b54] md:text-3xl" dir="ltr">
                 {s.value}
               </dd>
             </div>
           ))}
         </dl>
+        <a
+          href="#welcome"
+          className="mx-auto mt-8 flex w-fit items-center gap-3 text-sm text-muted transition-colors hover:text-foreground"
+        >
+          استكشف المجتمع
+          <span aria-hidden="true">↓</span>
+        </a>
       </div>
-
-      <a
-        href="#welcome"
-        aria-label="انتقل إلى القسم التالي"
-        className="absolute bottom-8 left-8 hidden flex-col items-center gap-3 text-muted transition-colors hover:text-foreground md:flex"
-      >
-        <span className="font-display text-[10px] tracking-[0.4em] [writing-mode:vertical-rl]" dir="ltr">
-          SCROLL
-        </span>
-        <span className="h-12 w-px bg-gradient-to-b from-accent to-transparent" />
-      </a>
     </section>
   );
 }
