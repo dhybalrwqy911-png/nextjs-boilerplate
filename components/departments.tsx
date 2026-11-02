@@ -50,7 +50,7 @@ export function Departments() {
             description="انضم إلى أحد القطاعات الرسمية وكن جزءاً من المنظومة التي تحفظ توازن العالم."
           />
           <a
-            href="#join"
+            href="/join"
             className="shrink-0 self-start border-b border-accent pb-1 text-sm font-bold text-accent transition-colors hover:text-foreground md:self-auto"
           >
             التقديم على القطاعات

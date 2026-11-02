@@ -61,7 +61,7 @@ export function News() {
                     {post.dateLabel}
                   </time>
                   <h3 className="text-xl font-bold leading-snug text-foreground">
-                    <a href="#news" className="after:absolute after:inset-0 focus:outline-none">
+                    <a href="/news" className="after:absolute after:inset-0 focus:outline-none">
                       {post.title}
                     </a>
                   </h3>

@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { departments } from "@/lib/content";
+import { PageShell, TextPanel } from "@/components/page-shell";
+import Link from "next/link";
+type Props={params:Promise<{slug:string}>};
+export function generateStaticParams(){return departments.map(d=>({slug:d.slug}));}
+export async function generateMetadata({params}:Props):Promise<Metadata>{const {slug}=await params;const d=departments.find(x=>x.slug===slug);return {title:`${d?.name??"القطاع"} | ARAB REFORGER`};}
+export default async function DepartmentPage({params}:Props){const {slug}=await params;const d=departments.find(x=>x.slug===slug);if(!d)notFound();return <PageShell image={d.image} eyebrow={d.en.toUpperCase()} title={d.name} description={d.short}><TextPanel title={`عن ${d.name}`}><p className="max-w-4xl">{d.intro}</p></TextPanel><section className="border-y border-border bg-surface"><TextPanel title="المهام والمسؤوليات"><div className="grid gap-5 md:grid-cols-2">{d.responsibilities.map(item=><article key={item.title} className="border border-border bg-background p-7"><h3 className="mb-3 text-2xl font-bold text-foreground">{item.title}</h3><p>{item.text}</p></article>)}</div></TextPanel></section><TextPanel title="أنشطة القطاع"><div className="grid gap-3 md:grid-cols-2">{d.activities.map(a=><p key={a} className="border-r-2 border-accent bg-surface px-5 py-3">{a}</p>)}</div></TextPanel><section className="border-t border-border"><TextPanel title="خطوات المشاركة"><div className="grid gap-5 md:grid-cols-2">{d.participation.map((s,i)=><div key={s.title} className="border border-border p-6"><p className="font-display text-2xl text-accent">0{i+1}</p><h3 className="mt-2 text-xl font-bold text-foreground">{s.title}</h3><p>{s.text}</p></div>)}</div><Link href="/join" className="mt-8 inline-block font-bold text-accent">الانتقال إلى الانضمام ←</Link></TextPanel></section></PageShell>}
