@@ -1,5 +1,5 @@
-// Placeholder: set to the verified Discord invite URL once available. While null, the UI shows a labeled placeholder.
-export const DISCORD_URL: string | null = null;
+// Official Arab Reforger community invite.
+export const DISCORD_URL: string | null = "https://discord.gg/MFekRVgsP";
 
 export type NavChild = { href: string; label: string; description: string };
 export type NavItem = { href: string; label: string; children?: NavChild[] };
