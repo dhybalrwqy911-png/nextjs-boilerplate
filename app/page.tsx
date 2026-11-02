@@ -1,5 +1,5 @@
 import { About } from "@/components/about";
-import { Community } from "@/components/community";
+import { CtaBanner as Community } from "@/components/community";
 import { Criminal } from "@/components/criminal";
 import { Departments } from "@/components/departments";
 import { Hero } from "@/components/hero";
