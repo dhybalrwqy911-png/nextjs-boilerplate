@@ -15,17 +15,32 @@ export function Reveal({ children, className = "", delay = 0, as = "div" }: Reve
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+
+    const show = () => node.classList.add("is-visible");
+
+    if (typeof IntersectionObserver === "undefined") {
+      show();
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          node.classList.add("is-visible");
+          show();
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
     );
     observer.observe(node);
-    return () => observer.disconnect();
+
+    // Safety net: never leave content hidden if the observer doesn't fire (e.g. in embedded previews).
+    const fallback = window.setTimeout(show, 2500);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   const Tag = as;

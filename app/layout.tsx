@@ -15,6 +15,11 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000",
+  ),
   title: "ARAB REFORGER | مجتمع الرول بلاي العربي في Arma Reforger",
   description:
     "ARAB REFORGER مجتمع عربي للرول بلاي الواقعي على Arma Reforger. قطاعات حكومية، وظائف مدنية، قصص إجرامية، وعالم حي تصنعه قراراتك.",
@@ -49,8 +54,22 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       className={`${cairo.variable} ${oswald.variable} bg-background`}
+      style={{ backgroundColor: "#0a0b09" }}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen font-sans antialiased">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js-reveal')",
+          }}
+        />
+      </head>
+      <body
+        className="min-h-screen font-sans antialiased"
+        style={{ backgroundColor: "#0a0b09", color: "#ebe8df" }}
+      >
+        {children}
+      </body>
     </html>
   );
 }
