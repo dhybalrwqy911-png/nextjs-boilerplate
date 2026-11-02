@@ -1,49 +1,100 @@
-import { DISCORD_URL, navLinks } from "@/lib/site";
+import Link from "next/link";
+import { departments } from "@/lib/content";
+import { DISCORD_URL, navItems } from "@/lib/site";
 import { Logo } from "./logo";
 
 export function SiteFooter() {
+  const explore = navItems.filter((n) => n.href !== "/departments");
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
-        <div className="flex flex-col gap-4">
-          <Logo />
-          <p className="max-w-sm text-sm leading-relaxed text-muted">
-            مجتمع رول بلاي عربي مستقل على Arma Reforger. غير تابع رسمياً لشركة Bohemia Interactive.
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-2 md:px-8 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="flex flex-col gap-5">
+          <Link href="/" aria-label="ARAB REFORGER - الرئيسية" className="self-start">
+            <Logo />
+          </Link>
+          <p className="max-w-sm leading-relaxed text-muted">
+            مجتمع رول بلاي عربي على Arma Reforger. عالم حي تصنعه قصص اللاعبين وقراراتهم.
           </p>
         </div>
-        <nav aria-label="روابط التذييل">
-          <h2 className="mb-4 text-sm font-bold text-foreground">روابط سريعة</h2>
-          <ul className="grid grid-cols-2 gap-2">
-            {navLinks.map((l) => (
-              <li key={l.href}>
-                <a href={l.href} className="text-sm text-muted transition-colors hover:text-foreground">
-                  {l.label}
-                </a>
+
+        <nav aria-label="استكشف">
+          <h2 className="mb-5 font-display text-xs tracking-[0.3em] text-accent" dir="ltr">
+            EXPLORE
+          </h2>
+          <ul className="flex flex-col gap-3">
+            {explore.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-foreground/75 transition-colors hover:text-foreground">
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div>
-          <h2 className="mb-4 text-sm font-bold text-foreground">تواصل معنا</h2>
-          <ul className="flex flex-col gap-2">
+
+        <nav aria-label="القطاعات الحكومية">
+          <h2 className="mb-5 font-display text-xs tracking-[0.3em] text-accent" dir="ltr">
+            DEPARTMENTS
+          </h2>
+          <ul className="flex flex-col gap-3">
             <li>
-              <a href={DISCORD_URL} className="text-sm text-muted transition-colors hover:text-foreground">
-                Discord
-              </a>
+              <Link href="/departments" className="text-foreground/75 transition-colors hover:text-foreground">
+                جميع القطاعات
+              </Link>
+            </li>
+            {departments.map((d) => (
+              <li key={d.slug}>
+                <Link
+                  href={`/departments/${d.slug}`}
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  {d.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="المجتمع">
+          <h2 className="mb-5 font-display text-xs tracking-[0.3em] text-accent" dir="ltr">
+            COMMUNITY
+          </h2>
+          <ul className="flex flex-col gap-3">
+            <li>
+              <Link href="/join" className="text-foreground/75 transition-colors hover:text-foreground">
+                كيف تنضم
+              </Link>
             </li>
             <li>
-              <a href="#join" className="text-sm text-muted transition-colors hover:text-foreground">
-                الدعم الفني
-              </a>
+              <Link href="/rules" className="text-foreground/75 transition-colors hover:text-foreground">
+                القوانين
+              </Link>
+            </li>
+            <li>
+              {DISCORD_URL ? (
+                <a
+                  href={DISCORD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  الديسكورد
+                </a>
+              ) : (
+                <span className="text-muted">الديسكورد (الرابط قيد الإضافة)</span>
+              )}
             </li>
           </ul>
-        </div>
+        </nav>
       </div>
+
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-muted md:flex-row md:px-8">
-          <p>© 2026 ARAB REFORGER. جميع الحقوق محفوظة.</p>
-          <p className="font-display tracking-[0.3em]" dir="ltr">
-            YOUR WORLD · YOUR STORY · YOUR CHOICES
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 text-sm text-muted md:flex-row md:items-center md:justify-between md:px-8">
+          <p>
+            © 2026 ARAB REFORGER. جميع الحقوق محفوظة.
+          </p>
+          <p className="text-xs">
+            مجتمع مستقل غير تابع لـ Bohemia Interactive. جميع الشخصيات والتنظيمات في السيرفر خيالية.
           </p>
         </div>
       </div>

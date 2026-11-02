@@ -1,12 +1,34 @@
-export const DISCORD_URL = "#"; // Placeholder: replace with the real Discord invite link
+// Placeholder: set to the verified Discord invite URL once available. While null, the UI shows a labeled placeholder.
+export const DISCORD_URL: string | null = null;
 
-export const navLinks = [
-  { href: "#home", label: "الرئيسية" },
-  { href: "#about", label: "عن السيرفر" },
-  { href: "#world", label: "عالم الرول بلاي" },
-  { href: "#departments", label: "القطاعات الحكومية" },
-  { href: "#jobs", label: "الوظائف" },
-  { href: "#map", label: "الخريطة" },
-  { href: "#news", label: "الأخبار" },
-  { href: "#rules", label: "القوانين" },
-] as const;
+export type NavChild = { href: string; label: string; description: string };
+export type NavItem = { href: string; label: string; children?: NavChild[] };
+
+export const navItems: NavItem[] = [
+  { href: "/", label: "الرئيسية" },
+  { href: "/about", label: "عن السيرفر" },
+  { href: "/roleplay", label: "عالم الرول بلاي" },
+  {
+    href: "/departments",
+    label: "القطاعات الحكومية",
+    children: [
+      { href: "/departments", label: "جميع القطاعات", description: "دليل القطاعات الحكومية" },
+      { href: "/departments/police", label: "الشرطة", description: "الأمن العام والتحقيقات" },
+      { href: "/departments/ems", label: "الإسعاف والطوارئ", description: "الاستجابة الطبية والإنقاذ" },
+      {
+        href: "/departments/military-police",
+        label: "الشرطة العسكرية",
+        description: "المنشآت الحيوية ونقاط التفتيش",
+      },
+    ],
+  },
+  { href: "/jobs", label: "الوظائف" },
+  { href: "/map", label: "الخريطة" },
+  { href: "/news", label: "الأخبار" },
+  { href: "/rules", label: "القوانين" },
+];
+
+export function isActivePath(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}

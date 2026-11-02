@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { ArrowIcon } from "./icons";
+import { PrimaryLink, SecondaryLink } from "./buttons";
 
 const stats = [
-  { value: "24/7", label: "سيرفر يعمل على مدار الساعة" },
-  { value: "4", label: "قطاعات حكومية" },
-  { value: "+12", label: "وظيفة مدنية" },
+  { value: "03", label: "قطاعات حكومية" },
+  { value: "06", label: "مجالات مهنية مدنية" },
+  { value: "AR", label: "مجتمع عربي بالكامل" },
 ];
 
 export function Hero() {
@@ -69,19 +69,8 @@ export function Hero() {
             className="animate-fade-up mt-10 flex flex-col gap-3 sm:flex-row"
             style={{ animationDelay: "750ms" }}
           >
-            <a
-              href="#about"
-              className="group inline-flex items-center justify-center gap-3 bg-accent px-8 py-4 text-base font-bold text-accent-foreground transition-colors hover:bg-foreground"
-            >
-              اكتشف عالمنا
-              <ArrowIcon className="size-5 transition-transform group-hover:-translate-x-1" />
-            </a>
-            <a
-              href="#join"
-              className="inline-flex items-center justify-center gap-3 border border-foreground/40 bg-black/30 px-8 py-4 text-base font-bold text-foreground backdrop-blur-sm transition-colors hover:border-foreground hover:bg-foreground/10"
-            >
-              انضم إلى المجتمع
-            </a>
+            <PrimaryLink href="/roleplay">اكتشف عالمنا</PrimaryLink>
+            <SecondaryLink href="/join">انضم إلى المجتمع</SecondaryLink>
           </div>
         </div>
 
@@ -101,7 +90,7 @@ export function Hero() {
       </div>
 
       <a
-        href="#about"
+        href="#welcome"
         aria-label="انتقل إلى القسم التالي"
         className="absolute bottom-8 left-8 hidden flex-col items-center gap-3 text-muted transition-colors hover:text-foreground md:flex"
       >

@@ -131,6 +131,62 @@ export const UsersIcon = (p: IconProps) => (
   </Base>
 );
 
+export const ChevronDownIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m6 9 6 6 6-6" />
+  </Base>
+);
+
+export const CheckIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m5 12 5 5 9-10" />
+  </Base>
+);
+
+export const TrashIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5" />
+  </Base>
+);
+
+export const PackageIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3ZM4 7.5l8 4.5 8-4.5M12 12v9" />
+  </Base>
+);
+
+export const BriefcaseIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M3 8h18v12H3zM9 8V5h6v3M3 13h18" />
+  </Base>
+);
+
+export const TrendingIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m3 17 6-6 4 4 8-8M15 7h6v6" />
+  </Base>
+);
+
+export const ClockIcon = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </Base>
+);
+
+export const InfoIcon = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5M12 8h.01" />
+  </Base>
+);
+
+export const RadioIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M4 10h16v10H4zM8 10 16 4M8 15h.01M14 15h3" />
+  </Base>
+);
+
 export const BookIcon = (p: IconProps) => (
   <Base {...p}>
     <path d="M4 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4V4ZM20 4h-4a2 2 0 0 0-2 2" />

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cairo, Oswald } from "next/font/google";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 const cairo = Cairo({
@@ -20,7 +22,10 @@ export const metadata: Metadata = {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000",
   ),
-  title: "ARAB REFORGER | مجتمع الرول بلاي العربي في Arma Reforger",
+  title: {
+    default: "ARAB REFORGER | مجتمع الرول بلاي العربي في Arma Reforger",
+    template: "%s | ARAB REFORGER",
+  },
   description:
     "ARAB REFORGER مجتمع عربي للرول بلاي الواقعي على Arma Reforger. قطاعات حكومية، وظائف مدنية، قصص إجرامية، وعالم حي تصنعه قراراتك.",
   keywords: [
@@ -68,7 +73,15 @@ export default function RootLayout({
         className="min-h-screen font-sans antialiased"
         style={{ backgroundColor: "#0a0b09", color: "#ebe8df" }}
       >
-        {children}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:right-4 focus:top-4 focus:z-[60] focus:bg-accent focus:px-4 focus:py-2 focus:font-bold focus:text-accent-foreground"
+        >
+          تخطَّ إلى المحتوى
+        </a>
+        <SiteHeader />
+        <main id="main">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
