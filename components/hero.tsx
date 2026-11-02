@@ -16,8 +16,8 @@ export function Hero() {
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
-          src="/images/hero.png"
-          alt="نقطة تفتيش عسكرية وسيارة شرطة في مدينة عند الغروب"
+          src="/images/arab-banner.webp"
+          alt="بنر عرب ريفورجر الرسمي للرول بلاي"
           fill
           priority
           sizes="100vw"

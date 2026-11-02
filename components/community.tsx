@@ -13,7 +13,7 @@ export function CtaBanner({
   eyebrow = "JOIN THE COMMUNITY",
   title = "قصتك تبدأ الآن",
   text = "انضم إلى مجتمع ARAB REFORGER وكن جزءاً من تجربة رول بلاي عربية جادة على Arma Reforger.",
-  image = "/images/hero.png",
+  image = "/images/arab-banner.webp",
 }: CtaBannerProps) {
   return (
     <section aria-labelledby="cta-title" className="grain relative isolate overflow-hidden py-28 md:py-40">

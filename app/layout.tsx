@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ARAB REFORGER",
     description: "عالمك، قصتك، قراراتك — مجتمع الرول بلاي العربي على Arma Reforger.",
-    images: ["/images/hero.png"],
+    images: ["/images/arab-banner.webp"],
     locale: "ar_AR",
     type: "website",
   },
