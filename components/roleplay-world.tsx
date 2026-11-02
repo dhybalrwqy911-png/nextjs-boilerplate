@@ -40,7 +40,7 @@ const tabs = [
     id: "interactive",
     en: "Interactive World",
     label: "عالم تفاعلي",
-    image: "/images/about.png",
+    image: "/images/about-roleplay.webp",
     alt: "جنود حول شاحنة على تلة ضبابية",
     title: "كل تفاعل يصنع حدثاً",
     text: "فعاليات حية، أحداث مفاجئة، وتفاعل مستمر بين القطاعات. العالم يتغير ويتطور بناءً على ما يفعله اللاعبون.",
