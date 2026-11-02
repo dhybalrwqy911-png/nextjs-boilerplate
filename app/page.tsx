@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/hero";
 import { CtaBanner } from "@/components/community";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
 const highlights=[
 {title:"عن عرب ريفورجر",desc:"تعرف على المجتمع ورؤيتنا لتقديم تجربة حياة عربية تفاعلية.",image:"/images/about.png",href:"/about"},
 {title:"عالم الرول بلاي",desc:"حياة مدنية وقصص يومية وقرارات تصنع مسارك داخل المدينة.",image:"/images/civilian.png",href:"/roleplay"},
