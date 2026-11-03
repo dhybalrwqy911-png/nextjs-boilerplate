@@ -1,42 +1,8 @@
 import Image from "next/image";
-import { BuildingIcon, MedicalIcon, ShieldIcon, StarIcon } from "./icons";
+import { departments } from "@/lib/content";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
-const departments = [
-  {
-    en: "Police Department",
-    name: "الشرطة",
-    image: "/images/police.png",
-    alt: "ضباط شرطة بجانب سيارة دورية ليلاً",
-    Icon: ShieldIcon,
-    text: "حفظ الأمن، التحقيقات الجنائية، والدوريات اليومية في أنحاء المدينة.",
-  },
-  {
-    en: "Emergency Medical Services",
-    name: "الإسعاف والطوارئ",
-    image: "/images/ems.png",
-    alt: "مسعفون يحملون نقالة إلى سيارة إسعاف",
-    Icon: MedicalIcon,
-    text: "الاستجابة السريعة للحوادث، الرعاية الميدانية، وإدارة المستشفى.",
-  },
-  {
-    en: "Military Police",
-    name: "الشرطة العسكرية",
-    image: "/images/military-police.png",
-    alt: "جنود شرطة عسكرية يحرسون نقطة تفتيش",
-    Icon: StarIcon,
-    text: "حماية المنشآت الحيوية، نقاط التفتيش، والعمليات الخاصة.",
-  },
-  {
-    en: "Government Administration",
-    name: "الإدارة الحكومية",
-    image: "/images/government.png",
-    alt: "مبنى إداري حكومي عند الغسق",
-    Icon: BuildingIcon,
-    text: "إدارة شؤون الدولة، المحاكم، التراخيص، والقرارات العامة.",
-  },
-];
 
 export function Departments() {
   return (
@@ -57,7 +23,7 @@ export function Departments() {
           </a>
         </div>
 
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {departments.map((d, i) => (
             <Reveal as="li" key={d.en} delay={i * 100}>
               <article className="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden border border-border">
@@ -65,7 +31,7 @@ export function Departments() {
                   src={d.image}
                   alt={d.alt}
                   fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover grayscale-[40%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
@@ -83,7 +49,7 @@ export function Departments() {
                   </p>
                   <h3 className="text-2xl font-black text-foreground">{d.name}</h3>
                   <p className="max-h-0 overflow-hidden text-sm leading-relaxed text-foreground/75 opacity-0 transition-all duration-500 group-hover:max-h-24 group-hover:opacity-100 group-focus-within:max-h-24 group-focus-within:opacity-100 max-lg:max-h-24 max-lg:opacity-100">
-                    {d.text}
+                    {d.short}
                   </p>
                   <span className="mt-2 h-0.5 w-10 bg-accent transition-all duration-500 group-hover:w-full" />
                 </div>

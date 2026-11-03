@@ -16,9 +16,9 @@ export const navItems: NavItem[] = [
       { href: "/departments/police", label: "الشرطة", description: "الأمن العام والتحقيقات" },
       { href: "/departments/ems", label: "الإسعاف والطوارئ", description: "الاستجابة الطبية والإنقاذ" },
       {
-        href: "/departments/military-police",
-        label: "الشرطة العسكرية",
-        description: "المنشآت الحيوية ونقاط التفتيش",
+        href: "/departments/government",
+        label: "الإدارة الحكومية",
+        description: "الشؤون الإدارية والخدمات الحكومية",
       },
     ],
   },

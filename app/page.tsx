@@ -5,7 +5,7 @@ import { CtaBanner } from "@/components/community";
 const highlights=[
 {title:"عن عرب ريفورجر",desc:"تعرف على المجتمع ورؤيتنا لتقديم تجربة حياة عربية تفاعلية.",image:"/images/about-roleplay.webp",href:"/about"},
 {title:"عالم الرول بلاي",desc:"حياة مدنية وقصص يومية وقرارات تصنع مسارك داخل المدينة.",image:"/images/civilian.png",href:"/roleplay"},
-{title:"القطاعات الحكومية",desc:"اكتشف الشرطة والإسعاف والشرطة العسكرية ومسؤوليات كل قطاع.",image:"/images/government.png",href:"/departments"},
+{title:"القطاعات الحكومية",desc:"اكتشف الشرطة والإسعاف والإدارة الحكومية ومسؤوليات كل قطاع.",image:"/images/government.png",href:"/departments"},
 {title:"الوظائف والاقتصاد",desc:"تعرّف على التعدين والتصنيع والنقل والخدمات ومسارات التطور المهني.",image:"/images/jobs.png",href:"/jobs"},
 {title:"خريطة المدينة",desc:"استكشف دليل المواقع والقطاعات والمناطق المهمة داخل العالم.",image:"/images/map.png",href:"/map"},
 {title:"القوانين والانضمام",desc:"اطّلع على ضوابط اللعب وكيف تبدأ رحلتك في المجتمع.",image:"/images/rules.png",href:"/rules"},
