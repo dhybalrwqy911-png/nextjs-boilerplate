@@ -6,7 +6,7 @@ import { ruleCategories } from "@/lib/rules";
 
 function CategoryIcon({ id }: { id: string }) {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="size-7">
-    {id === "discord" ? <><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h6"/></> : id === "roleplay" ? <><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6l8-4Z"/><path d="m8 12 3 3 5-6"/></> : <><circle cx="12" cy="7" r="3"/><path d="M6 21v-3a6 6 0 0 1 12 0v3M5 5a3 3 0 0 0 0 6M19 5a3 3 0 0 1 0 6M2 20v-3a4 4 0 0 1 3-4M22 20v-3a4 4 0 0 0-3-4"/></>}
+    {id === "discord" ? <><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h6"/></> : (id === "roleplay" || id === "police") ? <><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6l8-4Z"/><path d="m8 12 3 3 5-6"/></> : id === "ems" ? <><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z"/></> : id === "jobs" ? <><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12a24 24 0 0 0 18 0M12 11v4"/></> : <><circle cx="12" cy="7" r="3"/><path d="M6 21v-3a6 6 0 0 1 12 0v3M5 5a3 3 0 0 0 0 6M19 5a3 3 0 0 1 0 6M2 20v-3a4 4 0 0 1 3-4M22 20v-3a4 4 0 0 0-3-4"/></>}
   </svg>;
 }
 
@@ -36,7 +36,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
 
       {!category ? <>
         <div className="mb-7 mt-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div><h2 className="text-2xl font-bold">أقسام القوانين</h2><p className="mt-2 text-sm text-muted">ثلاثة أقسام مستقلة، للوصول إلى المعلومة بسهولة.</p></div>
+          <div><h2 className="text-2xl font-bold">أقسام القوانين</h2><p className="mt-2 text-sm text-muted">{ruleCategories.length.toLocaleString("ar-SA")} أقسام مستقلة، للوصول إلى المعلومة بسهولة.</p></div>
           <div className="w-full sm:max-w-xs"><label htmlFor="category-search" className="mb-2 block text-sm text-muted">ابحث عن قسم</label><input id="category-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="مثال: الديسكورد" className={`w-full border border-border bg-surface px-4 py-3 text-foreground placeholder:text-muted ${focus}`}/></div>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
