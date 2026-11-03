@@ -1,34 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { newsArticles } from "@/lib/news";
 import { ArrowIcon } from "./icons";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
-const posts = [
-  {
-    tag: "إعلان",
-    date: "2026-02-10",
-    dateLabel: "10 فبراير 2026",
-    title: "فتح باب التقديم على قسم الشرطة",
-    excerpt: "بدأ استقبال طلبات الانضمام للدفعة الأولى من ضباط الشرطة. تعرف على الشروط وآلية التقديم.",
-    image: "/images/police.png",
-  },
-  {
-    tag: "تحديث",
-    date: "2026-02-06",
-    dateLabel: "6 فبراير 2026",
-    title: "نظام اقتصادي جديد للتعدين والتصنيع",
-    excerpt: "إضافة سلاسل إنتاج مترابطة بين المناجم والمصانع مع أسعار متغيرة حسب السوق.",
-    image: "/images/jobs.png",
-  },
-  {
-    tag: "فعالية",
-    date: "2026-02-01",
-    dateLabel: "1 فبراير 2026",
-    title: "فعالية الافتتاح الكبرى",
-    excerpt: "انضم إلينا في أول فعالية رسمية للمجتمع مع جوائز وسيناريوهات خاصة.",
-    image: "/images/civilian.png",
-  },
-];
+const posts = newsArticles;
 
 export function News() {
   return (
@@ -43,7 +20,7 @@ export function News() {
         <ul className="grid gap-6 md:grid-cols-3">
           {posts.map((post, i) => (
             <Reveal as="li" key={post.title} delay={i * 100}>
-              <article className="group flex h-full flex-col border border-border bg-surface transition-colors hover:border-foreground/30">
+              <article className="group relative flex h-full flex-col border border-border bg-surface transition-colors hover:border-foreground/30">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={post.image}
@@ -57,13 +34,11 @@ export function News() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6">
-                  <time dateTime={post.date} className="text-xs text-muted">
-                    {post.dateLabel}
-                  </time>
+                  <span className="text-xs text-muted">دليل المجتمع</span>
                   <h3 className="text-xl font-bold leading-snug text-foreground">
-                    <a href="/news" className="after:absolute after:inset-0 focus:outline-none">
+                    <Link href={`/news/${post.slug}`} className="after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
                       {post.title}
-                    </a>
+                    </Link>
                   </h3>
                   <p className="flex-1 leading-relaxed text-muted">{post.excerpt}</p>
                   <span className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-accent">
