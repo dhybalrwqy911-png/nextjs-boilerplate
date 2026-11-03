@@ -38,7 +38,7 @@ export function EconomySimulator() {
 
     <figure className="mt-8 min-w-0 border border-border bg-background p-3 md:p-6">
       <figcaption className="mb-4 text-sm font-bold">سعر وحدة الحديد مقابل المعروض الكلي</figcaption>
-      <svg viewBox="0 0 620 290" role="img" aria-labelledby="iron-chart-title iron-chart-desc" className="block h-auto w-full" dir="ltr">
+      <div dir="ltr"><svg viewBox="0 0 620 290" role="img" aria-labelledby="iron-chart-title iron-chart-desc" className="block h-auto w-full">
         <title id="iron-chart-title">انخفاض سعر الحديد عند زيادة المعروض مع ثبات الطلب</title>
         <desc id="iron-chart-desc">المحور الأفقي هو المعروض من 100 إلى 300 بالمئة. المحور الرأسي سعر الوحدة بعملة اللعب. يبدأ السعر من 100 وينخفض إلى 21 عند ثلاثة أضعاف المعروض. القيم الحالية معروضة أعلى الرسم، وكل الأرقام افتراضية.</desc>
         {[0,25,50,75,100].map(v => <g key={v}><line x1="64" x2="564" y1={235-v*1.9} y2={235-v*1.9} stroke="#303128"/><text x="49" y={239-v*1.9} textAnchor="end" fill="#a5a18f" fontSize="12">{v}</text></g>)}
@@ -47,7 +47,7 @@ export function EconomySimulator() {
         <polyline points={points.map(p => `${p.x},${p.y}`).join(" ")} fill="none" stroke="#d1a556" strokeWidth="3"/>
         <line x1={activeX} x2={activeX} y1={activeY} y2="235" stroke="#d1a556" strokeDasharray="4 4"/>
         <circle cx={activeX} cy={activeY} r="6" fill="#f2d499" stroke="#17180f" strokeWidth="2"/>
-      </svg>
+      </svg></div>
       <div className="flex flex-wrap justify-between gap-2 text-xs text-muted"><span>الرأسي: سعر الوحدة بعملة اللعب</span><span>الأفقي: نسبة المعروض الكلي</span></div>
     </figure>
 
