@@ -11,31 +11,35 @@ const pillars = [
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="relative py-24 md:py-36">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-2 lg:gap-20">
-        <div className="flex flex-col gap-10">
+    <section id="about" aria-labelledby="about-title about-title-mobile" className="relative py-7 md:py-36">
+      <div className="mx-auto grid max-w-7xl items-center gap-6 px-5 md:gap-14 md:px-8 lg:grid-cols-2 lg:gap-20">
+        <div className="flex flex-col gap-3 md:gap-10">
+          <h2 id="about-title-mobile" className="text-xl font-black md:hidden">وش تقدّم الإدارة؟</h2>
+          <div className="hidden md:contents">
           <SectionHeading
+            id="about-title"
             index="01"
             eyebrow="OUR MANAGEMENT"
             title="تعرّف على إدارة عرب ريفورجر"
             description="خلف تجربة عرب ريفورجر فريق يتولى تنظيم المجتمع ومتابعة احتياجات اللاعبين والتنسيق مع الفرق المختصة. هنا تتعرّف على دور الإدارة، وما تقدمه للمجتمع، ومجالات العمل التي تدعم تجربة الرول بلاي."
           />
+          </div>
           <ul className="flex flex-col divide-y divide-border border-y border-border">
             {pillars.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 100} className="flex gap-6 py-6">
+              <Reveal as="li" key={p.title} delay={i * 100} className="flex gap-3 py-3 md:gap-6 md:py-6">
                 <span className="font-display text-sm text-accent" dir="ltr">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="flex flex-col gap-1">
-                  <h3 className="text-lg font-bold text-foreground">{p.title}</h3>
-                  <p className="leading-relaxed text-muted">{p.text}</p>
+                  <h3 className="text-base font-bold text-foreground md:text-lg">{p.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted md:text-base">{p.text}</p>
                 </div>
               </Reveal>
             ))}
           </ul>
         </div>
 
-        <Reveal delay={150} className="relative">
+        <Reveal delay={150} className="relative hidden md:block">
           <div className="relative aspect-[4/5] overflow-hidden border border-border">
             <Image
               src="/images/management-team.webp"
