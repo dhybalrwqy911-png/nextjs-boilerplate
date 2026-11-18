@@ -1,5 +1,6 @@
 import { HeroArtwork } from "./hero-artwork";
-import { PrimaryLink, SecondaryLink } from "./buttons";
+import Link from "next/link";
+import { SecondaryLink } from "./buttons";
 
 const stats = [
   { value: "03", label: "قطاعات حكومية" },
@@ -18,21 +19,20 @@ export function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_20%_30%,rgba(163,118,42,0.12),transparent_65%)]"
       />
-      <div className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-28 md:px-8 md:pb-16 md:pt-36 lg:pt-44">
-        <div className="grid min-w-0 items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-          <div className="min-w-0">
+      <div className="mx-auto w-full max-w-6xl px-6 pb-12 pt-28 md:px-12 md:pb-16 md:pt-36 lg:pt-44">
+        <div className="grid min-w-0 items-center gap-10 lg:grid-cols-[1.3fr_0.8fr] lg:gap-14">
+          <div className="mx-auto w-full min-w-0 max-w-2xl text-center">
             <p
-              className="flex flex-wrap items-center gap-3 font-display text-[10px] tracking-[0.2em] text-accent sm:text-xs"
+              className="text-sm font-semibold tracking-[0.06em] text-accent sm:text-base"
               dir="ltr"
             >
-              <span className="h-px w-8 shrink-0 bg-accent" />
               ARMA REFORGER · ARABIC ROLEPLAY
             </p>
             <h1
               id="hero-title"
               className="mt-6 font-display text-[clamp(2.75rem,7vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-foreground"
               dir="ltr"
-              style={{ textAlign: "right" }}
+              style={{ textAlign: "center" }}
             >
               ARAB
               <br />
@@ -41,12 +41,12 @@ export function Hero() {
             <p className="mt-6 text-2xl font-bold leading-relaxed text-foreground md:text-3xl">
               عالمك، قصتك، قراراتك
             </p>
-            <p className="mt-4 max-w-xl text-pretty text-base leading-8 text-foreground/75 md:text-lg">
+            <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-8 text-foreground/75 md:text-lg">
               تجربة رول بلاي عربية واقعية على محرك Arma Reforger. اختر طريقك بين الحياة
               المدنية، الخدمة الحكومية، أو عالم الجريمة المنظمة.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <PrimaryLink href="/roleplay">اكتشف عالمنا</PrimaryLink>
+            <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row sm:flex-wrap">
+              <Link href="/roleplay" className="px-3 py-3 text-lg font-bold text-accent underline-offset-8 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">اكتشف عالمنا ←</Link>
               <SecondaryLink href="/join">انضم إلى المجتمع</SecondaryLink>
             </div>
           </div>
