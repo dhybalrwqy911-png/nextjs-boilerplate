@@ -34,7 +34,7 @@ export function News() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6">
-                  <span className="text-xs text-muted">دليل المجتمع</span>
+                  <span className="text-xs text-muted">{post.kind === "raid" ? "دليل العصابات" : "دليل المجتمع"}</span>
                   <h3 className="text-xl font-bold leading-snug text-foreground">
                     <Link href={`/news/${post.slug}`} className="after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
                       {post.title}
@@ -42,7 +42,7 @@ export function News() {
                   </h3>
                   <p className="flex-1 leading-relaxed text-muted">{post.excerpt}</p>
                   <span className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-accent">
-                    اقرأ المزيد
+                    {post.kind === "raid" ? "اكتشف نظام الريد" : "اقرأ المزيد"}
                     <ArrowIcon className="size-4 transition-transform group-hover:-translate-x-1" />
                   </span>
                 </div>

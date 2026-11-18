@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import { PageShell, TextPanel } from "@/components/page-shell";
 import { EconomySimulator } from "@/components/economy-simulator";
+import { RaidGuide } from "@/components/raid-guide";
 import { newsArticles } from "@/lib/news";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -16,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
   const article = newsArticles.find(item => item.slug === slug);
+  if (slug === "opening-event") redirect("/news/gang-raids");
   if (!article) notFound();
 
   return <PageShell image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
@@ -52,9 +54,6 @@ export default async function NewsDetail({ params }: Props) {
       ].map(([title,text]) => <article key={title} className="border border-border p-6"><h2 className="text-xl font-bold text-foreground">{title}</h2><p className="mt-3 text-base leading-8">{text}</p></article>)}</div>
       <p className="mt-8 text-base leading-8 text-muted">قبل أي صفقة، قارن ما يدفعه لك التاجر بتكلفة شراء أو تجهيز البضاعة والنقل والتشغيل. المبلغ الذي تستلمه عند البيع ليس كله ربحًا. الأرقام الحالية أمثلة تعليمية، ويُضاف النظام الفعلي بعد اعتماد إعدادات السيرفر.</p>
       <Link href="/jobs" className="mt-6 inline-block text-base font-bold text-accent">استكشف الوظائف والمهن ←</Link>
-    </TextPanel> : <TextPanel title="تفاصيل الفعاليات">
-      <p>تُضاف هنا أخبار الفعاليات ومواعيدها وطريقة المشاركة بعد اعتمادها. لا توجد تفاصيل أو مواعيد معلنة ضمن هذه الصفحة حاليًا.</p>
-      <Link href="/news" className="mt-6 inline-block text-base font-bold text-accent">تابع آخر أخبار المجتمع ←</Link>
-    </TextPanel>}
+    </TextPanel> : <RaidGuide />}
   </PageShell>;
 }
