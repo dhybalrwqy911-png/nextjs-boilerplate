@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { HeroArtwork } from "./hero-artwork";
 import { PrimaryLink, SecondaryLink } from "./buttons";
 
 const stats = [
@@ -51,23 +51,7 @@ export function Hero() {
             </div>
           </div>
 
-          <figure className="order-first min-w-0 lg:order-none">
-            <div className="relative overflow-hidden rounded-sm border border-[#b58a45]/40 bg-[#17130c] shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-              <Image
-                src="/images/arab-formal-hero.webp"
-                alt="شخصية ببدلة رسمية تمد كفّها وتحمل شعار عرب ريفورجر الذهبي"
-                width={1672}
-                height={941}
-                priority
-                sizes="(min-width: 1440px) 720px, (min-width: 1024px) 55vw, 100vw"
-                className="block h-auto w-full object-contain"
-              />
-            </div>
-            <figcaption className="mt-4 flex items-center justify-between gap-4 font-display text-[10px] tracking-[0.2em] text-[#c49b54]/80 sm:text-xs" dir="ltr">
-              <span>ARAB REFORGER</span>
-              <span>ROLEPLAY COMMUNITY</span>
-            </figcaption>
-          </figure>
+          <HeroArtwork />
         </div>
 
         <dl className="mt-12 grid grid-cols-3 gap-px border border-border bg-border md:mt-16">

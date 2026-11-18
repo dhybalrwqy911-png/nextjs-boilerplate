@@ -1,0 +1,9 @@
+.art { position: relative; width: 100%; isolation: isolate; }
+.character { display: block; width: 100%; height: auto; mask-image: linear-gradient(to bottom, #000 82%, transparent 100%); }
+.emblem { position: absolute; left: 49.5%; top: 12%; width: 28%; aspect-ratio: 1; filter: drop-shadow(0 0 20px rgb(196 155 84 / .35)); }
+.spin { display: block; width: 100%; height: auto; animation: emblem-turn 28s linear infinite; }
+.emblem:hover .spin { animation-play-state: paused; }
+@keyframes emblem-turn { to { transform: rotate(360deg); } }
+.control { margin-top: .5rem; padding: .5rem; color: #c49b54; font-size: .75rem; cursor: pointer; }
+.control:focus-visible { outline: 2px solid #c49b54; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } .control { display: none; } }
