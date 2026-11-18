@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Hero } from "@/components/hero";
 import { CtaBanner } from "@/components/community";
 const highlights=[
-{title:"عن عرب ريفورجر",desc:"تعرف على المجتمع ورؤيتنا لتقديم تجربة حياة عربية تفاعلية.",image:"/images/about-roleplay.webp",href:"/about"},
+{title:"تعرّف على الإدارة",desc:"اكتشف دور إدارة المجتمع وما تقدمه في الدعم والتنظيم والتطوير.",image:"/images/management-team.webp",href:"/about"},
 {title:"عالم الرول بلاي",desc:"حياة مدنية وقصص يومية وقرارات تصنع مسارك داخل المدينة.",image:"/images/civilian.png",href:"/roleplay"},
 {title:"القطاعات الحكومية",desc:"اكتشف الشرطة والإسعاف والإدارة الحكومية ومسؤوليات كل قطاع.",image:"/images/government.png",href:"/departments"},
 {title:"الوظائف والاقتصاد",desc:"تعرّف على التعدين والتصنيع والنقل والخدمات ومسارات التطور المهني.",image:"/images/jobs.png",href:"/jobs"},
