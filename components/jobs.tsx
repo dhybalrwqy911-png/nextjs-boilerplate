@@ -12,7 +12,28 @@ const jobs = [
   { Icon: CarIcon, en: "Services", name: "الخدمات العامة", text: "سيارات الأجرة، المطاعم، والمتاجر اليومية." },
 ];
 
-export function Jobs() {
+export function Jobs({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <section aria-labelledby="mobile-jobs-title" className="mx-auto max-w-xl px-4 pb-8">
+        <h2 id="mobile-jobs-title" className="mb-3 text-base font-bold">المهن المتاحة</h2>
+        <ul className="divide-y divide-border border border-border bg-surface">
+          {jobs.map(({ Icon, name, text, en }) => (
+            <li key={en} className="flex items-start gap-3 p-3">
+              <span aria-hidden="true" className="flex size-9 shrink-0 items-center justify-center bg-olive/20 text-olive-bright">
+                <Icon className="size-5" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="text-base font-bold leading-6">{name}</h3>
+                <p className="mt-0.5 text-sm leading-6 text-muted">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
   return (
     <section
       id="jobs"
