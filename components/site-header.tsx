@@ -46,6 +46,21 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 80rem)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMobileOpen(false);
+    };
+    closeOnDesktop();
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setMobileExpanded(null);
+  };
+
   const solid = scrolled || mobileOpen;
 
   return (
@@ -171,7 +186,7 @@ export function SiteHeader() {
       <div
         id="mobile-menu"
         inert={!mobileOpen}
-        className={`fixed inset-x-0 bottom-0 top-18 overflow-y-auto bg-background transition-all duration-300 xl:hidden ${
+        className={`absolute inset-x-0 top-full h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain bg-background transition-all duration-300 xl:hidden ${
           mobileOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
         }`}
       >
@@ -185,6 +200,7 @@ export function SiteHeader() {
                   <div className="flex items-center">
                     <Link
                       href={item.href}
+                      onClick={closeMobileMenu}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={`flex flex-1 items-center justify-between py-4 text-xl font-bold ${
                         active ? "text-accent" : "text-foreground"
@@ -218,6 +234,7 @@ export function SiteHeader() {
                           <li key={child.href}>
                             <Link
                               href={child.href}
+                              onClick={closeMobileMenu}
                               aria-current={pathname === child.href ? "page" : undefined}
                               className={`flex flex-col border-r-2 py-2 pr-4 ${
                                 pathname === child.href ? "border-accent" : "border-border"
@@ -237,6 +254,7 @@ export function SiteHeader() {
           </ul>
           <Link
             href="/join"
+            onClick={closeMobileMenu}
             className="mt-8 bg-accent px-6 py-4 text-center text-lg font-bold text-accent-foreground"
           >
             انضم إلينا
