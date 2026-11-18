@@ -49,9 +49,17 @@ export function InteractiveMap() {
   const visible = locations.filter((l) => filter === "all" || l.category === filter);
   const selected = locations.find((l) => l.id === selectedId) ?? locations[0];
 
+  function changeFilter(category: Category) {
+    setFilter(category);
+    if (category !== "all" && selected.category !== category) {
+      const first = locations.find((loc) => loc.category === category);
+      if (first) setSelectedId(first.id);
+    }
+  }
+
   return (
-    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-surface py-24 md:py-36">
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-5 md:px-8">
+    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-surface py-8 md:py-36">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8">
         <SectionHeading
           index="06"
           eyebrow="World Map"
@@ -59,8 +67,8 @@ export function InteractiveMap() {
           description="تعرّف على أهم المواقع قبل أن تبدأ رحلتك. المواقع الحالية مؤقتة وسيتم تحديثها مع إطلاق الخريطة الرسمية."
         />
 
-        <Reveal className="grid gap-4 lg:grid-cols-[1fr_340px]">
-          <div className="relative aspect-[4/3] overflow-hidden border border-border bg-background md:aspect-[16/10]">
+        <Reveal className="grid gap-3 md:gap-4 lg:grid-cols-[1fr_340px]">
+          <div className="relative row-start-2 aspect-[4/3] md:row-start-auto overflow-hidden border border-border bg-background md:aspect-[16/10]">
             <Image
               src="/images/map.png"
               alt="خريطة طبوغرافية للجزيرة"
@@ -90,7 +98,7 @@ export function InteractiveMap() {
                       onClick={() => setSelectedId(loc.id)}
                       aria-pressed={isSelected}
                       aria-label={loc.name}
-                      className="group relative flex size-8 items-center justify-center"
+                      className="group relative flex size-8 items-center justify-center focus-visible:outline-2 focus-visible:outline-accent"
                     >
                       <span className={`absolute size-3 rounded-full ${categoryColor[loc.category]} animate-ping-soft`} />
                       <span
@@ -99,7 +107,7 @@ export function InteractiveMap() {
                         }`}
                       />
                       <span
-                        className={`pointer-events-none absolute bottom-full mb-1 whitespace-nowrap bg-background/90 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
+                        className={`pointer-events-none absolute bottom-full hidden md:block mb-1 whitespace-nowrap bg-background/90 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
                           isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
                         }`}
                       >
@@ -110,20 +118,20 @@ export function InteractiveMap() {
                 );
               })}
             </ul>
-            <span className="absolute bottom-3 left-3 font-display text-[10px] tracking-[0.3em] text-muted" dir="ltr">
+            <span className="absolute bottom-3 left-3 hidden md:inline font-display text-[10px] tracking-[0.3em] text-muted" dir="ltr">
               GRID REF · PLACEHOLDER
             </span>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <div role="group" aria-label="تصفية المواقع" className="flex flex-wrap gap-2">
+          <div className="contents md:flex md:flex-col md:gap-4">
+            <div role="group" aria-label="تصفية المواقع" className="row-start-1 grid grid-cols-3 gap-1.5 md:flex md:flex-wrap md:gap-2">
               {categories.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   aria-pressed={filter === c.id}
-                  onClick={() => setFilter(c.id)}
-                  className={`border px-3 py-2 text-sm font-bold transition-colors ${
+                  onClick={() => changeFilter(c.id)}
+                  className={`min-h-11 border px-1 py-1 text-xs md:min-h-0 md:px-3 md:py-2 md:text-sm font-bold transition-colors ${
                     filter === c.id
                       ? "border-accent bg-accent text-accent-foreground"
                       : "border-border text-foreground/80 hover:border-foreground/40"
@@ -134,23 +142,31 @@ export function InteractiveMap() {
               ))}
             </div>
 
-            <div aria-live="polite" className="flex flex-col gap-3 border border-border bg-background p-5">
+            <label className="grid gap-1 text-sm font-bold md:hidden">
+              اختر موقعًا
+              <select value={selectedId} onChange={(event) => setSelectedId(event.target.value)} className="min-h-11 w-full rounded-none border border-border bg-background px-3 text-base text-foreground focus-visible:outline-2 focus-visible:outline-accent">
+                {visible.map((loc) => <option key={loc.id} value={loc.id}>{loc.name}</option>)}
+              </select>
+            </label>
+
+            <div aria-live="polite" className="flex flex-col gap-1 border border-border bg-background p-3 md:gap-3 md:p-5">
               <div className="flex items-center gap-2 text-accent">
                 <MapPinIcon className="size-5" />
                 <span className="font-display text-xs tracking-[0.3em]" dir="ltr">
                   {`X${selected.x} · Y${selected.y}`}
                 </span>
               </div>
-              <h3 className="text-xl font-black text-foreground">{selected.name}</h3>
-              <p className="leading-relaxed text-muted">{selected.desc}</p>
+              <h3 className="text-base font-black md:text-xl text-foreground">{selected.name}</h3>
+              <p className="text-sm leading-relaxed text-muted md:text-base">{selected.desc}</p>
             </div>
 
-            <ul className="flex max-h-64 flex-col overflow-y-auto border border-border lg:max-h-none lg:flex-1">
+            <ul className="hidden max-h-64 flex-col md:flex overflow-y-auto border border-border lg:max-h-none lg:flex-1">
               {visible.map((loc) => (
                 <li key={loc.id} className="border-b border-border last:border-b-0">
                   <button
                     type="button"
                     onClick={() => setSelectedId(loc.id)}
+                    aria-pressed={loc.id === selectedId}
                     className={`flex w-full items-center gap-3 px-4 py-3 text-right text-sm transition-colors ${
                       loc.id === selected.id ? "bg-surface-2 text-foreground" : "text-foreground/75 hover:bg-surface-2/60"
                     }`}
