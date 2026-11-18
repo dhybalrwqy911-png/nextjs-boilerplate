@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { departments } from "@/lib/content";
-import { DISCORD_URL, navItems } from "@/lib/site";
+import { navItems } from "@/lib/site";
 import { Logo } from "./logo";
 
 const projects = [
@@ -23,10 +23,6 @@ export function SiteFooter() {
             <p className="mt-2 max-w-sm text-sm leading-6 lg:mt-5 lg:leading-8 text-muted">
               مجتمع رول بلاي عربي على Arma Reforger. عالم حي تصنعه قصص اللاعبين وقراراتهم.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2 lg:mt-6 lg:gap-3">
-              {DISCORD_URL && <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="border border-[#c49b54]/40 bg-[#c49b54]/10 px-4 py-2.5 text-sm font-bold text-[#ddbb80] transition-colors hover:bg-[#c49b54]/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">ديسكورد المجتمع <span aria-hidden="true">↗</span></a>}
-              <Link href="/join" className="border border-border px-4 py-2.5 text-sm text-foreground/80 transition-colors hover:border-[#c49b54]/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">كيف تنضم؟</Link>
-            </div>
           </div>
 
           <nav aria-label="روابط الموقع" className="min-w-0 lg:col-span-2">
