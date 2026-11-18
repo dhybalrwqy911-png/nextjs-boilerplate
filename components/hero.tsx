@@ -54,10 +54,10 @@ export function Hero() {
           <figure className="order-first min-w-0 lg:order-none">
             <div className="relative overflow-hidden rounded-sm border border-[#b58a45]/40 bg-[#17130c] shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
               <Image
-                src="/images/arab-banner.webp"
-                alt="بنر عرب ريفورجر الرسمي: شعار السيرفر الذهبي واسم ARAB REFORGER ARMA RP"
-                width={1920}
-                height={1080}
+                src="/images/arab-formal-hero.webp"
+                alt="شخصية ببدلة رسمية تمد كفّها وتحمل شعار عرب ريفورجر الذهبي"
+                width={1672}
+                height={941}
                 priority
                 sizes="(min-width: 1440px) 720px, (min-width: 1024px) 55vw, 100vw"
                 className="block h-auto w-full object-contain"
