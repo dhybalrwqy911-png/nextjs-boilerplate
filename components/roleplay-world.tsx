@@ -56,15 +56,17 @@ export function RoleplayWorld() {
     <section
       id="world"
       aria-labelledby="world-title"
-      className="relative border-y border-border bg-surface py-24 md:py-36"
+      className="relative border-y border-border bg-surface py-4 md:py-36"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-5 md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 md:gap-12 md:px-8">
+        <div className="sr-only md:not-sr-only">
         <SectionHeading
           index="02"
           eyebrow="Roleplay World"
           title="عالم الرول بلاي"
           description="أربعة محاور تتقاطع لتصنع تجربة متكاملة. اختر المحور واستكشف ما ينتظرك."
         />
+        </div>
 
         <Reveal>
           <div
@@ -83,19 +85,19 @@ export function RoleplayWorld() {
                   aria-selected={selected}
                   aria-controls={`panel-${tab.id}`}
                   onClick={() => setActiveId(tab.id)}
-                  className={`relative flex flex-col items-start gap-1 p-4 text-right transition-colors md:p-5 ${
+                  className={`relative flex flex-col items-start min-h-11 justify-center gap-1 px-3 py-2 text-right transition-colors md:p-5 ${
                     selected ? "bg-surface-2" : "bg-surface hover:bg-surface-2/60"
                   }`}
                 >
                   <span
-                    className={`font-display text-[10px] tracking-[0.3em] md:text-xs ${
+                    className={`hidden font-display tracking-[0.3em] md:block md:text-xs ${
                       selected ? "text-accent" : "text-muted"
                     }`}
                     dir="ltr"
                   >
                     {tab.en.toUpperCase()}
                   </span>
-                  <span className="text-base font-bold text-foreground md:text-lg">{tab.label}</span>
+                  <span className="text-sm font-bold text-foreground md:text-lg">{tab.label}</span>
                   <span
                     className={`absolute inset-x-0 bottom-0 h-0.5 bg-accent transition-transform duration-500 ${
                       selected ? "scale-x-100" : "scale-x-0"
@@ -110,9 +112,9 @@ export function RoleplayWorld() {
             role="tabpanel"
             id={`panel-${active.id}`}
             aria-labelledby={`tab-${active.id}`}
-            className="relative mt-8 grid overflow-hidden border border-border lg:grid-cols-5"
+            className="relative mt-3 grid md:mt-8 overflow-hidden border border-border lg:grid-cols-5"
           >
-            <div className="relative aspect-video lg:col-span-3 lg:aspect-auto lg:min-h-[480px]">
+            <div className="relative order-last aspect-[2/1] md:order-none md:aspect-video lg:col-span-3 lg:aspect-auto lg:min-h-[480px]">
               <Image
                 key={active.image + active.id}
                 src={active.image}
@@ -125,13 +127,13 @@ export function RoleplayWorld() {
             </div>
             <div
               key={active.id}
-              className="animate-fade-up flex flex-col justify-center gap-6 bg-background p-6 md:p-10 lg:col-span-2"
+              className="animate-fade-up flex flex-col justify-center gap-3 bg-background p-4 md:gap-6 md:p-10 lg:col-span-2"
             >
-              <h3 className="text-balance text-2xl font-black text-foreground md:text-3xl">
+              <h3 className="text-balance text-xl font-black text-foreground md:text-3xl">
                 {active.title}
               </h3>
-              <p className="leading-relaxed text-muted">{active.text}</p>
-              <ul className="flex flex-col gap-3">
+              <p className="text-sm leading-relaxed text-muted md:text-base">{active.text}</p>
+              <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm md:flex-col md:gap-3 md:text-base">
                 {active.points.map((p) => (
                   <li key={p} className="flex items-center gap-3 text-foreground">
                     <span className="size-1.5 bg-accent" />

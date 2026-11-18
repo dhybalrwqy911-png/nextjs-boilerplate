@@ -10,16 +10,17 @@ type PageHeroProps = {
   eyebrow: string;
   title: string;
   description: string;
+  compactOnMobile?: boolean;
   crumbs?: Crumb[];
   children?: ReactNode;
 };
 
-export function PageHero({ image, alt, eyebrow, title, description, crumbs = [], children }: PageHeroProps) {
+export function PageHero({ image, alt, eyebrow, title, description, crumbs = [], compactOnMobile = false, children }: PageHeroProps) {
   const trail = [{ href: "/", label: "الرئيسية" }, ...crumbs];
   return (
     <section
       aria-labelledby="page-title"
-      className="grain relative isolate flex min-h-[68svh] items-end overflow-hidden border-b border-border md:min-h-[74svh]"
+      className={`grain relative isolate flex items-end overflow-hidden border-b border-border md:min-h-[74svh] ${compactOnMobile ? "" : "min-h-[68svh]"}`}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
@@ -34,8 +35,8 @@ export function PageHero({ image, alt, eyebrow, title, description, crumbs = [],
         <div className="absolute inset-0 bg-gradient-to-l from-background/85 via-background/20 to-transparent" />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-5 pb-14 pt-32 md:px-8 md:pb-20">
-        <nav aria-label="مسار التنقل" className="animate-fade-up" style={{ animationDelay: "100ms" }}>
+      <div className={`mx-auto w-full max-w-7xl px-5 md:px-8 md:pb-20 md:pt-32 ${compactOnMobile ? "pb-6 pt-24" : "pb-14 pt-32"}`}>
+        <nav aria-label="مسار التنقل" className={compactOnMobile ? "hidden animate-fade-up md:block" : "animate-fade-up"} style={{ animationDelay: "100ms" }}>
           <ol className="flex flex-wrap items-center gap-2 text-sm text-foreground/60">
             {trail.map((c, i) => {
               const last = i === trail.length - 1;
@@ -61,9 +62,9 @@ export function PageHero({ image, alt, eyebrow, title, description, crumbs = [],
           </ol>
         </nav>
 
-        <div className="mt-8 max-w-3xl">
+        <div className={compactOnMobile ? "max-w-3xl md:mt-8" : "mt-8 max-w-3xl"}>
           <p
-            className="animate-fade-up flex items-center gap-3 font-display text-xs uppercase tracking-[0.4em] text-accent md:text-sm"
+            className={`animate-fade-up items-center gap-3 font-display text-xs uppercase tracking-[0.4em] text-accent md:flex md:text-sm ${compactOnMobile ? "hidden" : "flex"}`}
             dir="ltr"
             style={{ animationDelay: "200ms", justifyContent: "flex-end" }}
           >
@@ -72,13 +73,13 @@ export function PageHero({ image, alt, eyebrow, title, description, crumbs = [],
           </p>
           <h1
             id="page-title"
-            className="animate-fade-up mt-5 text-balance text-5xl font-black leading-[1.1] text-foreground md:text-7xl"
+            className={`animate-fade-up text-balance font-black leading-[1.1] text-foreground md:mt-5 md:text-7xl ${compactOnMobile ? "text-3xl" : "mt-5 text-5xl"}`}
             style={{ animationDelay: "320ms" }}
           >
             {title}
           </h1>
           <p
-            className="animate-fade-up mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-foreground/75 md:text-xl"
+            className={`animate-fade-up max-w-2xl text-pretty leading-relaxed text-foreground/75 md:mt-6 md:text-xl ${compactOnMobile ? "mt-2 text-sm" : "mt-6 text-lg"}`}
             style={{ animationDelay: "440ms" }}
           >
             {description}

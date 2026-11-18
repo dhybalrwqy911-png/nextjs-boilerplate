@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { departments } from "@/lib/content";
 import { Reveal } from "./reveal";
@@ -6,15 +7,17 @@ import { SectionHeading } from "./section-heading";
 
 export function Departments() {
   return (
-    <section id="departments" aria-labelledby="departments-title" className="py-24 md:py-36">
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-5 md:px-8">
+    <section id="departments" aria-labelledby="departments-title" className="py-5 md:py-36">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 md:gap-12 md:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="sr-only md:not-sr-only">
           <SectionHeading
             index="03"
             eyebrow="Government Departments"
             title="القطاعات الحكومية"
             description="انضم إلى أحد القطاعات الرسمية وكن جزءاً من المنظومة التي تحفظ توازن العالم."
           />
+          </div>
           <a
             href="/join"
             className="shrink-0 self-start border-b border-accent pb-1 text-sm font-bold text-accent transition-colors hover:text-foreground md:self-auto"
@@ -23,10 +26,15 @@ export function Departments() {
           </a>
         </div>
 
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-2 md:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {departments.map((d, i) => (
             <Reveal as="li" key={d.en} delay={i * 100}>
-              <article className="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden border border-border">
+              <Link href={`/departments/${d.slug}`} className="flex items-center gap-3 border border-border bg-surface p-3 md:hidden">
+                <div className="relative size-16 shrink-0 overflow-hidden"><Image src={d.image} alt="" fill sizes="64px" className="object-cover" /></div>
+                <div className="min-w-0 flex-1"><h3 className="font-bold">{d.name}</h3><p className="mt-1 text-sm leading-5 text-muted">{d.short}</p></div>
+                <span aria-hidden="true" className="text-accent">←</span>
+              </Link>
+              <article className="group relative hidden aspect-[3/4] md:flex flex-col justify-end overflow-hidden border border-border">
                 <Image
                   src={d.image}
                   alt={d.alt}
