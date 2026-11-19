@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
 import { PageShell, TextPanel } from "@/components/page-shell";
 import { EconomySimulator } from "@/components/economy-simulator";
+import { ContrabandPage } from "@/components/contraband-page";
 import { RaidGuide } from "@/components/raid-guide";
 import { newsArticles } from "@/lib/news";
 
@@ -20,6 +21,7 @@ export default async function NewsDetail({ params }: Props) {
   if (slug === "opening-event") redirect("/news/gang-raids");
   if (slug === "police-applications") redirect("/news/sectors-applications");
   if (!article) notFound();
+  if (article.kind === "contraband") return <ContrabandPage />;
 
   return <PageShell image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
     <div className="mx-auto max-w-7xl px-5 pt-8 md:px-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
