@@ -72,7 +72,7 @@ export function InteractiveMap() {
   }
 
   return (
-    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-surface py-8 md:py-36">
+    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-[radial-gradient(ellipse_at_top,#25211b_0%,#111719_48%,#101619_100%)] py-8 md:py-24" style={{ "--accent": "#ff9a58" } as React.CSSProperties}>
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8">
         <SectionHeading
           index="06"
@@ -82,22 +82,35 @@ export function InteractiveMap() {
         />
 
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="relative row-start-2 aspect-[4/3] overflow-hidden rounded-xl border lg:row-start-auto border-border bg-background md:aspect-[16/10]">
+          <div className="relative isolate row-start-2 aspect-[4/3] overflow-hidden rounded-lg border border-accent/35 bg-[#0b1012] shadow-[0_0_32px_#ff8a371a] md:aspect-[16/10] lg:row-start-auto">
             <Image
               src="/images/map.png"
               alt="خريطة طبوغرافية للجزيرة"
               fill
               sizes="(min-width: 1024px) 70vw, 100vw"
-              className="object-cover opacity-80"
+              className="object-cover opacity-90 contrast-125"
             />
             <div
-              className="pointer-events-none absolute inset-0 opacity-20"
+              className="pointer-events-none absolute inset-0 opacity-35"
               style={{
                 backgroundImage:
-                  "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
+                  "linear-gradient(#789ea833 1px, transparent 1px), linear-gradient(90deg, #789ea833 1px, transparent 1px)",
                 backgroundSize: "10% 10%",
               }}
             />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#070a0cc9_100%)]" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+              <div className="absolute inset-x-0 border-t border-dashed border-accent/45" style={{ top: `${selected.y}%` }} />
+              <div className="absolute inset-y-0 border-l border-dashed border-accent/45" style={{ left: `${selected.x}%` }} />
+            </div>
+            <div className="pointer-events-none absolute start-2 top-2 flex items-center gap-2 rounded-sm border border-accent/30 bg-[#0b1012]/90 px-2 py-1 text-xs font-bold text-accent md:start-4 md:top-4">
+              <span aria-hidden="true" className="size-1.5 rotate-45 bg-accent" />
+              خريطة الجزيرة
+            </div>
+            <div aria-label="الشمال أعلى الخريطة" className="pointer-events-none absolute end-2 top-2 flex size-9 flex-col items-center justify-center rounded-full border border-white/25 bg-[#0b1012]/90 text-[10px] leading-none text-foreground md:end-4 md:top-4 md:size-11">
+              <span aria-hidden="true" className="text-base text-accent">↑</span>
+              <span aria-hidden="true">N</span>
+            </div>
             <ul className="absolute inset-0">
               {visible.map((loc) => {
                 const isSelected = loc.id === selected.id;
@@ -112,16 +125,16 @@ export function InteractiveMap() {
                       onClick={() => setSelectedId(loc.id)}
                       aria-pressed={isSelected}
                       aria-label={loc.name}
-                      className="group relative flex size-8 items-center justify-center focus-visible:outline-2 focus-visible:outline-accent"
+                      className="group relative flex size-11 items-center justify-center focus-visible:outline-2 focus-visible:outline-accent"
                     >
-                      <span className={`absolute size-3 rounded-full ${categoryColor[loc.category]} animate-ping-soft`} />
+                      {isSelected && <span aria-hidden="true" className="absolute size-8 rounded-full border border-accent/60 bg-accent/10 shadow-[0_0_18px_#ff8a3766]" />}
                       <span
-                        className={`relative rounded-full ring-2 ring-background transition-all ${categoryColor[loc.category]} ${
-                          isSelected ? "size-4" : "size-3 group-hover:size-4"
+                        className={`relative rounded-full ring-2 ring-background transition-all ${
+                          isSelected ? "size-4 bg-accent" : `size-3 group-hover:size-4 ${categoryColor[loc.category]}`
                         }`}
                       />
                       <span
-                        className={`pointer-events-none absolute bottom-full hidden md:block mb-1 whitespace-nowrap bg-background/90 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
+                        className={`pointer-events-none absolute bottom-full hidden md:block whitespace-nowrap border border-accent/35 bg-[#0b1012]/95 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
                           isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
                         }`}
                       >
@@ -132,12 +145,13 @@ export function InteractiveMap() {
                 );
               })}
             </ul>
-            <span className="absolute bottom-3 left-3 hidden md:inline font-display text-[10px] tracking-[0.3em] text-muted" dir="ltr">
-              GRID REF · PLACEHOLDER
-            </span>
+            <div className="pointer-events-none absolute inset-x-2 bottom-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 rounded-sm border border-white/15 bg-[#0b1012]/90 px-2 py-1.5 text-xs md:inset-x-4 md:bottom-4 md:px-3">
+              <span className="font-bold text-foreground">{selected.name}</span>
+              <bdi dir="ltr" className="font-mono text-accent">{`X${selected.x} · Y${selected.y}`}</bdi>
+            </div>
           </div>
 
-          <div className="contents lg:flex lg:min-w-0 lg:flex-col lg:gap-3 lg:rounded-2xl lg:border lg:border-border lg:bg-background/60 lg:p-3">
+          <div className="contents lg:flex lg:min-w-0 lg:flex-col lg:gap-3 lg:rounded-xl lg:border lg:border-accent/20 lg:bg-[#0b1012]/80 lg:p-3">
             <div className="row-start-1 rounded-xl border border-border bg-background/80 p-3">
               <div className="mb-2 flex items-center justify-between gap-2">
                 <h3 className="text-sm font-bold text-foreground">تصفية المواقع</h3>
