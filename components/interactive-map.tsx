@@ -64,12 +64,10 @@ const illustratedPositions: Record<string, { x: number; y: number }> = {
 export function InteractiveMap() {
   const [filter, setFilter] = useState<Category>("all");
   const [selectedId, setSelectedId] = useState(locations[0].id);
-  const [showFactory, setShowFactory] = useState(false);
   const [mapView, setMapView] = useState<"city" | "terrain">("city");
 
   function selectLocation(id: string) {
     setSelectedId(id);
-    setShowFactory(id === "factory");
   }
 
   const visible = locations.filter((l) => filter === "all" || l.category === filter);
@@ -100,108 +98,84 @@ export function InteractiveMap() {
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="row-start-2 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-[#0b1012] lg:row-start-auto">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 px-3 py-2">
-              <h3 className="font-bold text-foreground">{showFactory ? "المنطقة الصناعية" : "عرض الجزيرة"}</h3>
-              {showFactory ? (
-                <button type="button" onClick={() => setShowFactory(false)} className="min-h-11 rounded-md border border-accent/50 px-3 text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">
-                  الرجوع للخريطة
-                </button>
-              ) : (
-                <div role="group" aria-label="عرض الخريطة" className="flex gap-1">
-                  {(["city", "terrain"] as const).map((view) => (
-                    <button key={view} type="button" aria-pressed={mapView === view} onClick={() => setMapView(view)} className={`min-h-11 rounded-md border px-2 text-xs font-bold focus-visible:outline-2 focus-visible:outline-accent ${mapView === view ? "border-accent bg-accent text-accent-foreground" : "border-border text-foreground"}`}>
-                      {view === "city" ? "منظر مجسّم" : "التضاريس"}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <h3 className="font-bold text-foreground">عرض الجزيرة</h3>
+              <div role="group" aria-label="عرض الخريطة" className="flex gap-1">
+                {(["city", "terrain"] as const).map((view) => (
+                  <button key={view} type="button" aria-pressed={mapView === view} onClick={() => setMapView(view)} className={`min-h-11 rounded-md border px-2 text-xs font-bold focus-visible:outline-2 focus-visible:outline-accent ${mapView === view ? "border-accent bg-accent text-accent-foreground" : "border-border text-foreground"}`}>
+                    {view === "city" ? "منظر مجسّم" : "التضاريس"}
+                  </button>
+                ))}
+              </div>
             </div>
-            {showFactory ? (
-              <div className="grid sm:grid-cols-[minmax(0,1fr)_13rem]">
-                <figure className="relative aspect-[4/3] bg-[#101d25] sm:aspect-square">
-                  <Image src={locationProfiles.factory.image} alt="مجسّم تصوّري للمصنع والمستودعات" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-contain" />
-                  <figcaption className="absolute bottom-2 start-2 rounded border border-sky-300/25 bg-[#0b1012]/90 px-2 py-1 text-xs text-sky-200">تصوّر للمصنع</figcaption>
-                </figure>
-                <div className="border-t border-sky-300/20 bg-sky-950/25 p-4 sm:border-s sm:border-t-0">
-                  <h4 className="font-bold text-sky-200">داخل المنطقة الصناعية</h4>
-                  <dl className="mt-3 space-y-3 text-sm">
-                    <div><dt className="font-bold text-foreground">التجهيز</dt><dd className="text-muted">استقبال المواد الخام وتجهيزها.</dd></div>
-                    <div><dt className="font-bold text-foreground">التصنيع</dt><dd className="text-muted">تحويل المواد إلى منتجات داخل اللعبة.</dd></div>
-                    <div><dt className="font-bold text-foreground">التخزين والشحن</dt><dd className="text-muted">تجميع المنتجات قبل النقل.</dd></div>
-                  </dl>
-                  <Link href="/jobs" className="mt-2 inline-flex min-h-11 items-center text-sm font-bold text-sky-200">استكشف الوظائف ←</Link>
-                </div>
+            <div className="relative isolate aspect-video overflow-hidden rounded-lg border border-accent/35 bg-[#0b1012] shadow-[0_0_32px_#ff8a371a]">
+              <Image
+                src={mapView === "city" ? "/images/island-city-view.webp" : "/images/map.png"}
+                alt={mapView === "city" ? "تصوّر مجسّم للجزيرة وأحيائها" : "خريطة طبوغرافية للجزيرة"}
+                fill
+                sizes="(min-width: 1024px) 70vw, 100vw"
+                className="object-fill opacity-95"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 opacity-35"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(#789ea833 1px, transparent 1px), linear-gradient(90deg, #789ea833 1px, transparent 1px)",
+                  backgroundSize: "10% 10%",
+                }}
+              />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#070a0cc9_100%)]" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+                <div className="absolute inset-x-0 border-t border-dashed border-accent/45" style={{ top: `${selectedPosition.y}%` }} />
+                <div className="absolute inset-y-0 border-l border-dashed border-accent/45" style={{ left: `${selectedPosition.x}%` }} />
               </div>
-            ) : (
-              <div className="relative isolate aspect-video overflow-hidden rounded-lg border border-accent/35 bg-[#0b1012] shadow-[0_0_32px_#ff8a371a]">
-                <Image
-                  src={mapView === "city" ? "/images/island-city-view.webp" : "/images/map.png"}
-                  alt={mapView === "city" ? "تصوّر مجسّم للجزيرة وأحيائها" : "خريطة طبوغرافية للجزيرة"}
-                  fill
-                  sizes="(min-width: 1024px) 70vw, 100vw"
-                  className="object-fill opacity-95"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-35"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(#789ea833 1px, transparent 1px), linear-gradient(90deg, #789ea833 1px, transparent 1px)",
-                    backgroundSize: "10% 10%",
-                  }}
-                />
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#070a0cc9_100%)]" />
-                <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                  <div className="absolute inset-x-0 border-t border-dashed border-accent/45" style={{ top: `${selectedPosition.y}%` }} />
-                  <div className="absolute inset-y-0 border-l border-dashed border-accent/45" style={{ left: `${selectedPosition.x}%` }} />
-                </div>
-                <div className="pointer-events-none absolute start-2 top-2 flex items-center gap-2 rounded-sm border border-accent/30 bg-[#0b1012]/90 px-2 py-1 text-xs font-bold text-accent md:start-4 md:top-4">
-                  <span aria-hidden="true" className="size-1.5 rotate-45 bg-accent" />
-                  {mapView === "city" ? "منظر تصوّري للجزيرة" : "خريطة التضاريس"}
-                </div>
-                <div aria-label="الشمال أعلى الخريطة" className="pointer-events-none absolute end-2 top-2 flex size-9 flex-col items-center justify-center rounded-full border border-white/25 bg-[#0b1012]/90 text-[10px] leading-none text-foreground md:end-4 md:top-4 md:size-11">
-                  <span aria-hidden="true" className="text-base text-accent">↑</span>
-                  <span aria-hidden="true">N</span>
-                </div>
-                <ul className="absolute inset-0">
-                  {visible.map((loc) => {
-                    const isSelected = loc.id === selected.id;
-                    const position = mapView === "city" ? illustratedPositions[loc.id] ?? loc : loc;
-                    return (
-                      <li
-                        key={loc.id}
-                        className={`absolute -translate-x-1/2 -translate-y-1/2 ${isSelected ? "z-10" : ""}`}
-                        style={{ left: `${position.x}%`, top: `${position.y}%` }}
+              <div className="pointer-events-none absolute start-2 top-2 flex items-center gap-2 rounded-sm border border-accent/30 bg-[#0b1012]/90 px-2 py-1 text-xs font-bold text-accent md:start-4 md:top-4">
+                <span aria-hidden="true" className="size-1.5 rotate-45 bg-accent" />
+                {mapView === "city" ? "منظر تصوّري للجزيرة" : "خريطة التضاريس"}
+              </div>
+              <div aria-label="الشمال أعلى الخريطة" className="pointer-events-none absolute end-2 top-2 flex size-9 flex-col items-center justify-center rounded-full border border-white/25 bg-[#0b1012]/90 text-[10px] leading-none text-foreground md:end-4 md:top-4 md:size-11">
+                <span aria-hidden="true" className="text-base text-accent">↑</span>
+                <span aria-hidden="true">N</span>
+              </div>
+              <ul className="absolute inset-0">
+                {visible.map((loc) => {
+                  const isSelected = loc.id === selected.id;
+                  const position = mapView === "city" ? illustratedPositions[loc.id] ?? loc : loc;
+                  return (
+                    <li
+                      key={loc.id}
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 ${isSelected ? "z-10" : ""}`}
+                      style={{ left: `${position.x}%`, top: `${position.y}%` }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => selectLocation(loc.id)}
+                        aria-pressed={isSelected}
+                        aria-label={loc.name}
+                        className="group relative flex size-11 items-center justify-center focus-visible:outline-2 focus-visible:outline-accent"
                       >
-                        <button
-                          type="button"
-                          onClick={() => selectLocation(loc.id)}
-                          aria-pressed={isSelected}
-                          aria-label={loc.name}
-                          className="group relative flex size-11 items-center justify-center focus-visible:outline-2 focus-visible:outline-accent"
+                        {isSelected && <span aria-hidden="true" className="absolute size-8 rounded-full border border-accent/60 bg-accent/10 shadow-[0_0_18px_#ff8a3766]" />}
+                        <span
+                          className={`relative rounded-full ring-2 ring-background transition-all ${
+                            isSelected ? "size-4 bg-accent" : `size-3 group-hover:size-4 ${categoryColor[loc.category]}`
+                          }`}
+                        />
+                        <span
+                          className={`pointer-events-none absolute bottom-full hidden md:block whitespace-nowrap border border-accent/35 bg-[#0b1012]/95 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
+                            isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                          }`}
                         >
-                          {isSelected && <span aria-hidden="true" className="absolute size-8 rounded-full border border-accent/60 bg-accent/10 shadow-[0_0_18px_#ff8a3766]" />}
-                          <span
-                            className={`relative rounded-full ring-2 ring-background transition-all ${
-                              isSelected ? "size-4 bg-accent" : `size-3 group-hover:size-4 ${categoryColor[loc.category]}`
-                            }`}
-                          />
-                          <span
-                            className={`pointer-events-none absolute bottom-full hidden md:block whitespace-nowrap border border-accent/35 bg-[#0b1012]/95 px-2 py-1 text-xs font-bold text-foreground transition-opacity ${
-                              isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
-                            }`}
-                          >
-                            {loc.name}
-                          </span>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div className="pointer-events-none absolute inset-x-2 bottom-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 rounded-sm border border-white/15 bg-[#0b1012]/90 px-2 py-1.5 text-xs md:inset-x-4 md:bottom-4 md:px-3">
-                  <span className="font-bold text-foreground">{selected.name}</span>
-                  <bdi dir="ltr" className="font-mono text-accent">{`X${selected.x} · Y${selected.y}`}</bdi>
-                </div>
+                          {loc.name}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="pointer-events-none absolute inset-x-2 bottom-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 rounded-sm border border-white/15 bg-[#0b1012]/90 px-2 py-1.5 text-xs md:inset-x-4 md:bottom-4 md:px-3">
+                <span className="font-bold text-foreground">{selected.name}</span>
+                <bdi dir="ltr" className="font-mono text-accent">{`X${selected.x} · Y${selected.y}`}</bdi>
               </div>
-            )}
+            </div>
           </div>
 
           <div className="contents lg:flex lg:min-w-0 lg:flex-col lg:gap-3 lg:rounded-xl lg:border lg:border-accent/20 lg:bg-[#0b1012]/80 lg:p-3">
@@ -250,9 +224,8 @@ export function InteractiveMap() {
                   <p className="mt-1 text-sm leading-relaxed text-muted">{selected.desc}</p>
                 </div>
               </div>
-              {selected.id === "factory" && !showFactory && <button type="button" onClick={() => setShowFactory(true)} className="w-full min-h-11 border-t border-accent/20 px-3 text-start text-sm font-bold text-accent">عرض مشهد المصنع</button>}
               <a href="#map-location-card" className="flex min-h-11 items-center justify-between gap-2 border-t border-accent/20 bg-accent/10 px-3 text-sm font-bold text-accent hover:bg-accent/20 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent">
-                عرض صورة الموقع وتعريفه <span aria-hidden="true">↓</span>
+                {selected.id === "factory" ? "عرض مجسّم المصنع وتفاصيله" : "عرض صورة الموقع وتعريفه"} <span aria-hidden="true">↓</span>
               </a>
             </div>
 
@@ -297,6 +270,13 @@ export function InteractiveMap() {
             <p className="text-sm leading-7 text-muted md:text-base md:leading-8">
               {profile.description}
             </p>
+            {selected.id === "factory" && (
+              <dl className="grid gap-3 text-sm sm:grid-cols-3">
+                <div><dt className="font-bold text-foreground">التجهيز</dt><dd className="text-muted">استقبال المواد الخام وتجهيزها.</dd></div>
+                <div><dt className="font-bold text-foreground">التصنيع</dt><dd className="text-muted">تحويل المواد إلى منتجات داخل اللعبة.</dd></div>
+                <div><dt className="font-bold text-foreground">التخزين والشحن</dt><dd className="text-muted">تجميع المنتجات قبل النقل.</dd></div>
+              </dl>
+            )}
             {profile.link && <Link href={profile.link.href} className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">
               {profile.link.label} <span aria-hidden="true">←</span>
             </Link>}
