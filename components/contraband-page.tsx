@@ -49,66 +49,44 @@ export function ContrabandPage() {
     <PageShell compactOnMobile image="/images/abu-muhanna-cap.webp" eyebrow="ABU MUHANNA" title="أبو مهنا · دليلك لعالم الإجرام" description="من أول نقطة تجميع إلى آخر صفقة داخل عالم الرول بلاي.">
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-12">
         <Link href="/news" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">العودة إلى الأخبار ←</Link>
-        <div className="mt-3 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-6">
-          <div className="contents lg:grid lg:min-w-0 lg:gap-5">
-            <nav aria-label="أقسام دليل أبو مهنا" className="order-first flex flex-wrap gap-2">
-              {guideSections.map(({ id, title }) => (
-                <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center border border-border px-3 text-sm font-bold text-accent hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
-                  {title}
-                </a>
+        <nav aria-label="أقسام دليل أبو مهنا" className="mt-3 flex flex-wrap gap-2">
+          {guideSections.map(({ id, title }) => (
+            <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center border border-border px-3 text-sm font-bold text-accent hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
+              {title}
+            </a>
+          ))}
+        </nav>
+        <div className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-6">
+          <section id="crime-map" aria-labelledby="crime-map-title" className="min-w-0 scroll-mt-24 border border-border bg-surface p-3 md:p-5">
+            <h2 id="crime-map-title" className="text-xl font-black md:text-2xl">خريطة الممنوعات</h2>
+            <p className="mt-2 text-sm leading-6 text-foreground/75">المواقع المعروضة أمثلة توضيحية داخل اللعبة. المواقع الفعلية تظهر بعد اعتماد خريطة السيرفر.</p>
+            <div className="relative isolate mt-4 aspect-[4/3] overflow-hidden border border-accent/30 bg-background sm:aspect-[16/10]" aria-label="نقاط التجميع والتصنيع والبيع">
+              <Image src="/images/map.png" alt="" fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-contain opacity-65" />
+              <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
+              {locations.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-label={item.title}
+                  aria-pressed={selectedId === item.id}
+                  aria-controls="muhanna-dialogue"
+                  onClick={() => setSelectedId(item.id)}
+                  style={item.position}
+                  className={`absolute grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-base font-black shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${selectedId === item.id ? "border-accent bg-accent text-accent-foreground" : "border-accent/70 bg-background text-accent"}`}
+                >
+                  {(index + 1).toLocaleString("ar-SA")}
+                </button>
               ))}
-            </nav>
-            <section id="crime-map" aria-labelledby="crime-map-title" className="order-1 min-w-0 scroll-mt-24 border border-border bg-surface p-3 md:p-5 lg:order-none">
-              <h2 id="crime-map-title" className="text-xl font-black md:text-2xl">خريطة الممنوعات</h2>
-              <p className="mt-2 text-sm leading-6 text-foreground/75">المواقع المعروضة أمثلة توضيحية داخل اللعبة. المواقع الفعلية تظهر بعد اعتماد خريطة السيرفر.</p>
-              <div className="relative isolate mt-4 aspect-[4/3] overflow-hidden border border-accent/30 bg-background sm:aspect-[16/10]" aria-label="نقاط التجميع والتصنيع والبيع">
-                <Image src="/images/map.png" alt="" fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-contain opacity-65" />
-                <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
-                {locations.map((item, index) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    aria-label={item.title}
-                    aria-pressed={selectedId === item.id}
-                    aria-controls="muhanna-dialogue"
-                    onClick={() => setSelectedId(item.id)}
-                    style={item.position}
-                    className={`absolute grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-base font-black shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${selectedId === item.id ? "border-accent bg-accent text-accent-foreground" : "border-accent/70 bg-background text-accent"}`}
-                  >
-                    {(index + 1).toLocaleString("ar-SA")}
-                  </button>
-                ))}
-              </div>
-              <div className="mt-3 grid grid-cols-3 gap-2" aria-label="اختر محطة">
-                {locations.map((item) => (
-                  <button key={item.id} type="button" aria-pressed={selectedId === item.id} aria-controls="muhanna-dialogue" onClick={() => setSelectedId(item.id)} className={`min-h-11 border px-1 py-2 text-sm font-bold focus-visible:outline-2 focus-visible:outline-accent ${selectedId === item.id ? "border-accent bg-accent/15 text-accent" : "border-border"}`}>
-                    {item.title}
-                  </button>
-                ))}
-              </div>
-            </section>
-            <details id="crime-basics" className="order-3 scroll-mt-24 border border-border bg-surface px-4">
-              <summary className="min-h-11 cursor-pointer py-3 font-bold marker:text-accent">وش تعتبره اللعبة ممنوع؟</summary>
-              <p className="pb-4 text-sm leading-7 text-foreground/85">أي غرض يصنّفه السيرفر كممنوع داخل الرول بلاي. شوف وصف الغرض وتعليمات السيرفر، وإذا التصنيف مو واضح اسأل الدعم قبل ما تبني عليه سيناريو.</p>
-            </details>
-            <section id="crime-threats" aria-labelledby="crime-threats-title" className="order-4 scroll-mt-24">
-              <h2 id="crime-threats-title" className="text-2xl font-black">مين ممكن يوقف بوجهك؟</h2>
-              <div className="mt-4 grid gap-3 md:grid-cols-3">
-                {threats.map(({ title, text }) => (
-                  <article key={title} className="border border-border bg-surface p-4">
-                    <h3 className="font-bold text-accent">{title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-foreground/85">{text}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-            <nav aria-label="أدلة مرتبطة" className="order-5 flex flex-wrap gap-x-5 gap-y-1 text-sm font-bold text-accent">
-              <Link className="inline-flex min-h-11 items-center" href="/news/economy-update">حاسبة السوق ←</Link>
-              <Link className="inline-flex min-h-11 items-center" href="/news/gang-raids#raid-rules">قوانين الريد ←</Link>
-              <Link className="inline-flex min-h-11 items-center" href="/rules/roleplay">قوانين الرول بلاي ←</Link>
-            </nav>
-          </div>
-          <aside aria-labelledby="muhanna-title" className="order-2 min-w-0">
+            </div>
+            <div className="mt-3 grid grid-cols-3 gap-2" aria-label="اختر محطة">
+              {locations.map((item) => (
+                <button key={item.id} type="button" aria-pressed={selectedId === item.id} aria-controls="muhanna-dialogue" onClick={() => setSelectedId(item.id)} className={`min-h-11 border px-1 py-2 text-sm font-bold focus-visible:outline-2 focus-visible:outline-accent ${selectedId === item.id ? "border-accent bg-accent/15 text-accent" : "border-border"}`}>
+                  {item.title}
+                </button>
+              ))}
+            </div>
+          </section>
+          <aside aria-labelledby="muhanna-title" className="min-w-0">
             <div className="flex items-start gap-3 overflow-hidden border border-accent/30 bg-surface p-3 lg:block lg:p-0">
               <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden bg-background lg:aspect-[4/5] lg:w-full lg:max-h-96">
                 <Image src="/images/abu-muhanna-briefing-cap.webp" alt="أبو مهنا واقف يشرح ويشير إلى خريطة ورقية معلّقة خلفه" fill sizes="(min-width: 1024px) 352px, 96px" className="object-contain" />
@@ -122,6 +100,28 @@ export function ContrabandPage() {
               </div>
             </div>
           </aside>
+        </div>
+        <div className="mt-5 grid gap-5">
+          <details id="crime-basics" className="scroll-mt-24 border border-border bg-surface px-4">
+            <summary className="min-h-11 cursor-pointer py-3 font-bold marker:text-accent">وش تعتبره اللعبة ممنوع؟</summary>
+            <p className="pb-4 text-sm leading-7 text-foreground/85">أي غرض يصنّفه السيرفر كممنوع داخل الرول بلاي. شوف وصف الغرض وتعليمات السيرفر، وإذا التصنيف مو واضح اسأل الدعم قبل ما تبني عليه سيناريو.</p>
+          </details>
+          <section id="crime-threats" aria-labelledby="crime-threats-title" className="scroll-mt-24">
+            <h2 id="crime-threats-title" className="text-2xl font-black">مين ممكن يوقف بوجهك؟</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {threats.map(({ title, text }) => (
+                <article key={title} className="border border-border bg-surface p-4">
+                  <h3 className="font-bold text-accent">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-foreground/85">{text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+          <nav aria-label="أدلة مرتبطة" className="flex flex-wrap gap-x-5 gap-y-1 text-sm font-bold text-accent">
+            <Link className="inline-flex min-h-11 items-center" href="/news/economy-update">حاسبة السوق ←</Link>
+            <Link className="inline-flex min-h-11 items-center" href="/news/gang-raids#raid-rules">قوانين الريد ←</Link>
+            <Link className="inline-flex min-h-11 items-center" href="/rules/roleplay">قوانين الرول بلاي ←</Link>
+          </nav>
         </div>
       </div>
     </PageShell>
