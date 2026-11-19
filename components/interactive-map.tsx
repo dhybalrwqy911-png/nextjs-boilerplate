@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { MapPinIcon } from "./icons";
 import { Reveal } from "./reveal";
@@ -158,6 +159,7 @@ export function InteractiveMap() {
               </div>
               <h3 className="text-base font-black md:text-xl text-foreground">{selected.name}</h3>
               <p className="text-sm leading-relaxed text-muted md:text-base">{selected.desc}</p>
+              {selected.id === "pd" && <a href="#police-map-card" className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">عرض مجسّم المركز ↓</a>}
             </div>
 
             <ul className="hidden max-h-64 flex-col md:flex overflow-y-auto border border-border lg:max-h-none lg:flex-1">
@@ -179,6 +181,32 @@ export function InteractiveMap() {
             </ul>
           </div>
         </Reveal>
+
+        {selected.id === "pd" && (
+          <article id="police-map-card" aria-labelledby="police-map-title" className="scroll-mt-24 grid overflow-hidden border border-accent/30 bg-background md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" dir="rtl">
+            <figure className="relative aspect-[4/3] min-w-0 bg-surface-2 md:aspect-auto md:min-h-72">
+              <Image
+                src="/images/police-station-model.webp"
+                alt="مجسّم تصوري لمركز الشرطة، يظهر المدخل ومواقف سيارات الدوريات"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <figcaption className="absolute bottom-3 right-3 bg-background/90 px-2 py-1 text-xs text-foreground">تصوّر لمبنى المركز</figcaption>
+            </figure>
+            <div className="flex min-w-0 flex-col justify-center gap-3 p-4 md:p-8">
+              <p className="text-xs font-bold text-accent">الأمن العام · مركز العمليات</p>
+              <h3 id="police-map-title" className="text-2xl font-black md:text-3xl">مركز الشرطة</h3>
+              <p className="text-sm leading-7 text-muted md:text-base md:leading-8">
+                المقر الرئيسي لقسم الشرطة داخل المدينة. يستقبل المركز بلاغات السكان،
+                ومنه ينسّق قسم العمليات تحرّك الدوريات ويتابع الحالات والتحقيقات داخل اللعبة.
+              </p>
+              <Link href="/departments/police" className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">
+                تعرّف على قسم الشرطة <span aria-hidden="true">←</span>
+              </Link>
+            </div>
+          </article>
+        )}
       </div>
     </section>
   );
