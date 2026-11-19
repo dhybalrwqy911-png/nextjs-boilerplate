@@ -36,7 +36,7 @@ export function Hero() {
             >
               ARAB
               <br />
-              <span className="text-[#c49b54]">REFORGER</span>
+              <span className="text-accent">REFORGER</span>
             </h1>
             <p className="mt-3 text-xl font-bold leading-snug md:mt-6 md:leading-relaxed text-foreground md:text-3xl">
               عالمك، قصتك، قراراتك
@@ -59,7 +59,7 @@ export function Hero() {
           {stats.map((s) => (
             <div key={s.label} className="flex min-w-0 flex-col gap-2 bg-background p-2 text-center sm:p-6">
               <dt className="order-2 text-xs leading-relaxed text-muted md:text-sm">{s.label}</dt>
-              <dd className="order-1 font-display text-2xl font-bold text-[#c49b54] md:text-3xl" dir="ltr">
+              <dd className="order-1 font-display text-2xl font-bold text-accent md:text-3xl" dir="ltr">
                 {s.value}
               </dd>
             </div>

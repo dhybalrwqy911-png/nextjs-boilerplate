@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Cairo, Oswald } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Oswald } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFrame } from "@/components/site-frame";
 import "./globals.css";
 
-const cairo = Cairo({
-  variable: "--font-cairo",
+const arabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-arabic",
+  weight: ["400", "500", "600", "700"],
   subsets: ["arabic", "latin"],
   display: "swap",
 });
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0b09",
+  themeColor: "#101619",
   colorScheme: "dark",
 };
 
@@ -58,8 +60,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${cairo.variable} ${oswald.variable} bg-background`}
-      style={{ backgroundColor: "#0a0b09" }}
+      className={`${arabic.variable} ${oswald.variable} bg-background`}
       suppressHydrationWarning
     >
       <head>
@@ -71,7 +72,6 @@ export default function RootLayout({
       </head>
       <body
         className="min-h-screen font-sans antialiased"
-        style={{ backgroundColor: "#0a0b09", color: "#ebe8df" }}
       >
         <a
           href="#main"
@@ -79,9 +79,11 @@ export default function RootLayout({
         >
           تخطَّ إلى المحتوى
         </a>
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <SiteFooter />
+        <SiteFrame>
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
+        </SiteFrame>
       </body>
     </html>
   );

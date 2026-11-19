@@ -1,16 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0b09;
-  --surface: #131410;
-  --surface-2: #1b1c17;
-  --border: #2a2b24;
-  --foreground: #ebe8df;
-  --muted: #9a978b;
-  --olive: #6b7a45;
-  --olive-bright: #a3b46b;
-  --accent: #e2701d;
-  --accent-foreground: #0a0b09;
+  --background: #101619;
+  --surface: #182124;
+  --surface-2: #222d31;
+  --border: #37454a;
+  --foreground: #f5f3ed;
+  --muted: #b7c2c4;
+  --olive: #688447;
+  --olive-bright: #b9dc81;
+  --accent: #efbd79;
+  --accent-foreground: #101619;
+}
+
+[data-section-theme="about"] { --accent: #d7a9ef; }
+[data-section-theme="roleplay"] { --accent: #56ddbf; }
+[data-section-theme="departments"] { --accent: #82b4ff; }
+[data-section-theme="police"] { --accent: #72a6ff; }
+[data-section-theme="ems"] { --accent: #ff929f; }
+[data-section-theme="government"] { --accent: #a7caff; }
+[data-section-theme="jobs"] { --accent: #b9dc81; }
+[data-section-theme="map"] { --accent: #68d9ef; }
+[data-section-theme="news"] { --accent: #ffab73; }
+[data-section-theme="rules"] { --accent: #f6cf78; }
+[data-section-theme="join"] { --accent: #a5ecba; }
+[data-section-theme="discord"] { --accent: #aab0ff; }
+[data-section-theme="gangs"] { --accent: #ff8f95; }
+[data-section-theme="contraband"] { --accent: #ff946b; }
+
+[data-section-theme="home"] { --accent: #efbd79; }
+
+.site-frame {
+  background: radial-gradient(ellipse 70% 32rem at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent), var(--background);
+}
+
+.section-card {
+  border-block-start: 2px solid var(--accent);
+  background-image: linear-gradient(145deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 72%);
 }
 
 @theme inline {
@@ -24,8 +50,8 @@
   --color-olive-bright: var(--olive-bright);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --font-sans: var(--font-cairo), system-ui, sans-serif;
-  --font-display: var(--font-oswald), var(--font-cairo), sans-serif;
+  --font-sans: var(--font-arabic), system-ui, sans-serif;
+  --font-display: var(--font-oswald), var(--font-arabic), sans-serif;
 }
 
 html {

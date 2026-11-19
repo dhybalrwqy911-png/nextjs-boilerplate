@@ -1,3 +1,4 @@
+import { sectionTheme } from "@/lib/section-theme";
 import Image from "next/image";
 import Link from "next/link";
 import { newsArticles } from "@/lib/news";
@@ -13,8 +14,8 @@ export function News({ compact = false }: { compact?: boolean }) {
       <section aria-label="مواضيع الأخبار" className="mx-auto max-w-xl px-4 pb-8 pt-2">
         <ul className="grid gap-2">
           {posts.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/news/${post.slug}`} className="flex items-center gap-3 border border-border bg-surface p-2.5 focus-visible:outline-2 focus-visible:outline-accent">
+            <li key={post.slug} data-section-theme={sectionTheme(`/news/${post.slug}`)}>
+              <Link href={`/news/${post.slug}`} className="section-card flex items-center gap-3 border border-border bg-surface p-2.5 focus-visible:outline-2 focus-visible:outline-accent">
                 <div className="relative size-16 shrink-0 overflow-hidden">
                   <Image src={post.image} alt="" fill sizes="64px" className="object-cover" />
                 </div>
@@ -44,7 +45,7 @@ export function News({ compact = false }: { compact?: boolean }) {
         <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {posts.map((post, i) => (
             <Reveal as="li" key={post.title} delay={i * 100}>
-              <article className="group relative flex h-full flex-col border border-border bg-surface transition-colors hover:border-foreground/30">
+              <article data-section-theme={sectionTheme(`/news/${post.slug}`)} className="section-card group relative flex h-full flex-col border border-border bg-surface transition-colors hover:border-foreground/30">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={post.image}

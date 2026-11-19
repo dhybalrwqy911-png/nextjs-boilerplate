@@ -1,3 +1,4 @@
+import { sectionTheme } from "@/lib/section-theme";
 import Link from "next/link";
 import Image from "next/image";
 import { Hero } from "@/components/hero";
@@ -30,7 +31,8 @@ export default function Home() {
             <Link
               key={card.href}
               href={card.href}
-              className="group grid min-h-20 grid-cols-[4.5rem_minmax(0,1fr)] overflow-hidden border border-border bg-surface transition-colors hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent md:block"
+              data-section-theme={sectionTheme(card.href)}
+              className="section-card group grid min-h-20 grid-cols-[4.5rem_minmax(0,1fr)] overflow-hidden border border-border bg-surface transition-colors hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent md:block"
             >
               <div className="relative overflow-hidden md:h-52">
                 <Image
