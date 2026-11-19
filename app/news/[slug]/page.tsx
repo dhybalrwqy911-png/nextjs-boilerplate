@@ -23,17 +23,23 @@ export default async function NewsDetail({ params }: Props) {
   if (!article) notFound();
   if (article.kind === "contraband") return <ContrabandPage />;
 
-  return <PageShell compactOnMobile={article.kind === "economy"} image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
+  return <PageShell compactOnMobile={article.kind === "economy" || article.kind === "sectors"} image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
     <div className="mx-auto max-w-7xl px-5 pt-4 md:px-8 md:pt-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
     {article.kind === "sectors" ? <>
-      <TextPanel title="قطاعان، وبوابة واحدة">
-        <p className="max-w-4xl">اختر مسارك في خدمة مجتمع عرب ريفورجر: الشرطة لحفظ الأمن وتنظيم الحياة داخل المدينة، أو الإسعاف للاستجابة للحالات وتقديم الرعاية. تجمع بوابة القطاعات الصحية والأمنية مسارات الانضمام للقطاعين، وتُراجع الطلبات حسب تعليمات قيادة كل قطاع.</p>
-        <div className="mt-6 border border-[#c49b54]/35 bg-[#c49b54]/10 p-5 text-base leading-8 text-[#ddbb80]">حالة التقديم ومواعيده ومتطلبات القبول تُحدد لكل قطاع بصورة مستقلة. وجود هذا الدليل لا يعني أن التقديم مفتوح حاليًا.</div>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">{[
+      <section className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:py-24">
+        <h2 className="hidden text-5xl font-black md:mb-8 md:block">قطاعان، وبوابة واحدة</h2>
+        <div className="md:hidden">
+          <a href="https://arab-reforger.com/" target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center justify-center bg-accent px-3 py-2 text-center font-bold text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">افتح بوابة التقديم ↗</a>
+          <p className="mt-2 text-sm leading-6 text-muted">اختر الشرطة أو الإسعاف في البوابة عشان تشوف حالة التقديم وشروط القطاع.</p>
+        </div>
+        <p className="hidden max-w-4xl text-lg leading-9 text-foreground/75 md:block">اختر مسارك في خدمة مجتمع عرب ريفورجر: الشرطة لحفظ الأمن وتنظيم الحياة داخل المدينة، أو الإسعاف للاستجابة للحالات وتقديم الرعاية. تجمع بوابة القطاعات الصحية والأمنية مسارات الانضمام للقطاعين، وتُراجع الطلبات حسب تعليمات قيادة كل قطاع.</p>
+        <div className="mt-6 hidden border md:block border-[#c49b54]/35 bg-[#c49b54]/10 p-5 text-base leading-8 text-[#ddbb80]">حالة التقديم ومواعيده ومتطلبات القبول تُحدد لكل قطاع بصورة مستقلة. وجود هذا الدليل لا يعني أن التقديم مفتوح حاليًا.</div>
+        <div className="mt-3 grid gap-2 md:mt-8 md:grid-cols-2 md:gap-6">{[
           {name:"قسم الشرطة", en:"POLICE", description:"مسار أمني يركز على حفظ النظام والتعامل مع البلاغات وخدمة سكان المدينة ضمن الرول بلاي.", rules:"/rules/police", href:"/departments/police", color:"border-[#6c9dd6]/40"},
           {name:"الإسعاف والطوارئ", en:"EMS", description:"مسار صحي يركز على الاستجابة للحالات الإسعافية ومساعدة المصابين وتقديم الرعاية ضمن الرول بلاي.", rules:"/rules/ems", href:"/departments/ems", color:"border-[#70b8aa]/40"},
-        ].map(sector => <article key={sector.en} className={`border bg-surface p-6 ${sector.color}`}><span className="font-display text-sm tracking-widest text-accent">{sector.en}</span><h3 className="mt-3 text-2xl font-black text-foreground">{sector.name}</h3><p className="mt-4 text-base leading-8 text-muted">{sector.description}</p><div className="mt-5 flex flex-wrap gap-4 text-base font-bold text-accent"><Link href={sector.href}>تعرّف على القطاع ←</Link><Link href={sector.rules}>قوانين القطاع ←</Link></div></article>)}</div>
-      </TextPanel>
+        ].map(sector => <article key={sector.en} className={`border bg-surface p-3 md:p-6 ${sector.color}`}><span className="hidden font-display text-sm tracking-widest md:inline text-accent">{sector.en}</span><h3 className="font-black text-foreground md:mt-3 md:text-2xl">{sector.name}</h3><p className="mt-4 hidden text-base leading-8 text-muted md:block">{sector.description}</p><div className="flex flex-wrap gap-x-4 text-sm font-bold text-accent md:mt-5 md:text-base"><Link className="inline-flex min-h-11 items-center" href={sector.href}>تعرّف على القطاع ←</Link><Link className="inline-flex min-h-11 items-center" href={sector.rules}>قوانين القطاع ←</Link></div></article>)}</div>
+      </section>
+      <div className="hidden md:block">
       <section className="border-y border-border bg-surface"><TextPanel title="متطلبات القبول">
         <p className="text-base text-muted">تختلف المتطلبات بين الشرطة والإسعاف. ستُضاف الشروط الرسمية لكل قطاع بعد اعتمادها من قيادته.</p>
         <dl className="mt-6 grid gap-4 md:grid-cols-2">{["العمر المطلوب", "الخبرة والتواجد", "السجل والانضباط", "المقابلة والتدريب"].map(label => <div key={label} className="border border-border bg-background p-6"><dt className="text-lg font-bold text-foreground">{label}</dt><dd className="mt-2 text-sm text-muted">بانتظار المتطلبات المعتمدة لكل قطاع.</dd></div>)}</dl>
@@ -51,6 +57,7 @@ export default async function NewsDetail({ params }: Props) {
         </div>
         <p className="mt-4 text-sm text-muted">يفتح زر البوابة الموقع الخارجي في نافذة جديدة؛ يتم تقديم الطلب هناك حسب حالة التقديم في القطاع.</p>
       </TextPanel>
+      </div>
     </> : article.kind === "economy" ? <section className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:py-24">
       <h2 className="text-xl font-black md:mb-8 md:text-5xl">كيف تبيع أغراضك على التجار؟</h2>
       <div className="text-foreground/75 md:text-lg md:leading-9">
