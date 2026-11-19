@@ -108,9 +108,9 @@ export function ContrabandPage() {
               <Link className="inline-flex min-h-11 items-center" href="/rules/roleplay">قوانين الرول بلاي ←</Link>
             </nav>
           </div>
-          <aside aria-labelledby="muhanna-title" className="order-2 min-w-0 lg:self-stretch">
-            <div className="flex items-start gap-3 overflow-hidden border border-accent/30 bg-surface p-3 lg:sticky lg:top-24 lg:block lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto lg:p-0">
-              <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden bg-background lg:h-[clamp(10rem,42dvh,24rem)] lg:w-full">
+          <aside aria-labelledby="muhanna-title" className="order-2 min-w-0">
+            <div className="flex items-start gap-3 overflow-hidden border border-accent/30 bg-surface p-3 lg:block lg:p-0">
+              <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden bg-background lg:aspect-[4/5] lg:w-full lg:max-h-96">
                 <Image src="/images/abu-muhanna-briefing-cap.webp" alt="أبو مهنا واقف يشرح ويشير إلى خريطة ورقية معلّقة خلفه" fill sizes="(min-width: 1024px) 352px, 96px" className="object-contain" />
               </div>
               <div className="min-w-0 lg:p-5">
