@@ -43,12 +43,26 @@ const locations: {
   { id: "red", name: "المنطقة الحمراء", category: "danger", x: 82, y: 22, desc: "منطقة غير آمنة تنشط فيها العصابات." },
 ];
 
+const locationProfiles: Record<string, { image: string; description: string; link?: { href: string; label: string } }> = {
+  pd: { image: "/images/police-station-model.webp", description: "المقر الرئيسي لقسم الشرطة داخل المدينة. يستقبل المركز بلاغات السكان، ومنه ينسّق قسم العمليات تحرّك الدوريات ويتابع الحالات والتحقيقات داخل اللعبة.", link: { href: "/departments/police", label: "تعرّف على قسم الشرطة" } },
+  hospital: { image: "/images/map-hospital.webp", description: "مقر الإسعاف والطوارئ في المدينة. يستقبل الحالات التي تنقلها فرق الإسعاف ويوفّر مساحة لسيناريوهات العلاج والمتابعة الطبية داخل السيرفر.", link: { href: "/departments/ems", label: "تعرّف على الإسعاف والطوارئ" } },
+  government: { image: "/images/map-government.webp", description: "واجهة الإدارة الحكومية داخل المدينة. يمثل نقطة مراجعة للسكان للتعرّف على الجهات الرسمية والخدمات المدنية في عالم الرول بلاي.", link: { href: "/departments/government", label: "تعرّف على الإدارة الحكومية" } },
+  city: { image: "/images/map-city.webp", description: "قلب الحياة اليومية في المدينة، وفيه تتجمع المتاجر والمقاهي والساحات العامة. مكان مناسب للقاء السكان وبدء السيناريوهات المدنية." },
+  port: { image: "/images/map-port.webp", description: "واجهة المدينة البحرية، وتضم الأرصفة وساحات الشحن. يمثل الميناء نقطة لسيناريوهات نقل البضائع والتجارة البحرية داخل اللعبة." },
+  mine: { image: "/images/map-mine.webp", description: "موقع جبلي يرتبط بوظائف استخراج الموارد الخام. تدخل المواد المستخرجة في سلسلة العمل بين التجميع والنقل والتصنيع.", link: { href: "/jobs", label: "استكشف الوظائف" } },
+  factory: { image: "/images/map-factory.webp", description: "تضم المنطقة المصانع والمستودعات ومرافق تجهيز المواد. ترتبط بسيناريوهات التصنيع والعمل الصناعي ونقل المنتجات داخل المدينة.", link: { href: "/jobs", label: "استكشف الوظائف" } },
+  red: { image: "/images/map-red.webp", description: "منطقة غير آمنة في عالم اللعبة تنشط فيها العصابات. ترتبط بسيناريوهات عالم الإجرام، وتظل قواعد الرول بلاي سارية فيها.", link: { href: "/news/contraband", label: "استكشف دليل أبو مهنا" } },
+};
+
 export function InteractiveMap() {
   const [filter, setFilter] = useState<Category>("all");
   const [selectedId, setSelectedId] = useState(locations[0].id);
 
   const visible = locations.filter((l) => filter === "all" || l.category === filter);
   const selected = locations.find((l) => l.id === selectedId) ?? locations[0];
+
+  const profile = locationProfiles[selected.id];
+  const categoryLabel = categories.find((item) => item.id === selected.category)?.label;
 
   function changeFilter(category: Category) {
     setFilter(category);
@@ -159,7 +173,7 @@ export function InteractiveMap() {
               </div>
               <h3 className="text-base font-black md:text-xl text-foreground">{selected.name}</h3>
               <p className="text-sm leading-relaxed text-muted md:text-base">{selected.desc}</p>
-              {selected.id === "pd" && <a href="#police-map-card" className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">عرض مجسّم المركز ↓</a>}
+              <a href="#map-location-card" className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">عرض صورة الموقع وتعريفه ↓</a>
             </div>
 
             <ul className="hidden max-h-64 flex-col md:flex overflow-y-auto border border-border lg:max-h-none lg:flex-1">
@@ -182,31 +196,28 @@ export function InteractiveMap() {
           </div>
         </Reveal>
 
-        {selected.id === "pd" && (
-          <article id="police-map-card" aria-labelledby="police-map-title" className="scroll-mt-24 grid overflow-hidden border border-accent/30 bg-background md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" dir="rtl">
-            <figure className="relative aspect-[4/3] min-w-0 bg-surface-2 md:aspect-auto md:min-h-72">
-              <Image
-                src="/images/police-station-model.webp"
-                alt="مجسّم تصوري لمركز الشرطة، يظهر المدخل ومواقف سيارات الدوريات"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <figcaption className="absolute bottom-3 right-3 bg-background/90 px-2 py-1 text-xs text-foreground">تصوّر لمبنى المركز</figcaption>
-            </figure>
-            <div className="flex min-w-0 flex-col justify-center gap-3 p-4 md:p-8">
-              <p className="text-xs font-bold text-accent">الأمن العام · مركز العمليات</p>
-              <h3 id="police-map-title" className="text-2xl font-black md:text-3xl">مركز الشرطة</h3>
-              <p className="text-sm leading-7 text-muted md:text-base md:leading-8">
-                المقر الرئيسي لقسم الشرطة داخل المدينة. يستقبل المركز بلاغات السكان،
-                ومنه ينسّق قسم العمليات تحرّك الدوريات ويتابع الحالات والتحقيقات داخل اللعبة.
-              </p>
-              <Link href="/departments/police" className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">
-                تعرّف على قسم الشرطة <span aria-hidden="true">←</span>
-              </Link>
-            </div>
-          </article>
-        )}
+        <article id="map-location-card" aria-labelledby="map-location-title" className="scroll-mt-24 grid overflow-hidden border border-accent/30 bg-background md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" dir="rtl">
+          <figure className="relative aspect-[4/3] min-w-0 bg-surface-2 md:aspect-auto md:min-h-72">
+            <Image
+              src={profile.image}
+              alt={`مجسّم تصوّري لموقع ${selected.name}`}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-contain"
+            />
+            <figcaption className="absolute bottom-3 right-3 bg-background/90 px-2 py-1 text-xs text-foreground">صورة تقريبية للموقع</figcaption>
+          </figure>
+          <div className="flex min-w-0 flex-col justify-center gap-3 p-4 md:p-8">
+            <p className="text-xs font-bold text-accent">{categoryLabel}</p>
+            <h3 id="map-location-title" className="text-2xl font-black md:text-3xl">{selected.name}</h3>
+            <p className="text-sm leading-7 text-muted md:text-base md:leading-8">
+              {profile.description}
+            </p>
+            {profile.link && <Link href={profile.link.href} className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">
+              {profile.link.label} <span aria-hidden="true">←</span>
+            </Link>}
+          </div>
+        </article>
       </div>
     </section>
   );
