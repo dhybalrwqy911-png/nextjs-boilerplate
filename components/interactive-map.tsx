@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { MapPinIcon } from "./icons";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
@@ -82,8 +81,8 @@ export function InteractiveMap() {
           description="تعرّف على أهم المواقع قبل أن تبدأ رحلتك. المواقع الحالية مؤقتة وسيتم تحديثها مع إطلاق الخريطة الرسمية."
         />
 
-        <Reveal className="grid gap-3 md:gap-4 lg:grid-cols-[1fr_340px]">
-          <div className="relative row-start-2 aspect-[4/3] md:row-start-auto overflow-hidden border border-border bg-background md:aspect-[16/10]">
+        <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="relative row-start-2 aspect-[4/3] overflow-hidden rounded-xl border lg:row-start-auto border-border bg-background md:aspect-[16/10]">
             <Image
               src="/images/map.png"
               alt="خريطة طبوغرافية للجزيرة"
@@ -138,60 +137,77 @@ export function InteractiveMap() {
             </span>
           </div>
 
-          <div className="contents md:flex md:flex-col md:gap-4">
-            <div role="group" aria-label="تصفية المواقع" className="row-start-1 grid grid-cols-3 gap-1.5 md:flex md:flex-wrap md:gap-2">
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  aria-pressed={filter === c.id}
-                  onClick={() => changeFilter(c.id)}
-                  className={`min-h-11 border px-1 py-1 text-xs md:min-h-0 md:px-3 md:py-2 md:text-sm font-bold transition-colors ${
-                    filter === c.id
-                      ? "border-accent bg-accent text-accent-foreground"
-                      : "border-border text-foreground/80 hover:border-foreground/40"
-                  }`}
-                >
-                  {c.label}
-                </button>
-              ))}
+          <div className="contents lg:flex lg:min-w-0 lg:flex-col lg:gap-3 lg:rounded-2xl lg:border lg:border-border lg:bg-background/60 lg:p-3">
+            <div className="row-start-1 rounded-xl border border-border bg-background/80 p-3">
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <h3 className="text-sm font-bold text-foreground">تصفية المواقع</h3>
+                <span className="text-xs text-muted">{visible.length.toLocaleString("ar-SA")} مواقع</span>
+              </div>
+              <div role="group" aria-label="تصفية المواقع" className="grid grid-cols-3 gap-1.5">
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    type="button"
+                    aria-pressed={filter === category.id}
+                    onClick={() => changeFilter(category.id)}
+                    className={`min-h-11 rounded-lg border px-1 text-xs font-bold transition-colors focus-visible:outline-2 focus-visible:outline-accent ${category.id === "danger" ? "col-span-2" : ""} ${
+                      filter === category.id
+                        ? "border-accent bg-accent text-accent-foreground"
+                        : "border-border bg-surface text-foreground hover:border-accent/60"
+                    }`}
+                  >
+                    {category.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <label className="grid gap-1 text-sm font-bold md:hidden">
+            <label className="grid gap-1 text-sm font-bold lg:hidden">
               اختر موقعًا
-              <select value={selectedId} onChange={(event) => setSelectedId(event.target.value)} className="min-h-11 w-full rounded-none border border-border bg-background px-3 text-base text-foreground focus-visible:outline-2 focus-visible:outline-accent">
+              <select value={selectedId} onChange={(event) => setSelectedId(event.target.value)} className="min-h-11 w-full rounded-lg border border-border bg-background px-3 text-base text-foreground focus-visible:outline-2 focus-visible:outline-accent">
                 {visible.map((loc) => <option key={loc.id} value={loc.id}>{loc.name}</option>)}
               </select>
             </label>
 
-            <div aria-live="polite" className="flex flex-col gap-1 border border-border bg-background p-3 md:gap-3 md:p-5">
-              <div className="flex items-center gap-2 text-accent">
-                <MapPinIcon className="size-5" />
-                <span className="font-display text-xs tracking-[0.3em]" dir="ltr">
-                  {`X${selected.x} · Y${selected.y}`}
-                </span>
+            <div aria-live="polite" className="overflow-hidden rounded-xl border border-accent/35 bg-background">
+              <div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3 p-3">
+                <div className="relative aspect-square overflow-hidden rounded-lg bg-surface-2">
+                  <Image src={profile.image} alt="" fill sizes="80px" className="object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-accent">
+                    <span>{categoryLabel}</span>
+                    <span dir="ltr">{`X${selected.x} · Y${selected.y}`}</span>
+                  </div>
+                  <h3 className="mt-1 font-black text-foreground">{selected.name}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">{selected.desc}</p>
+                </div>
               </div>
-              <h3 className="text-base font-black md:text-xl text-foreground">{selected.name}</h3>
-              <p className="text-sm leading-relaxed text-muted md:text-base">{selected.desc}</p>
-              <a href="#map-location-card" className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">عرض صورة الموقع وتعريفه ↓</a>
+              <a href="#map-location-card" className="flex min-h-11 items-center justify-between gap-2 border-t border-accent/20 bg-accent/10 px-3 text-sm font-bold text-accent hover:bg-accent/20 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent">
+                عرض صورة الموقع وتعريفه <span aria-hidden="true">↓</span>
+              </a>
             </div>
 
-            <ul className="hidden max-h-64 flex-col md:flex overflow-y-auto border border-border lg:max-h-none lg:flex-1">
-              {visible.map((loc) => (
-                <li key={loc.id} className="border-b border-border last:border-b-0">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedId(loc.id)}
-                    aria-pressed={loc.id === selectedId}
-                    className={`flex w-full items-center gap-3 px-4 py-3 text-right text-sm transition-colors ${
-                      loc.id === selected.id ? "bg-surface-2 text-foreground" : "text-foreground/75 hover:bg-surface-2/60"
-                    }`}
-                  >
-                    <span className={`size-2 rounded-full ${categoryColor[loc.category]}`} />
-                    {loc.name}
-                  </button>
-                </li>
-              ))}
+            <ul aria-label="مواقع الخريطة" className="hidden gap-1 rounded-xl border border-border bg-background/80 p-1.5 lg:grid">
+              {visible.map((loc) => {
+                const active = loc.id === selectedId;
+                return (
+                  <li key={loc.id}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedId(loc.id)}
+                      aria-pressed={active}
+                      className={`flex min-h-11 w-full items-center gap-2 rounded-lg border px-3 py-2 text-start text-sm focus-visible:outline-2 focus-visible:outline-accent ${
+                        active ? "border-accent/45 bg-accent/10 font-bold text-foreground" : "border-transparent text-muted hover:bg-surface-2 hover:text-foreground"
+                      }`}
+                    >
+                      <span aria-hidden="true" className={`size-2 shrink-0 rounded-full ${categoryColor[loc.category]}`} />
+                      <span className="flex-1">{loc.name}</span>
+                      {active && <span aria-hidden="true" className="text-accent">✓</span>}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </Reveal>
