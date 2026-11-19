@@ -1,71 +1,28 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { departments } from "@/lib/content";
-import { Reveal } from "./reveal";
-import { SectionHeading } from "./section-heading";
-
 
 export function Departments() {
   return (
-    <section id="departments" aria-labelledby="departments-title" className="py-5 md:py-36">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 md:gap-12 md:px-8">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div className="sr-only md:not-sr-only">
-          <SectionHeading
-            index="03"
-            eyebrow="Government Departments"
-            title="القطاعات الحكومية"
-            description="انضم إلى أحد القطاعات الرسمية وكن جزءاً من المنظومة التي تحفظ توازن العالم."
-          />
-          </div>
-          <a
-            href="/join"
-            className="shrink-0 self-start border-b border-accent pb-1 text-sm font-bold text-accent transition-colors hover:text-foreground md:self-auto"
-          >
-            التقديم على القطاعات
-          </a>
-        </div>
-
-        <ul className="grid gap-2 md:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {departments.map((d, i) => (
-            <Reveal as="li" key={d.en} delay={i * 100}>
-              <Link href={`/departments/${d.slug}`} className="flex items-center gap-3 border border-border bg-surface p-3 md:hidden">
-                <div className="relative size-16 shrink-0 overflow-hidden"><Image src={d.image} alt="" fill sizes="64px" className="object-cover" /></div>
-                <div className="min-w-0 flex-1"><h3 className="font-bold">{d.name}</h3><p className="mt-1 text-sm leading-5 text-muted">{d.short}</p></div>
-                <span aria-hidden="true" className="text-accent">←</span>
-              </Link>
-              <article className="group relative hidden aspect-[3/4] md:flex flex-col justify-end overflow-hidden border border-border">
-                <Image
-                  src={d.image}
-                  alt={d.alt}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover grayscale-[40%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-                <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5">
-                  <span className="font-display text-xs text-foreground/60" dir="ltr">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="flex size-10 items-center justify-center border border-foreground/20 bg-background/40 text-accent backdrop-blur-sm">
-                    <d.Icon className="size-5" />
-                  </span>
-                </div>
-                <div className="relative flex flex-col gap-2 p-5">
-                  <p className="font-display text-[11px] tracking-[0.25em] text-accent" dir="ltr">
-                    {d.en.toUpperCase()}
-                  </p>
-                  <h3 className="text-2xl font-black text-foreground">{d.name}</h3>
-                  <p className="max-h-0 overflow-hidden text-sm leading-relaxed text-foreground/75 opacity-0 transition-all duration-500 group-hover:max-h-24 group-hover:opacity-100 group-focus-within:max-h-24 group-focus-within:opacity-100 max-lg:max-h-24 max-lg:opacity-100">
-                    {d.short}
-                  </p>
-                  <span className="mt-2 h-0.5 w-10 bg-accent transition-all duration-500 group-hover:w-full" />
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+    <section id="departments" aria-labelledby="departments-title" className="mx-auto max-w-7xl px-4 py-5 md:px-8 md:py-10">
+      <h2 id="departments-title" className="mb-3 text-lg font-black md:mb-5 md:text-2xl">اختر قطاعك</h2>
+      <ul className="grid gap-2.5 md:grid-cols-3 md:gap-4">
+        {departments.map((department) => (
+          <li key={department.slug}>
+            <Link href={`/departments/${department.slug}`} className="group grid h-full min-h-[84px] grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3 border border-border bg-surface p-2.5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:p-3">
+              <div className="relative size-14 overflow-hidden md:col-span-2 md:aspect-[16/8] md:h-auto md:w-full">
+                <Image src={department.image} alt="" fill sizes="(min-width: 768px) 33vw, 56px" className="object-cover" />
+              </div>
+              <div>
+                <h3 className="font-black md:text-lg">{department.name}</h3>
+                <p className="mt-1 text-sm leading-5 text-foreground/80">{department.short}</p>
+              </div>
+              <span aria-hidden="true" className="text-lg text-accent">←</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link href="/join" className="mt-4 inline-flex min-h-11 items-center justify-center border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent hover:text-background">التقديم على القطاعات</Link>
     </section>
   );
 }
