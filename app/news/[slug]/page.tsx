@@ -23,8 +23,8 @@ export default async function NewsDetail({ params }: Props) {
   if (!article) notFound();
   if (article.kind === "contraband") return <ContrabandPage />;
 
-  return <PageShell image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
-    <div className="mx-auto max-w-7xl px-5 pt-8 md:px-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
+  return <PageShell compactOnMobile={article.kind === "economy"} image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
+    <div className="mx-auto max-w-7xl px-5 pt-4 md:px-8 md:pt-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
     {article.kind === "sectors" ? <>
       <TextPanel title="قطاعان، وبوابة واحدة">
         <p className="max-w-4xl">اختر مسارك في خدمة مجتمع عرب ريفورجر: الشرطة لحفظ الأمن وتنظيم الحياة داخل المدينة، أو الإسعاف للاستجابة للحالات وتقديم الرعاية. تجمع بوابة القطاعات الصحية والأمنية مسارات الانضمام للقطاعين، وتُراجع الطلبات حسب تعليمات قيادة كل قطاع.</p>
@@ -51,16 +51,19 @@ export default async function NewsDetail({ params }: Props) {
         </div>
         <p className="mt-4 text-sm text-muted">يفتح زر البوابة الموقع الخارجي في نافذة جديدة؛ يتم تقديم الطلب هناك حسب حالة التقديم في القطاع.</p>
       </TextPanel>
-    </> : article.kind === "economy" ? <TextPanel title="كيف تبيع أغراضك على التجار؟">
-      <p className="max-w-4xl">الفكرة تنطبق على السلع الشرعية والممنوعة داخل عالم اللعبة: التاجر يشتري منك حسب حالة السوق. افهم الفرق بين سعر الوحدة وإجمالي البيع وصافي العائد بعد التكاليف، ثم جرّب سيناريوهات مختلفة في اللوحة التالية.</p>
+    </> : article.kind === "economy" ? <section className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:py-24">
+      <h2 className="text-xl font-black md:mb-8 md:text-5xl">كيف تبيع أغراضك على التجار؟</h2>
+      <div className="text-foreground/75 md:text-lg md:leading-9">
+      <p className="hidden max-w-4xl md:block">الفكرة تنطبق على السلع الشرعية والممنوعة داخل عالم اللعبة: التاجر يشتري منك حسب حالة السوق. افهم الفرق بين سعر الوحدة وإجمالي البيع وصافي العائد بعد التكاليف، ثم جرّب سيناريوهات مختلفة في اللوحة التالية.</p>
       <EconomySimulator />
-      <div className="mt-8 grid gap-4 md:grid-cols-3">{[
+      <div className="mt-8 hidden gap-4 md:grid md:grid-cols-3">{[
         ["زيادة المعروض", "يبيع اللاعبون كمية أكبر من نفس السلعة للتجار."],
         ["تغيّر سعر الوحدة", "في المثال، تكدّس السلعة يخفض سعر شراء التاجر، وزيادة الطلب قد ترفعه."],
         ["تراجع صافي العائد", "التكاليف المستمرة قد تستهلك الربح أو تتجاوز دخل البيع."],
       ].map(([title,text]) => <article key={title} className="border border-border p-6"><h2 className="text-xl font-bold text-foreground">{title}</h2><p className="mt-3 text-base leading-8">{text}</p></article>)}</div>
-      <p className="mt-8 text-base leading-8 text-muted">قبل أي صفقة، قارن ما يدفعه لك التاجر بتكلفة شراء أو تجهيز البضاعة والنقل والتشغيل. المبلغ الذي تستلمه عند البيع ليس كله ربحًا. الأرقام الحالية أمثلة تعليمية، ويُضاف النظام الفعلي بعد اعتماد إعدادات السيرفر.</p>
+      <p className="mt-8 hidden text-base leading-8 text-muted md:block">قبل أي صفقة، قارن ما يدفعه لك التاجر بتكلفة شراء أو تجهيز البضاعة والنقل والتشغيل. المبلغ الذي تستلمه عند البيع ليس كله ربحًا. الأرقام الحالية أمثلة تعليمية، ويُضاف النظام الفعلي بعد اعتماد إعدادات السيرفر.</p>
       <Link href="/jobs" className="mt-6 inline-block text-base font-bold text-accent">استكشف الوظائف والمهن ←</Link>
-    </TextPanel> : <RaidGuide />}
+      </div>
+    </section> : <RaidGuide />}
   </PageShell>;
 }
