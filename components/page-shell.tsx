@@ -5,14 +5,22 @@ type PageShellProps = {
   title: string;
   description: string;
   children: ReactNode;
+  parent?: { href: string; label: string };
 };
 
-export function PageShell({ title, description, children }: PageShellProps) {
+export function PageShell({ title, description, children, parent }: PageShellProps) {
   return (
     <>
       <section aria-labelledby="page-title" className="border-b border-border bg-surface px-4 pb-6 pt-24 md:px-8 md:pb-9 md:pt-28">
         <div className="mx-auto max-w-7xl">
-          <Link href="/" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">الرئيسية</Link>
+          <nav aria-label="مسار التنقل" className="flex flex-wrap items-center gap-x-3">
+            <Link href="/" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">الرئيسية</Link>
+            {parent && (
+              <Link href={parent.href} className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
+                {parent.label}
+              </Link>
+            )}
+          </nav>
           <h1 id="page-title" className="text-2xl font-black leading-snug sm:text-4xl">{title}</h1>
           <p className="mt-2 max-w-3xl text-sm leading-7 text-muted md:text-base">{description}</p>
         </div>

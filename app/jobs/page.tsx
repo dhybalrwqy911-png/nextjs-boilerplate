@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: `${title} | ARAB REFORGER` };
 
 export default function Page() {
   return (
-    <PageShell title={title} description={description}>
+    <PageShell parent={{ href: "/roleplay", label: "الرجوع إلى عالم الرول بلاي" }} title={title} description={description}>
       <div className="pt-4 md:hidden"><Jobs compact /></div>
       <div className="hidden md:block"><Jobs /></div>
     </PageShell>
