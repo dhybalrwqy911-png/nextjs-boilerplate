@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BookIcon, BriefcaseIcon, BuildingIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
 
 const services = [
-  { href: "/join", title: "الانضمام والتفعيل", description: "خطوات دخول السيرفر والتفعيل عبر ديسكورد.", Icon: ShieldIcon },
+  { href: "/join", title: "دليل الانضمام", description: "خطوات الدخول إلى السيرفر. التفعيل داخل ديسكورد.", Icon: ShieldIcon },
   { href: "/rules", title: "مركز القوانين", description: "قوانين الرول بلاي وديسكورد والقطاعات.", Icon: BookIcon },
   { href: "/departments", title: "القطاعات الحكومية", description: "دليل الشرطة والإسعاف والإدارة الحكومية.", Icon: BuildingIcon },
   { href: "/news/sectors-applications", title: "التقديم على القطاعات", description: "تعليمات التقديم وبوابة الشرطة والإسعاف.", Icon: BriefcaseIcon },

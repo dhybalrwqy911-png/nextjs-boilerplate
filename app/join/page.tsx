@@ -1,7 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DiscordButton } from "@/components/buttons";
 import { PageShell, TextPanel } from "@/components/page-shell";
-import { CtaBanner } from "@/components/community";
-export const metadata:Metadata={title:"الانضمام | ARAB REFORGER"};
-const steps=[{title:"اطّلع على القوانين",text:"اقرأ القوانين العامة وقوانين الرول بلاي، وتأكد من فهم متطلبات المجتمع."},{title:"تابع قنوات المجتمع",text:"انضم إلى الديسكورد الرسمي عبر زر الانضمام أدناه، واطّلع على تعليمات التفعيل."},{title:"أكمل التفعيل",text:"اتبع إجراءات التفعيل التي تعلنها الإدارة قبل المشاركة في عالم الرول بلاي."}];
-export default function Join(){return <PageShell title="انضم إلى عرب ريفورجر" description="رحلتك تبدأ بفهم القوانين والتفعيل، ثم بناء قصتك داخل المدينة."><TextPanel title="كيف تبدأ؟"><div className="grid gap-5 md:grid-cols-3">{steps.map((s,i)=><div key={s.title} className="border border-border bg-surface p-7"><span className="font-display text-4xl font-bold text-accent">0{i+1}</span><h3 className="mt-5 text-2xl font-bold text-foreground">{s.title}</h3><p className="mt-4">{s.text}</p></div>)}</div><Link href="/rules" className="mt-8 inline-block font-bold text-accent">اقرأ القوانين ←</Link></TextPanel><CtaBanner /></PageShell>}
+
+export const metadata: Metadata = { title: "دليل الانضمام | عرب ريفورجر" };
+
+const steps = [
+  { title: "اقرأ القوانين", text: "اطّلع على قوانين السيرفر والرول بلاي قبل الانضمام." },
+  { title: "انضم إلى ديسكورد", text: "افتح ديسكورد عرب ريفورجر وراجع تعليمات التفعيل." },
+  { title: "أكمل التفعيل داخل ديسكورد", text: "اتبع الخطوات المعلنة في ديسكورد قبل دخول السيرفر." },
+];
+
+export default function Join() {
+  return (
+    <PageShell title="دليل الانضمام إلى عرب ريفورجر" description="هنا تتعرّف على خطوات الانضمام. جميع إجراءات التفعيل تتم داخل ديسكورد الرسمي.">
+      <TextPanel title="خطوات الانضمام">
+        <div className="mb-5 flex flex-wrap items-center gap-3">
+          <DiscordButton label="فتح ديسكورد للتفعيل" />
+          <Link href="/rules" className="inline-flex min-h-11 items-center border border-border px-4 text-sm font-bold text-accent">اقرأ القوانين</Link>
+        </div>
+        <ol className="grid gap-3 md:grid-cols-3">
+          {steps.map(({ title, text }, index) => (
+            <li key={title} className="flex gap-3 border border-border bg-surface p-4">
+              <span className="font-bold text-accent">{index + 1}.</span>
+              <div>
+                <h3 className="font-bold text-foreground">{title}</h3>
+                <p className="mt-1 text-sm leading-6 text-muted">{text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </TextPanel>
+    </PageShell>
+  );
+}

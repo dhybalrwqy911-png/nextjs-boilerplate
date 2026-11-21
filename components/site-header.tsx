@@ -156,7 +156,7 @@ export function SiteHeader() {
             href="/join"
             className="hidden bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground transition-colors hover:bg-foreground sm:inline-flex"
           >
-            الانضمام والتفعيل
+            دليل الانضمام
           </Link>
           <button
             type="button"
@@ -242,7 +242,7 @@ export function SiteHeader() {
             onClick={closeMobileMenu}
             className="mt-8 bg-accent px-6 py-4 text-center text-lg font-bold text-accent-foreground"
           >
-            الانضمام والتفعيل
+            دليل الانضمام
           </Link>
         </nav>
       </div>
