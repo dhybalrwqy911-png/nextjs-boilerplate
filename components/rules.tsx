@@ -60,23 +60,24 @@ export function Rules({ categoryId }: { categoryId?: string }) {
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             {sections.length > 0 && <details className="mb-3 border border-border px-3 lg:hidden"><summary className="min-h-11 cursor-pointer py-3 text-sm font-bold text-foreground marker:text-accent">فهرس القسم</summary><nav aria-label="فهرس القسم"><ul>{sections.map(s => <li key={s.id}><a href={`#${s.id}`} className={`flex min-h-11 items-center text-sm text-accent ${focus}`}>{s.title}</a></li>)}</ul></nav></details>}
             {sections.map(section => (
-              <section id={section.id} key={section.id} className="mb-4 scroll-mt-24 overflow-hidden rounded-lg border border-border bg-surface">
-                <h3 className="border-b border-border bg-accent/10 px-4 py-3 text-lg font-bold text-accent">{section.title}</h3>
-                <ol className="divide-y divide-border">
+              <section id={section.id} key={section.id} className="mb-7 scroll-mt-24 border-b border-border pb-6">
+                <h3 className="mb-4 flex items-center justify-center gap-2 text-center text-xl font-black text-accent">
+                  <CategoryIcon id={category.id} />
+                  {section.title}
+                </h3>
+                <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {section.rules.map(({ index, text }) => {
                     const titleEnd = text.indexOf("\n");
+                    const number = (index + 1).toLocaleString("ar-SA");
+
                     return (
-                      <li key={index} value={index + 1} className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2 px-4 py-2.5 md:gap-3">
-                        <span className="grid min-h-7 place-items-center rounded bg-accent/10 px-1 text-sm font-bold text-accent">
-                          {(index + 1).toLocaleString("ar-SA")}
-                        </span>
+                      <li key={index} value={index + 1} className="min-w-0 rounded-xl border border-accent/45 border-s-2 border-s-accent bg-surface p-4 md:p-5">
+                        <div className="mb-3 flex items-start justify-between gap-2">
+                          <h4 className="min-w-0 font-bold leading-6 text-accent">{titleEnd < 0 ? `البند ${number}` : text.slice(0, titleEnd)}</h4>
+                          {titleEnd >= 0 && <span aria-hidden="true" className="shrink-0 rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-xs font-bold text-accent">{number}</span>}
+                        </div>
                         <p className="whitespace-pre-line break-words text-base leading-7 text-foreground">
-                          {titleEnd < 0 ? text : (
-                            <>
-                              <strong className="mb-1 block">{text.slice(0, titleEnd)}</strong>
-                              {text.slice(titleEnd + 1)}
-                            </>
-                          )}
+                          {titleEnd < 0 ? text : text.slice(titleEnd + 1)}
                         </p>
                       </li>
                     );
