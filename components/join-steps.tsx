@@ -8,9 +8,9 @@ const steps = [
   { title: "أكمل التفعيل", description: "اتبع تعليمات التفعيل داخل ديسكورد، وبعد قبولك تقدر تدخل السيرفر.", Icon: ShieldIcon },
 ];
 
-export function JoinSteps() {
+export function JoinSteps({ fullWidth = false }: { fullWidth?: boolean }) {
   return (
-    <section aria-labelledby="join-steps-title" className="mx-auto max-w-6xl px-4 pt-6 md:px-8 md:pt-9">
+    <section aria-labelledby="join-steps-title" className={`mx-auto px-4 pt-6 md:px-8 md:pt-9 ${fullWidth ? "max-w-7xl" : "max-w-6xl"}`}>
       <div className="overflow-hidden rounded-xl border border-border bg-surface p-4 md:p-7">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-4 md:mb-6">
           <h2 id="join-steps-title" className="text-xl font-black md:text-3xl">ابدأ رحلتك في ثلاث خطوات</h2>
