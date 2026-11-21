@@ -39,6 +39,7 @@ export default function Home() {
 
       <nav aria-label="روابط المجتمع" className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 pb-8 md:px-8">
         <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/news">الأخبار والإعلانات</Link>
+        <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/store">المتجر</Link>
         <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/roleplay">دليل الرول بلاي</Link>
         <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/about">عن المجتمع</Link>
       </nav>

@@ -24,6 +24,7 @@ export const navItems: NavItem[] = [
   { href: "/jobs", label: "الوظائف" },
   { href: "/map", label: "الخريطة" },
   { href: "/news", label: "الأخبار" },
+  { href: "/store", label: "المتجر" },
   { href: "/roleplay", label: "الرول بلاي" },
   { href: "/about", label: "عن المجتمع" },
 ];
