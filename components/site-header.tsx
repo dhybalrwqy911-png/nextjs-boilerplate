@@ -4,20 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isActivePath, navItems } from "@/lib/site";
-import { ChevronDownIcon, CloseIcon, MenuIcon } from "./icons";
+import { CloseIcon, MenuIcon } from "./icons";
 import { Logo } from "./logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [lastPath, setLastPath] = useState(pathname);
 
   if (pathname !== lastPath) {
     setLastPath(pathname);
     setMobileOpen(false);
-    setOpenMenu(null);
   }
 
   useEffect(() => {
@@ -31,7 +28,6 @@ export function SiteHeader() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileOpen(false);
-        setOpenMenu(null);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -50,7 +46,6 @@ export function SiteHeader() {
 
   const closeMobileMenu = () => {
     setMobileOpen(false);
-    setMobileExpanded(null);
   };
 
   return (
@@ -78,73 +73,12 @@ export function SiteHeader() {
                 />
               );
 
-              if (!item.children) {
-                return (
-                  <li key={item.href}>
-                    <Link href={item.href} aria-current={active ? "page" : undefined} className={linkClass}>
-                      {item.label}
-                      {indicator}
-                    </Link>
-                  </li>
-                );
-              }
-
-              const menuOpen = openMenu === item.href;
-              const menuId = `menu-${item.href.slice(1)}`;
               return (
-                <li
-                  key={item.href}
-                  className="relative"
-                  onMouseEnter={() => setOpenMenu(item.href)}
-                  onMouseLeave={() => setOpenMenu(null)}
-                  onBlur={(e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpenMenu(null);
-                  }}
-                >
-                  <div className="flex items-center">
-                    <Link href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>
-                      {item.label}
-                      {indicator}
-                    </Link>
-                    <button
-                      type="button"
-                      aria-expanded={menuOpen}
-                      aria-controls={menuId}
-                      aria-label={`قائمة ${item.label}`}
-                      onClick={() => setOpenMenu(menuOpen ? null : item.href)}
-                      className="-mr-2 flex size-7 items-center justify-center text-foreground/70 hover:text-foreground"
-                    >
-                      <ChevronDownIcon className={`size-4 transition-transform duration-300 ${menuOpen ? "rotate-180" : ""}`} />
-                    </button>
-                  </div>
-                  <div
-                    id={menuId}
-                    className={`absolute right-0 top-full pt-3 transition-all duration-300 ${
-                      menuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"
-                    }`}
-                  >
-                    <ul className="w-72 border border-border bg-background/95 p-2 shadow-2xl shadow-black/50 backdrop-blur-md">
-                      {item.children.map((child) => {
-                        const childActive = pathname === child.href;
-                        return (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              aria-current={childActive ? "page" : undefined}
-                              className={`flex flex-col gap-0.5 border-r-2 px-4 py-3 transition-colors ${
-                                childActive
-                                  ? "border-accent bg-surface-2"
-                                  : "border-transparent hover:border-accent/60 hover:bg-surface-2/60"
-                              }`}
-                            >
-                              <span className="text-sm font-bold text-foreground">{child.label}</span>
-                              <span className="text-xs text-muted">{child.description}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+                <li key={item.href}>
+                  <Link href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkClass}>
+                    {item.label}
+                    {indicator}
+                  </Link>
                 </li>
               );
             })}
@@ -180,62 +114,18 @@ export function SiteHeader() {
       >
         <nav aria-label="القائمة المحمولة" className="mx-auto flex max-w-7xl flex-col px-5 py-6 md:px-8">
           <ul className="flex flex-col">
-            {navItems.map((item, i) => {
-              const active = isActivePath(pathname, item.href);
-              const expanded = mobileExpanded === item.href;
-              return (
-                <li key={item.href} className="border-b border-border">
-                  <div className="flex items-center">
-                    <Link
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      aria-current={pathname === item.href ? "page" : undefined}
-                      className={`flex flex-1 items-center justify-between min-h-12 py-2 text-base font-bold ${
-                        active ? "text-accent" : "text-foreground"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                    {item.children ? (
-                      <button
-                        type="button"
-                        aria-expanded={expanded}
-                        aria-controls={`mobile-sub-${i}`}
-                        aria-label={`قائمة ${item.label}`}
-                        onClick={() => setMobileExpanded(expanded ? null : item.href)}
-                        className="mr-3 flex size-10 items-center justify-center border border-border text-foreground"
-                      >
-                        <ChevronDownIcon className={`size-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
-                      </button>
-                    ) : null}
-                  </div>
-                  {item.children ? (
-                    <div
-                      id={`mobile-sub-${i}`}
-                      className={`grid transition-all duration-300 ${expanded ? "grid-rows-[1fr] pb-4" : "grid-rows-[0fr]"}`}
-                    >
-                      <ul className="flex flex-col gap-1 overflow-hidden" inert={!expanded}>
-                        {item.children.slice(1).map((child) => (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              onClick={closeMobileMenu}
-                              aria-current={pathname === child.href ? "page" : undefined}
-                              className={`flex flex-col border-r-2 py-2 pr-4 ${
-                                pathname === child.href ? "border-accent" : "border-border"
-                              }`}
-                            >
-                              <span className="font-bold text-foreground">{child.label}</span>
-                              <span className="text-xs text-muted">{child.description}</span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                </li>
-              );
-            })}
+            {navItems.map((item) => (
+              <li key={item.href} className="border-b border-border">
+                <Link
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  className={`flex min-h-12 items-center py-2 text-base font-bold ${isActivePath(pathname, item.href) ? "text-accent" : "text-foreground"}`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
           <Link
             href="/join"
