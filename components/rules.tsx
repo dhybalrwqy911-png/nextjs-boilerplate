@@ -60,14 +60,14 @@ export function Rules({ categoryId }: { categoryId?: string }) {
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             {sections.length > 0 && <details className="mb-3 border border-border px-3 lg:hidden"><summary className="min-h-11 cursor-pointer py-3 text-sm font-bold text-foreground marker:text-accent">فهرس القسم</summary><nav aria-label="فهرس القسم"><ul>{sections.map(s => <li key={s.id}><a href={`#${s.id}`} className={`flex min-h-11 items-center text-sm text-accent ${focus}`}>{s.title}</a></li>)}</ul></nav></details>}
             {sections.map(section => (
-              <section id={section.id} key={section.id} className="mb-5 scroll-mt-24">
-                <h3 className="mb-2 text-lg font-bold">{section.title}</h3>
-                <ol className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+              <section id={section.id} key={section.id} className="mb-4 scroll-mt-24 overflow-hidden rounded-lg border border-border bg-surface">
+                <h3 className="border-b border-border bg-accent/10 px-4 py-3 text-lg font-bold text-accent">{section.title}</h3>
+                <ol className="divide-y divide-border">
                   {section.rules.map(({ index, text }) => {
                     const titleEnd = text.indexOf("\n");
                     return (
-                      <li key={index} value={index + 1} className="min-w-0 rounded-lg border border-border bg-surface p-3">
-                        <span className="mb-1.5 inline-grid min-w-7 place-items-center rounded bg-accent/10 px-1.5 py-0.5 text-sm font-bold text-accent">
+                      <li key={index} value={index + 1} className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2 px-4 py-2.5 md:gap-3">
+                        <span className="grid min-h-7 place-items-center rounded bg-accent/10 px-1 text-sm font-bold text-accent">
                           {(index + 1).toLocaleString("ar-SA")}
                         </span>
                         <p className="whitespace-pre-line break-words text-base leading-7 text-foreground">
