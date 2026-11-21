@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { newsArticles } from "@/lib/news";
+import { getAnnouncements } from "@/lib/announcement-content";
 
-export function News() {
+export async function News() {
+  const announcements = await getAnnouncements();
   return (
     <section aria-label="مواضيع الأخبار" className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-10">
       <ul className="grid gap-2.5 md:grid-cols-2">
-        {newsArticles.map((post) => (
+        {announcements.map((post) => (
           <li key={post.slug}>
             <Link href={`/news/${post.slug}`} className="block h-full rounded-md border border-border bg-surface p-4 hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
               <p className="text-xs font-bold text-accent">{post.tag}</p>

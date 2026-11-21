@@ -2,7 +2,7 @@ import { DiscordMemberCount } from "@/components/discord-member-count";
 import { JoinSteps } from "@/components/join-steps";
 import Link from "next/link";
 import { DiscordButton } from "@/components/buttons";
-import { newsArticles } from "@/lib/news";
+import { getAnnouncements } from "@/lib/announcement-content";
 import { BookIcon, BriefcaseIcon, BuildingIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
 
 const services = [
@@ -16,8 +16,8 @@ const services = [
 
 const quickLink = "inline-flex min-h-11 items-center rounded-md border border-border px-2.5 py-1 text-sm font-bold text-accent hover:bg-surface focus-visible:outline-2 focus-visible:outline-accent";
 
-export default function Home() {
-  const [featuredNews, ...otherNews] = newsArticles;
+export default async function Home() {
+  const [featuredNews, ...otherNews] = await getAnnouncements();
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8 md:pb-12 md:pt-28">

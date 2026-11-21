@@ -6,18 +6,19 @@ import { EconomySimulator } from "@/components/economy-simulator";
 import { ContrabandPage } from "@/components/contraband-page";
 import { RaidGuide } from "@/components/raid-guide";
 import { newsArticles } from "@/lib/news";
+import { applicationStates, getAnnouncements } from "@/lib/announcement-content";
 
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() { return newsArticles.map(article => ({ slug: article.slug })); }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = newsArticles.find(item => item.slug === slug);
+  const article = (await getAnnouncements()).find(item => item.slug === slug);
   return { title: article?.title ?? "الخبر" };
 }
 
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
-  const article = newsArticles.find(item => item.slug === slug);
+  const article = (await getAnnouncements()).find(item => item.slug === slug);
   if (slug === "opening-event") redirect("/news/gang-raids");
   if (slug === "police-applications") redirect("/news/sectors-applications");
   if (!article) notFound();
@@ -26,6 +27,11 @@ export default async function NewsDetail({ params }: Props) {
   return <PageShell title={article.title} description={article.excerpt}>
     <div className="mx-auto max-w-7xl px-5 pt-4 md:px-8 md:pt-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
     {article.kind === "sectors" ? <>
+      {article.applicationState && (
+        <div className="mx-auto max-w-7xl px-4 pt-4 md:px-8">
+          <p className="rounded border border-accent/30 bg-surface p-3 font-bold text-accent">{applicationStates[article.applicationState]}</p>
+        </div>
+      )}
       <section className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:py-24">
         <h2 className="hidden text-5xl font-black md:mb-8 md:block">قطاعان، وبوابة واحدة</h2>
         <div className="md:hidden">

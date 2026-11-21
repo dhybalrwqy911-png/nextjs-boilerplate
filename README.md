@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Announcement editors
+
+The editor at `/admin` can update the title and summary of the existing news items and the overall application announcement status. Access is limited to the editor allowlist. Updates are stored separately from the source code.
+
+Configure these on the deployment as server-only environment variables:
+
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` from a deployment-owned Upstash Redis database.
+- `ADMIN_SESSION_SECRET` as an independent random secret (generate with `openssl rand -hex 32`).
+- `ANNOUNCEMENT_EDITORS` as a JSON object mapping editor usernames to the SHA-256 hex digests of their individual keys.
+
+Generate each key with `openssl rand -hex 32`, then use `printf '%s' "$editor_key" | openssl dgst -sha256` to get its digest. Store only the digest in the allowlist and share the original key privately with that editor. Removing an editor or replacing their digest revokes their sessions after the new configuration is deployed. Never commit raw keys, the session secret, or database tokens.
