@@ -1,3 +1,4 @@
+import { JoinSteps } from "@/components/join-steps";
 import Link from "next/link";
 import { BookIcon, BriefcaseIcon, BuildingIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
 
@@ -19,6 +20,8 @@ export default function Home() {
           <p className="mt-2 max-w-2xl text-sm leading-7 text-muted md:text-base">دليل مجتمع الرول بلاي في Arma Reforger وخدمات الانضمام والتقديم.</p>
         </div>
       </section>
+
+      <JoinSteps />
 
       <section id="welcome" aria-labelledby="services-title" className="mx-auto max-w-6xl px-4 py-7 md:px-8 md:py-10">
         <h2 id="services-title" className="mb-3 text-xl font-black md:text-2xl">خدمات اللاعبين</h2>
