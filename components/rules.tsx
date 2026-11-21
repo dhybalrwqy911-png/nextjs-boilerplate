@@ -59,32 +59,33 @@ export function Rules({ categoryId }: { categoryId?: string }) {
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             {sections.length > 0 && <details className="mb-3 border border-border px-3 lg:hidden"><summary className="min-h-11 cursor-pointer py-3 text-sm font-bold text-foreground marker:text-accent">فهرس القسم</summary><nav aria-label="فهرس القسم"><ul>{sections.map(s => <li key={s.id}><a href={`#${s.id}`} className={`flex min-h-11 items-center text-sm text-accent ${focus}`}>{s.title}</a></li>)}</ul></nav></details>}
-            {sections.map(section => (
-              <section id={section.id} key={section.id} className="mb-7 scroll-mt-24 border-b border-border pb-6">
-                <h3 className="mb-4 flex items-center justify-center gap-2 text-center text-xl font-black text-accent">
-                  <CategoryIcon id={category.id} />
-                  {section.title}
-                </h3>
-                <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {section.rules.map(({ index, text }) => {
-                    const titleEnd = text.indexOf("\n");
-                    const number = (index + 1).toLocaleString("ar-SA");
+            <div className="grid items-start gap-3 md:grid-cols-2">
+              {sections.map(section => (
+                <section id={section.id} key={section.id} className="min-w-0 scroll-mt-24 overflow-hidden rounded-xl border border-accent/40 bg-surface">
+                  <h3 className="flex items-center gap-2 border-b border-border bg-accent/10 px-4 py-3 text-lg font-bold text-accent">
+                    <CategoryIcon id={category.id} />
+                    {section.title}
+                  </h3>
+                  <ol className="divide-y divide-border">
+                    {section.rules.map(({ index, text }) => {
+                      const titleEnd = text.indexOf("\n");
 
-                    return (
-                      <li key={index} value={index + 1} className="min-w-0 rounded-xl border border-accent/45 border-s-2 border-s-accent bg-surface p-4 md:p-5">
-                        <div className="mb-3 flex items-start justify-between gap-2">
-                          <h4 className="min-w-0 font-bold leading-6 text-accent">{titleEnd < 0 ? `البند ${number}` : text.slice(0, titleEnd)}</h4>
-                          {titleEnd >= 0 && <span aria-hidden="true" className="shrink-0 rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-xs font-bold text-accent">{number}</span>}
-                        </div>
-                        <p className="whitespace-pre-line break-words text-base leading-7 text-foreground">
-                          {titleEnd < 0 ? text : text.slice(titleEnd + 1)}
-                        </p>
-                      </li>
-                    );
-                  })}
-                </ol>
-              </section>
-            ))}
+                      return (
+                        <li key={index} value={index + 1} className="flex items-start gap-2.5 px-4 py-2.5">
+                          <span aria-hidden="true" className="mt-0.5 grid min-w-6 shrink-0 place-items-center rounded bg-accent/10 px-1 text-sm font-bold text-accent">
+                            {(index + 1).toLocaleString("ar-SA")}
+                          </span>
+                          <div className="min-w-0 leading-7">
+                            {titleEnd >= 0 && category.id !== "discord" && <h4 className="font-bold text-accent">{text.slice(0, titleEnd)}</h4>}
+                            <p className="whitespace-pre-line break-words text-sm text-foreground md:text-base">{titleEnd < 0 ? text : text.slice(titleEnd + 1)}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </section>
+              ))}
+            </div>
             {sections.length === 0 && <p role="status" className="border border-border p-8 text-center text-muted">لا توجد قوانين تطابق البحث.</p>}
           </>}
         </div>
