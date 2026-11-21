@@ -1,3 +1,4 @@
+import { DiscordMemberCount } from "@/components/discord-member-count";
 import { JoinSteps } from "@/components/join-steps";
 import Link from "next/link";
 import { DiscordButton } from "@/components/buttons";
@@ -32,12 +33,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        <div className="grid gap-3">
+          <DiscordMemberCount />
         <nav aria-label="روابط المجتمع" className="grid grid-cols-2 gap-2 border-t border-border pt-4 lg:border-s lg:border-t-0 lg:ps-5 lg:pt-0">
           <Link href="/news" className={quickLink}>الأخبار والإعلانات</Link>
           <Link href="/roleplay" className={quickLink}>دليل الرول بلاي</Link>
           <Link href="/store" className={quickLink}>المتجر</Link>
           <Link href="/about" className={quickLink}>عن المجتمع</Link>
         </nav>
+        </div>
       </section>
 
       <div className="mt-6 grid items-start gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
