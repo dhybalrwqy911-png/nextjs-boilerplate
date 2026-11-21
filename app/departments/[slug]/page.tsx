@@ -35,7 +35,7 @@ export default async function DepartmentPage({ params }: Props) {
   if (!department) notFound();
 
   return (
-    <PageShell compactOnMobile image={department.image} eyebrow={department.en} title={department.name} description={department.short}>
+    <PageShell title={department.name} description={department.short}>
       <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 md:px-8 md:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-8">
         <section aria-labelledby="department-intro">
           <Link href="/departments" className="inline-flex min-h-11 items-center font-bold text-accent">→ جميع القطاعات</Link>
@@ -68,7 +68,7 @@ export default async function DepartmentPage({ params }: Props) {
               ))}
             </ol>
           </DepartmentSection>
-          <Link href="/join" className="mt-1 inline-flex min-h-11 items-center justify-center bg-accent px-4 py-2 text-center font-bold text-background">التقديم على القطاعات</Link>
+          <Link href="/news/sectors-applications" className="mt-1 inline-flex min-h-11 items-center justify-center bg-accent px-4 py-2 text-center font-bold text-background">التقديم على القطاعات</Link>
         </section>
       </div>
     </PageShell>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { MaskIcon } from "./icons";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
@@ -11,23 +10,9 @@ const factions = [
 
 export function Criminal() {
   return (
-    <section id="crime" aria-labelledby="crime-title" className="py-24 md:py-36">
+    <section id="crime" aria-labelledby="crime-title" className="py-6 md:py-10">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Reveal className="relative isolate grid overflow-hidden border border-border lg:grid-cols-2">
-          <div className="relative min-h-80 lg:min-h-[620px]">
-            <Image
-              src="/images/crime.png"
-              alt="شخصيات ملثمة في مستودع مظلم بإضاءة برتقالية"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent lg:bg-gradient-to-r lg:from-background lg:via-transparent lg:to-transparent" />
-            <span className="absolute right-5 top-5 bg-accent px-3 py-1 font-display text-[11px] tracking-[0.25em] text-accent-foreground" dir="ltr">
-              FICTIONAL STORYLINE
-            </span>
-          </div>
-
+        <Reveal className="relative isolate grid overflow-hidden border border-border">
           <div className="flex flex-col justify-center gap-10 bg-surface p-6 md:p-12">
             <SectionHeading
               index="05"

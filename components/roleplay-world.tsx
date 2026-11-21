@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
@@ -10,8 +9,6 @@ const tabs = [
     id: "civilian",
     en: "Civilian Life",
     label: "الحياة المدنية",
-    image: "/images/civilian.png",
-    alt: "ساحة بلدة صغيرة فيها مقهى ومارة وسيارات قديمة",
     title: "عش حياتك بالطريقة التي تريدها",
     text: "امتلك منزلاً، افتح مشروعك الخاص، كوّن علاقات، وابنِ سمعتك في المدينة. الحياة المدنية هي قلب العالم ومصدر كل القصص.",
     points: ["سكن وممتلكات", "متاجر ومشاريع خاصة", "علاقات اجتماعية"],
@@ -20,8 +17,6 @@ const tabs = [
     id: "government",
     en: "Government Services",
     label: "الخدمات الحكومية",
-    image: "/images/government.png",
-    alt: "مبنى حكومي حجري بأعمدة عند الغسق",
     title: "مؤسسات تحفظ النظام",
     text: "تراخيص، محاكم، سجلات مدنية، وقرارات إدارية تؤثر على حياة الجميع. الدولة في ARAB REFORGER ليست ديكوراً بل نظام فعّال.",
     points: ["تراخيص ومعاملات", "نظام قضائي", "انتخابات وقرارات"],
@@ -30,8 +25,6 @@ const tabs = [
     id: "crime",
     en: "Crime Scenarios",
     label: "سيناريوهات الجريمة",
-    image: "/images/crime.png",
-    alt: "شخصيات ملثمة بجانب سيارات في مستودع مهجور",
     title: "الوجه الآخر للمدينة",
     text: "سيناريوهات إجرامية مدروسة تضيف التوتر والإثارة للقصة، ضمن قوانين واضحة تضمن تجربة عادلة لجميع الأطراف.",
     points: ["عمليات مخططة", "تحقيقات ومطاردات", "عواقب حقيقية"],
@@ -40,8 +33,6 @@ const tabs = [
     id: "interactive",
     en: "Interactive World",
     label: "عالم تفاعلي",
-    image: "/images/about-roleplay.webp",
-    alt: "جنود حول شاحنة على تلة ضبابية",
     title: "كل تفاعل يصنع حدثاً",
     text: "فعاليات حية، أحداث مفاجئة، وتفاعل مستمر بين القطاعات. العالم يتغير ويتطور بناءً على ما يفعله اللاعبون.",
     points: ["فعاليات أسبوعية", "أحداث ديناميكية", "قصص مترابطة"],
@@ -56,7 +47,7 @@ export function RoleplayWorld() {
     <section
       id="world"
       aria-labelledby="world-title"
-      className="relative border-y border-border bg-surface py-4 md:py-36"
+      className="relative border-y border-border bg-surface py-4 md:py-10"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 md:gap-12 md:px-8">
         <div className="sr-only md:not-sr-only">
@@ -112,22 +103,11 @@ export function RoleplayWorld() {
             role="tabpanel"
             id={`panel-${active.id}`}
             aria-labelledby={`tab-${active.id}`}
-            className="relative mt-3 grid md:mt-8 overflow-hidden border border-border lg:grid-cols-5"
+            className="relative mt-3 grid md:mt-8 overflow-hidden border border-border"
           >
-            <div className="relative order-last aspect-[2/1] md:order-none md:aspect-video lg:col-span-3 lg:aspect-auto lg:min-h-[480px]">
-              <Image
-                key={active.image + active.id}
-                src={active.image}
-                alt={active.alt}
-                fill
-                sizes="(min-width: 1024px) 60vw, 100vw"
-                className="animate-fade-up object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent lg:bg-gradient-to-l lg:from-transparent lg:to-background/30" />
-            </div>
             <div
               key={active.id}
-              className="animate-fade-up flex flex-col justify-center gap-3 bg-background p-4 md:gap-6 md:p-10 lg:col-span-2"
+              className="animate-fade-up flex flex-col justify-center gap-3 bg-background p-4 md:gap-6 md:p-10"
             >
               <h3 className="text-balance text-xl font-black text-foreground md:text-3xl">
                 {active.title}

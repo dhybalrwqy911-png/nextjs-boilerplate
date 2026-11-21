@@ -23,7 +23,7 @@ export default async function NewsDetail({ params }: Props) {
   if (!article) notFound();
   if (article.kind === "contraband") return <ContrabandPage />;
 
-  return <PageShell compactOnMobile={article.kind === "economy" || article.kind === "sectors"} image={article.image} eyebrow={article.tag} title={article.title} description={article.excerpt}>
+  return <PageShell title={article.title} description={article.excerpt}>
     <div className="mx-auto max-w-7xl px-5 pt-4 md:px-8 md:pt-8"><Link href="/news" className="text-sm font-bold text-accent focus-visible:outline-2 focus-visible:outline-accent">← العودة إلى جميع الأخبار</Link></div>
     {article.kind === "sectors" ? <>
       <section className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:py-24">

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { departments } from "@/lib/content";
 
@@ -9,10 +8,8 @@ export function Departments() {
       <ul className="grid gap-2.5 md:grid-cols-3 md:gap-4">
         {departments.map((department) => (
           <li key={department.slug}>
-            <Link href={`/departments/${department.slug}`} className="group grid h-full min-h-[84px] grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3 border border-border bg-surface p-2.5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:p-3">
-              <div className="relative size-14 overflow-hidden md:col-span-2 md:aspect-[16/8] md:h-auto md:w-full">
-                <Image src={department.image} alt="" fill sizes="(min-width: 768px) 33vw, 56px" className="object-cover" />
-              </div>
+            <Link href={`/departments/${department.slug}`} className="group grid h-full min-h-[84px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border border-border bg-surface p-2.5 transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent md:items-start md:p-3">
+              <department.Icon aria-hidden="true" className="size-6 text-accent" />
               <div>
                 <h3 className="font-black md:text-lg">{department.name}</h3>
                 <p className="mt-1 text-sm leading-5 text-foreground/80">{department.short}</p>
@@ -22,7 +19,7 @@ export function Departments() {
           </li>
         ))}
       </ul>
-      <Link href="/join" className="mt-4 inline-flex min-h-11 items-center justify-center border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent hover:text-background">التقديم على القطاعات</Link>
+      <Link href="/news/sectors-applications" className="mt-4 inline-flex min-h-11 items-center justify-center border border-accent px-4 py-2 text-sm font-bold text-accent hover:bg-accent hover:text-background">التقديم على القطاعات</Link>
     </section>
   );
 }

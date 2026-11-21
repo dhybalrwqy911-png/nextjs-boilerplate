@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { CarIcon, FactoryIcon, PickaxeIcon, ScaleIcon, TruckIcon, WrenchIcon } from "./icons";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
@@ -38,19 +37,8 @@ export function Jobs({ compact = false }: { compact?: boolean }) {
     <section
       id="jobs"
       aria-labelledby="jobs-title"
-      className="relative isolate overflow-hidden border-y border-border py-24 md:py-36"
+      className="relative isolate overflow-hidden border-y border-border py-6 md:py-10"
     >
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/images/jobs.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-      </div>
-
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-5 md:px-8">
         <SectionHeading
           index="04"

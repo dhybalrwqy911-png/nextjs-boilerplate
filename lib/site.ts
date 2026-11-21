@@ -6,8 +6,7 @@ export type NavItem = { href: string; label: string; children?: NavChild[] };
 
 export const navItems: NavItem[] = [
   { href: "/", label: "الرئيسية" },
-  { href: "/about", label: "عن السيرفر" },
-  { href: "/roleplay", label: "عالم الرول بلاي" },
+  { href: "/rules", label: "القوانين" },
   {
     href: "/departments",
     label: "القطاعات الحكومية",
@@ -25,7 +24,8 @@ export const navItems: NavItem[] = [
   { href: "/jobs", label: "الوظائف" },
   { href: "/map", label: "الخريطة" },
   { href: "/news", label: "الأخبار" },
-  { href: "/rules", label: "القوانين" },
+  { href: "/roleplay", label: "الرول بلاي" },
+  { href: "/about", label: "عن المجتمع" },
 ];
 
 export function isActivePath(pathname: string, href: string) {

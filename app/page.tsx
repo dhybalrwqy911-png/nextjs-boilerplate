@@ -1,64 +1,47 @@
-import { sectionTheme } from "@/lib/section-theme";
 import Link from "next/link";
-import Image from "next/image";
-import { Hero } from "@/components/hero";
-import { CtaBanner } from "@/components/community";
-const highlights = [
-{title:"تعرّف على الإدارة",desc:"اكتشف دور إدارة المجتمع وما تقدمه في الدعم والتنظيم والتطوير.",image:"/images/management-team.webp",href:"/about"},
-{title:"عالم الرول بلاي",desc:"حياة مدنية وقصص يومية وقرارات تصنع مسارك داخل المدينة.",image:"/images/civilian.png",href:"/roleplay"},
-{title:"القطاعات الحكومية",desc:"اكتشف الشرطة والإسعاف والإدارة الحكومية ومسؤوليات كل قطاع.",image:"/images/government.png",href:"/departments"},
-{title:"الوظائف والاقتصاد",desc:"تعرّف على التعدين والتصنيع والنقل والخدمات ومسارات التطور المهني.",image:"/images/jobs.png",href:"/jobs"},
-{title:"خريطة المدينة",desc:"استكشف دليل المواقع والقطاعات والمناطق المهمة داخل العالم.",image:"/images/map.png",href:"/map"},
-{title:"القوانين والانضمام",desc:"اطّلع على ضوابط اللعب وكيف تبدأ رحلتك في المجتمع.",image:"/images/rules.png",href:"/rules"},
+import { BookIcon, BriefcaseIcon, BuildingIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
+
+const services = [
+  { href: "/join", title: "الانضمام والتفعيل", description: "خطوات دخول السيرفر والتفعيل عبر ديسكورد.", Icon: ShieldIcon },
+  { href: "/rules", title: "مركز القوانين", description: "قوانين الرول بلاي وديسكورد والقطاعات.", Icon: BookIcon },
+  { href: "/departments", title: "القطاعات الحكومية", description: "دليل الشرطة والإسعاف والإدارة الحكومية.", Icon: BuildingIcon },
+  { href: "/news/sectors-applications", title: "التقديم على القطاعات", description: "تعليمات التقديم وبوابة الشرطة والإسعاف.", Icon: BriefcaseIcon },
+  { href: "/jobs", title: "الوظائف والاقتصاد", description: "المهن المدنية والموارد والخدمات.", Icon: BriefcaseIcon },
+  { href: "/map", title: "دليل مواقع المدينة", description: "المرافق والمناطق بحسب التصنيف.", Icon: MapPinIcon },
 ];
+
 export default function Home() {
   return (
     <>
-      <Hero />
-      <section id="welcome" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-8 md:scroll-mt-0 md:px-8 md:py-20">
-        <p className="mb-4 hidden text-sm font-bold tracking-widest text-accent md:block" dir="ltr">
-          EXPLORE ARAB REFORGER
-        </p>
-        <h2 className="max-w-4xl text-2xl font-black leading-tight md:text-6xl">
-          <span className="md:hidden">استكشف أقسام الموقع</span>
-          <span className="hidden md:inline">عالم متكامل، وكل قصة لها طريقها</span>
-        </h2>
-        <p className="mt-6 hidden max-w-3xl text-lg leading-9 text-foreground/70 md:block">
-          تعرّف على عالم عرب ريفورجر، واستكشف الوظائف والقطاعات ومواقع المدينة.
-        </p>
-        <div className="mt-5 grid gap-3 md:mt-9 md:grid-cols-2 md:gap-5 xl:grid-cols-3">
-          {highlights.map((card) => (
-            <Link
-              key={card.href}
-              href={card.href}
-              data-section-theme={sectionTheme(card.href)}
-              className="section-card group grid min-h-20 grid-cols-[4.5rem_minmax(0,1fr)] overflow-hidden rounded-md border border-border bg-surface transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:grid-cols-none md:grid-rows-[auto_1fr]"
-            >
-              <div className="relative overflow-hidden border-b border-border md:aspect-[16/9]">
-                <Image
-                  src={card.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 767px) 72px, (max-width: 1279px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                />
-              </div>
-              <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-2 md:flex md:flex-col md:items-stretch md:justify-between md:gap-4 md:p-5">
-                <div>
-                  <h3 className="text-base font-bold leading-snug md:text-2xl">{card.title}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-foreground/75 md:mt-2 md:text-sm md:leading-7">
-                    {card.desc}
-                  </p>
-                </div>
-                <span className="font-bold text-accent md:inline-flex md:w-fit md:items-center md:gap-1.5 md:text-sm" aria-hidden="true">
-                  <span className="hidden md:inline">اكتشف القسم </span>←
-                </span>
-              </div>
-            </Link>
-          ))}
+      <section aria-labelledby="portal-title" className="border-b border-border bg-surface px-4 pb-7 pt-24 md:px-8 md:pb-10 md:pt-28">
+        <div className="mx-auto max-w-6xl border-s-2 border-accent ps-4 md:ps-6">
+          <h1 id="portal-title" className="text-3xl font-black md:text-5xl">بوابة عرب ريفورجر</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-muted md:text-base">دليل مجتمع الرول بلاي في Arma Reforger وخدمات الانضمام والتقديم.</p>
         </div>
       </section>
-      <CtaBanner />
+
+      <section id="welcome" aria-labelledby="services-title" className="mx-auto max-w-6xl px-4 py-7 md:px-8 md:py-10">
+        <h2 id="services-title" className="mb-3 text-xl font-black md:text-2xl">خدمات اللاعبين</h2>
+        <ul className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map(({ href, title, description, Icon }) => (
+            <li key={href}>
+              <Link href={href} className="flex h-full min-h-20 items-start gap-3 rounded-md border border-border bg-surface p-3 hover:border-accent focus-visible:outline-2 focus-visible:outline-accent md:p-5">
+                <span className="grid size-9 shrink-0 place-items-center rounded bg-accent/10 text-accent"><Icon aria-hidden="true" className="size-5" /></span>
+                <div>
+                  <h3 className="font-bold">{title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-muted">{description}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <nav aria-label="روابط المجتمع" className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 pb-8 md:px-8">
+        <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/news">الأخبار والإعلانات</Link>
+        <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/roleplay">دليل الرول بلاي</Link>
+        <Link className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent" href="/about">عن المجتمع</Link>
+      </nav>
     </>
   );
 }

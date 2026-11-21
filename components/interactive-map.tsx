@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Reveal } from "./reveal";
@@ -42,29 +41,20 @@ const locations: {
   { id: "red", name: "المنطقة الحمراء", category: "danger", x: 82, y: 22, desc: "منطقة غير آمنة تنشط فيها العصابات." },
 ];
 
-const locationProfiles: Record<string, { image: string; description: string; link?: { href: string; label: string } }> = {
-  pd: { image: "/images/police-station-model.webp", description: "المقر الرئيسي لقسم الشرطة داخل المدينة. يستقبل المركز بلاغات السكان، ومنه ينسّق قسم العمليات تحرّك الدوريات ويتابع الحالات والتحقيقات داخل اللعبة.", link: { href: "/departments/police", label: "تعرّف على قسم الشرطة" } },
-  hospital: { image: "/images/map-hospital.webp", description: "مقر الإسعاف والطوارئ في المدينة. يستقبل الحالات التي تنقلها فرق الإسعاف ويوفّر مساحة لسيناريوهات العلاج والمتابعة الطبية داخل السيرفر.", link: { href: "/departments/ems", label: "تعرّف على الإسعاف والطوارئ" } },
-  government: { image: "/images/map-government.webp", description: "واجهة الإدارة الحكومية داخل المدينة. يمثل نقطة مراجعة للسكان للتعرّف على الجهات الرسمية والخدمات المدنية في عالم الرول بلاي.", link: { href: "/departments/government", label: "تعرّف على الإدارة الحكومية" } },
-  city: { image: "/images/map-city.webp", description: "قلب الحياة اليومية في المدينة، وفيه تتجمع المتاجر والمقاهي والساحات العامة. مكان مناسب للقاء السكان وبدء السيناريوهات المدنية." },
-  port: { image: "/images/map-port.webp", description: "واجهة المدينة البحرية، وتضم الأرصفة وساحات الشحن. يمثل الميناء نقطة لسيناريوهات نقل البضائع والتجارة البحرية داخل اللعبة." },
-  mine: { image: "/images/map-mine.webp", description: "موقع جبلي يرتبط بوظائف استخراج الموارد الخام. تدخل المواد المستخرجة في سلسلة العمل بين التجميع والنقل والتصنيع.", link: { href: "/jobs", label: "استكشف الوظائف" } },
-  factory: { image: "/images/map-factory.webp", description: "تضم المنطقة المصانع والمستودعات ومرافق تجهيز المواد. ترتبط بسيناريوهات التصنيع والعمل الصناعي ونقل المنتجات داخل المدينة.", link: { href: "/jobs", label: "استكشف الوظائف" } },
-  red: { image: "/images/map-red.webp", description: "منطقة غير آمنة في عالم اللعبة تنشط فيها العصابات. ترتبط بسيناريوهات عالم الإجرام، وتظل قواعد الرول بلاي سارية فيها.", link: { href: "/news/contraband", label: "استكشف دليل أبو مهنا" } },
-};
-
-const illustratedPositions: Record<string, { x: number; y: number }> = {
-  factory: { x: 72, y: 30 },
-  government: { x: 38, y: 43 },
-  city: { x: 73, y: 54 },
-  port: { x: 78, y: 64 },
-  mine: { x: 33, y: 67 },
+const locationProfiles: Record<string, { description: string; link?: { href: string; label: string } }> = {
+  pd: { description: "المقر الرئيسي لقسم الشرطة داخل المدينة. يستقبل المركز بلاغات السكان، ومنه ينسّق قسم العمليات تحرّك الدوريات ويتابع الحالات والتحقيقات داخل اللعبة.", link: { href: "/departments/police", label: "تعرّف على قسم الشرطة" } },
+  hospital: { description: "مقر الإسعاف والطوارئ في المدينة. يستقبل الحالات التي تنقلها فرق الإسعاف ويوفّر مساحة لسيناريوهات العلاج والمتابعة الطبية داخل السيرفر.", link: { href: "/departments/ems", label: "تعرّف على الإسعاف والطوارئ" } },
+  government: { description: "واجهة الإدارة الحكومية داخل المدينة. يمثل نقطة مراجعة للسكان للتعرّف على الجهات الرسمية والخدمات المدنية في عالم الرول بلاي.", link: { href: "/departments/government", label: "تعرّف على الإدارة الحكومية" } },
+  city: { description: "قلب الحياة اليومية في المدينة، وفيه تتجمع المتاجر والمقاهي والساحات العامة. مكان مناسب للقاء السكان وبدء السيناريوهات المدنية." },
+  port: { description: "واجهة المدينة البحرية، وتضم الأرصفة وساحات الشحن. يمثل الميناء نقطة لسيناريوهات نقل البضائع والتجارة البحرية داخل اللعبة." },
+  mine: { description: "موقع جبلي يرتبط بوظائف استخراج الموارد الخام. تدخل المواد المستخرجة في سلسلة العمل بين التجميع والنقل والتصنيع.", link: { href: "/jobs", label: "استكشف الوظائف" } },
+  factory: { description: "تضم المنطقة المصانع والمستودعات ومرافق تجهيز المواد. ترتبط بسيناريوهات التصنيع والعمل الصناعي ونقل المنتجات داخل المدينة.", link: { href: "/jobs", label: "استكشف الوظائف" } },
+  red: { description: "منطقة غير آمنة في عالم اللعبة تنشط فيها العصابات. ترتبط بسيناريوهات عالم الإجرام، وتظل قواعد الرول بلاي سارية فيها.", link: { href: "/news/contraband", label: "استكشف دليل أبو مهنا" } },
 };
 
 export function InteractiveMap() {
   const [filter, setFilter] = useState<Category>("all");
   const [selectedId, setSelectedId] = useState(locations[0].id);
-  const [mapView, setMapView] = useState<"city" | "terrain">("city");
 
   function selectLocation(id: string) {
     setSelectedId(id);
@@ -73,7 +63,6 @@ export function InteractiveMap() {
   const visible = locations.filter((l) => filter === "all" || l.category === filter);
   const selected = locations.find((l) => l.id === selectedId) ?? locations[0];
 
-  const selectedPosition = mapView === "city" ? illustratedPositions[selected.id] ?? selected : selected;
   const profile = locationProfiles[selected.id];
   const categoryLabel = categories.find((item) => item.id === selected.category)?.label;
 
@@ -86,7 +75,7 @@ export function InteractiveMap() {
   }
 
   return (
-    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-[radial-gradient(ellipse_at_top,var(--surface-2),var(--background)_72%)] py-8 md:py-24">
+    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-[radial-gradient(ellipse_at_top,var(--surface-2),var(--background)_72%)] py-8 md:py-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8">
         <SectionHeading
           index="06"
@@ -98,23 +87,9 @@ export function InteractiveMap() {
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="row-start-2 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-background lg:row-start-auto">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 px-3 py-2">
-              <h3 className="font-bold text-foreground">عرض الجزيرة</h3>
-              <div role="group" aria-label="عرض الخريطة" className="flex gap-1">
-                {(["city", "terrain"] as const).map((view) => (
-                  <button key={view} type="button" aria-pressed={mapView === view} onClick={() => setMapView(view)} className={`min-h-11 rounded-md border px-2 text-xs font-bold focus-visible:outline-2 focus-visible:outline-accent ${mapView === view ? "border-accent bg-accent text-accent-foreground" : "border-border text-foreground"}`}>
-                    {view === "city" ? "منظر مجسّم" : "التضاريس"}
-                  </button>
-                ))}
-              </div>
+              <h3 className="font-bold text-foreground">مواقع المدينة</h3>
             </div>
             <div className="relative isolate aspect-video overflow-hidden rounded-lg border border-accent/35 bg-background shadow-[0_0_32px_#deb5761a]">
-              <Image
-                src={mapView === "city" ? "/images/island-city-view.webp" : "/images/map.png"}
-                alt={mapView === "city" ? "تصوّر مجسّم للجزيرة وأحيائها" : "خريطة طبوغرافية للجزيرة"}
-                fill
-                sizes="(min-width: 1024px) 70vw, 100vw"
-                className="object-fill opacity-95"
-              />
               <div
                 className="pointer-events-none absolute inset-0 opacity-35"
                 style={{
@@ -125,12 +100,12 @@ export function InteractiveMap() {
               />
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#120e09c9_100%)]" />
               <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                <div className="absolute inset-x-0 border-t border-dashed border-accent/45" style={{ top: `${selectedPosition.y}%` }} />
-                <div className="absolute inset-y-0 border-l border-dashed border-accent/45" style={{ left: `${selectedPosition.x}%` }} />
+                <div className="absolute inset-x-0 border-t border-dashed border-accent/45" style={{ top: `${selected.y}%` }} />
+                <div className="absolute inset-y-0 border-l border-dashed border-accent/45" style={{ left: `${selected.x}%` }} />
               </div>
               <div className="pointer-events-none absolute start-2 top-2 flex items-center gap-2 rounded-sm border border-accent/30 bg-background/90 px-2 py-1 text-xs font-bold text-accent md:start-4 md:top-4">
                 <span aria-hidden="true" className="size-1.5 rotate-45 bg-accent" />
-                {mapView === "city" ? "منظر تصوّري للجزيرة" : "خريطة التضاريس"}
+                مخطط إرشادي
               </div>
               <div aria-label="الشمال أعلى الخريطة" className="pointer-events-none absolute end-2 top-2 flex size-9 flex-col items-center justify-center rounded-full border border-white/25 bg-background/90 text-[10px] leading-none text-foreground md:end-4 md:top-4 md:size-11">
                 <span aria-hidden="true" className="text-base text-accent">↑</span>
@@ -139,7 +114,7 @@ export function InteractiveMap() {
               <ul className="absolute inset-0">
                 {visible.map((loc) => {
                   const isSelected = loc.id === selected.id;
-                  const position = mapView === "city" ? illustratedPositions[loc.id] ?? loc : loc;
+                  const position = loc;
                   return (
                     <li
                       key={loc.id}
@@ -211,10 +186,7 @@ export function InteractiveMap() {
             </label>
 
             <div aria-live="polite" className="overflow-hidden rounded-xl border border-accent/35 bg-background">
-              <div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3 p-3">
-                <div className="relative aspect-square overflow-hidden rounded-lg bg-surface-2">
-                  <Image src={profile.image} alt="" fill sizes="80px" className="object-cover" />
-                </div>
+              <div className="grid grid-cols-1 items-start gap-3 p-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-accent">
                     <span>{categoryLabel}</span>
@@ -225,7 +197,7 @@ export function InteractiveMap() {
                 </div>
               </div>
               <a href="#map-location-card" className="flex min-h-11 items-center justify-between gap-2 border-t border-accent/20 bg-accent/10 px-3 text-sm font-bold text-accent hover:bg-accent/20 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent">
-                {selected.id === "factory" ? "عرض مجسّم المصنع وتفاصيله" : "عرض صورة الموقع وتعريفه"} <span aria-hidden="true">↓</span>
+                {selected.id === "factory" ? "عرض تفاصيل المنطقة الصناعية" : "عرض تفاصيل الموقع"} <span aria-hidden="true">↓</span>
               </a>
             </div>
 
@@ -253,17 +225,7 @@ export function InteractiveMap() {
           </div>
         </Reveal>
 
-        <article id="map-location-card" aria-labelledby="map-location-title" className="scroll-mt-24 grid overflow-hidden border border-accent/30 bg-background md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" dir="rtl">
-          <figure className="relative aspect-[4/3] min-w-0 bg-surface-2 md:aspect-auto md:min-h-72">
-            <Image
-              src={profile.image}
-              alt={`مجسّم تصوّري لموقع ${selected.name}`}
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-contain"
-            />
-            <figcaption className="absolute bottom-3 right-3 bg-background/90 px-2 py-1 text-xs text-foreground">صورة تقريبية للموقع</figcaption>
-          </figure>
+        <article id="map-location-card" aria-labelledby="map-location-title" className="scroll-mt-24 grid overflow-hidden border border-accent/30 bg-background" dir="rtl">
           <div className="flex min-w-0 flex-col justify-center gap-3 p-4 md:p-8">
             <p className="text-xs font-bold text-accent">{categoryLabel}</p>
             <h3 id="map-location-title" className="text-2xl font-black md:text-3xl">{selected.name}</h3>

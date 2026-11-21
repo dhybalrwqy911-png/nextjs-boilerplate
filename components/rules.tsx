@@ -20,7 +20,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
   const categories = ruleCategories.filter(c => `${c.title} ${c.description} ${c.english}`.toLocaleLowerCase("ar").includes(normalizedQuery));
   const sections = category?.sections.map(s => ({ ...s, rules: s.rules.map((text, index) => ({ text, index })).filter(r => `${s.title} ${r.text}`.toLocaleLowerCase("ar").includes(normalizedQuery)) })).filter(s => s.rules.length > 0) ?? [];
 
-  return <div className="min-h-[70vh] bg-background pb-10 pt-20 md:pb-20 md:pt-36">
+  return <div className="min-h-[70vh] bg-background pb-10 pt-20 md:pb-20 md:pt-24">
     <div className="mx-auto max-w-7xl px-5 md:px-8">
       <nav aria-label="مسار التصفح" className="mb-3 flex flex-wrap items-center gap-2 text-sm text-muted md:mb-8 md:gap-3">
         <Link href="/" className={`hover:text-foreground ${focus}`}>الرئيسية</Link><span aria-hidden="true">/</span>

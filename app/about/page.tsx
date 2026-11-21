@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageShell, TextPanel } from "@/components/page-shell";
 import { About } from "@/components/about";
 export const metadata: Metadata = { title: "تعرّف على الإدارة | ARAB REFORGER" };
-export default function Page() { return <PageShell compactOnMobile image="/images/management-team.webp" eyebrow="OUR MANAGEMENT" title="إدارة عرب ريفورجر" description="تعرّف على الفريق خلف المجتمع، ودور الإدارة في الدعم والتنظيم والتطوير.">
+export default function Page() { return <PageShell title="إدارة عرب ريفورجر" description="تعرّف على الفريق خلف المجتمع، ودور الإدارة في الدعم والتنظيم والتطوير.">
   <About />
   <div className="border-y border-border bg-surface max-md:[&>section]:py-7 max-md:[&_h2]:mb-3 max-md:[&_h2]:text-xl max-md:[&_h2+div]:text-sm max-md:[&_h2+div]:leading-relaxed"><TextPanel title="مجالات عمل الإدارة">
     <p className="max-w-4xl">العمل الإداري يجمع بين التواصل مع اللاعبين وفهم أنظمة الرول بلاي ومتابعة التشغيل. توضح المجالات التالية طبيعة العمل الذي يخدم المجتمع؛ وتُضاف أسماء أعضاء الفريق وخبراتهم الفردية عند اعتماد بياناتهم.</p>

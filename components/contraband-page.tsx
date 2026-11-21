@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { PageShell } from "@/components/page-shell";
@@ -46,7 +45,7 @@ export function ContrabandPage() {
   const location = locations.find((item) => item.id === selectedId) ?? locations[0];
 
   return (
-    <PageShell compactOnMobile image="/images/abu-muhanna-cap.webp" eyebrow="ABU MUHANNA" title="أبو مهنا · دليلك لعالم الإجرام" description="من أول نقطة تجميع إلى آخر صفقة داخل عالم الرول بلاي.">
+    <PageShell title="أبو مهنا · دليلك لعالم الإجرام" description="من أول نقطة تجميع إلى آخر صفقة داخل عالم الرول بلاي.">
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-12">
         <Link href="/news" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">العودة إلى الأخبار ←</Link>
         <nav aria-label="أقسام دليل أبو مهنا" className="mt-3 flex flex-wrap gap-2">
@@ -58,11 +57,10 @@ export function ContrabandPage() {
         </nav>
         <div className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-6">
           <section id="crime-map" aria-labelledby="crime-map-title" className="min-w-0 scroll-mt-24 border border-border bg-surface p-3 md:p-5">
-            <h2 id="crime-map-title" className="text-xl font-black md:text-2xl">خريطة الممنوعات</h2>
+            <h2 id="crime-map-title" className="text-xl font-black md:text-2xl">مخطط مواقع الممنوعات</h2>
             <p className="mt-2 text-sm leading-6 text-foreground/75">المواقع المعروضة أمثلة توضيحية داخل اللعبة. المواقع الفعلية تظهر بعد اعتماد خريطة السيرفر.</p>
             <div className="relative isolate mt-4 aspect-[4/3] overflow-hidden border border-accent/30 bg-background sm:aspect-[16/10]" aria-label="نقاط التجميع والتصنيع والبيع">
-              <Image src="/images/map.png" alt="" fill sizes="(min-width: 1024px) 65vw, 100vw" className="object-contain opacity-65" />
-              <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
+              <div className="portal-map-grid absolute inset-0" aria-hidden="true" />
               {locations.map((item, index) => (
                 <button
                   key={item.id}
@@ -87,10 +85,7 @@ export function ContrabandPage() {
             </div>
           </section>
           <aside aria-labelledby="muhanna-title" className="min-w-0">
-            <div className="flex items-start gap-3 overflow-hidden border border-accent/30 bg-surface p-3 lg:block lg:p-0">
-              <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden bg-background lg:aspect-[4/5] lg:w-full lg:max-h-96">
-                <Image src="/images/abu-muhanna-briefing-cap.webp" alt="أبو مهنا واقف يشرح ويشير إلى خريطة ورقية معلّقة خلفه" fill sizes="(min-width: 1024px) 352px, 96px" className="object-contain" />
-              </div>
+            <div className="border border-accent/30 bg-surface p-4">
               <div className="min-w-0 lg:p-5">
                 <h2 id="muhanna-title" className="font-black text-accent">أبو مهنا</h2>
                 <div id="muhanna-dialogue" aria-live="polite" aria-atomic="true">

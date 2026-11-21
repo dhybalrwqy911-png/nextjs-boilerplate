@@ -9,7 +9,6 @@ import { Logo } from "./logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -20,13 +19,6 @@ export function SiteHeader() {
     setMobileOpen(false);
     setOpenMenu(null);
   }
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -61,15 +53,11 @@ export function SiteHeader() {
     setMobileExpanded(null);
   };
 
-  const solid = scrolled || mobileOpen;
-
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-        solid ? "border-b border-border bg-background/90 backdrop-blur-md" : "border-b border-transparent bg-gradient-to-b from-black/60 to-transparent"
-      }`}
+      className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background"
     >
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link href="/" aria-label="ARAB REFORGER - الرئيسية" className="shrink-0">
           <Logo />
         </Link>
@@ -168,7 +156,7 @@ export function SiteHeader() {
             href="/join"
             className="hidden bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground transition-colors hover:bg-foreground sm:inline-flex"
           >
-            انضم إلينا
+            الانضمام والتفعيل
           </Link>
           <button
             type="button"
@@ -202,14 +190,11 @@ export function SiteHeader() {
                       href={item.href}
                       onClick={closeMobileMenu}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      className={`flex flex-1 items-center justify-between py-4 text-xl font-bold ${
+                      className={`flex flex-1 items-center justify-between min-h-12 py-2 text-base font-bold ${
                         active ? "text-accent" : "text-foreground"
                       }`}
                     >
                       {item.label}
-                      <span className="font-display text-xs text-muted" dir="ltr">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
                     </Link>
                     {item.children ? (
                       <button
@@ -257,7 +242,7 @@ export function SiteHeader() {
             onClick={closeMobileMenu}
             className="mt-8 bg-accent px-6 py-4 text-center text-lg font-bold text-accent-foreground"
           >
-            انضم إلينا
+            الانضمام والتفعيل
           </Link>
         </nav>
       </div>
