@@ -49,16 +49,40 @@ export function Rules({ categoryId }: { categoryId?: string }) {
         </div>
         {categories.length === 0 && <div role="status" className="border border-dashed border-border p-10 text-center text-muted">لا يوجد قسم يطابق بحثك.<button onClick={() => setQuery("")} className={`mx-auto mt-4 block text-accent ${focus}`}>عرض جميع الأقسام</button></div>}
       </> : <div className="mt-4 grid items-start gap-4 md:mt-5 md:gap-4 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <aside className="order-last space-y-3 lg:order-none lg:space-y-5 lg:sticky lg:top-24">
-          <nav aria-label="أقسام القوانين" className="border border-border bg-surface p-5"><h2 className="mb-4 text-sm font-bold">الانتقال بين الأقسام</h2><div className="flex flex-col gap-2">{ruleCategories.map(c => <Link key={c.id} href={`/rules/${c.id}`} aria-current={c.id === category.id ? "page" : undefined} className={`border px-4 py-3 text-sm ${c.id === category.id ? "border-accent/40 bg-accent/10 text-accent" : "border-transparent text-muted hover:bg-white/5 hover:text-foreground"} ${focus}`}>{c.title}</Link>)}</div></nav>
-          <section aria-labelledby="rules-owner" className="border border-border bg-surface p-5"><h2 id="rules-owner" className="text-xs text-muted">المسؤول عن القسم</h2><p className="mt-3 font-bold">{category.owner ?? "لم يُحدّد بعد"}</p><p className="mt-5 border-t border-border pt-4 text-xs leading-6 text-muted">آخر تحديث: {category.updatedAt ?? "لم تُنشر القوانين بعد"}</p></section>
-          {category.sections.length > 0 && <nav aria-label="فهرس القوانين" className="hidden border lg:block border-border p-5"><h2 className="mb-4 text-sm font-bold">فهرس القسم</h2>{category.sections.map(s => <a key={s.id} href={`#${s.id}`} className={`block py-2 text-sm text-muted hover:text-foreground ${focus}`}>{s.title}</a>)}</nav>}
+        <aside className="order-last rounded-lg border border-border bg-surface lg:sticky lg:top-24 lg:order-none">
+          <nav aria-labelledby="rule-category-navigation" className="p-4">
+            <h2 id="rule-category-navigation" className="mb-3 text-sm font-bold">الانتقال بين الأقسام</h2>
+            <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
+              {ruleCategories.map(item => (
+                <li key={item.id}>
+                  <Link
+                    href={`/rules/${item.id}`}
+                    aria-current={item.id === category.id ? "page" : undefined}
+                    className={`flex min-h-11 items-center rounded border px-3 py-2 text-sm ${item.id === category.id ? "border-accent/40 bg-accent/10 text-accent" : "border-transparent text-muted hover:bg-white/5 hover:text-foreground"} ${focus}`}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <dl className="space-y-2 border-t border-border p-4 text-xs text-muted">
+            <div>
+              <dt>المسؤول عن القسم</dt>
+              <dd className="mt-1 text-sm font-bold text-foreground">{category.owner ?? "لم يُحدّد بعد"}</dd>
+            </div>
+            {category.updatedAt && (
+              <div className="flex flex-wrap gap-x-2">
+                <dt>آخر تحديث</dt>
+                <dd>{category.updatedAt}</dd>
+              </div>
+            )}
+          </dl>
         </aside>
         <div className="min-w-0">
           <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-2xl font-bold">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
-            {sections.length > 0 && <details className="mb-3 border border-border px-3 lg:hidden"><summary className="min-h-11 cursor-pointer py-3 text-sm font-bold text-foreground marker:text-accent">فهرس القسم</summary><nav aria-label="فهرس القسم"><ul>{sections.map(s => <li key={s.id}><a href={`#${s.id}`} className={`flex min-h-11 items-center text-sm text-accent ${focus}`}>{s.title}</a></li>)}</ul></nav></details>}
             <div className="grid gap-4 lg:grid-cols-2">
               {sections.map(section => (
                 <section id={section.id} key={section.id} className="flex min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-xl border border-accent/40 bg-surface lg:last:odd:col-span-2">
