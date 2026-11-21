@@ -7,15 +7,13 @@ export const navItems: NavItem[] = [
   { href: "/", label: "الرئيسية" },
   { href: "/rules", label: "القوانين" },
   { href: "/departments", label: "القطاعات الحكومية" },
-  { href: "/jobs", label: "الوظائف" },
-  { href: "/map", label: "الخريطة" },
+  { href: "/roleplay", label: "عالم الرول بلاي" },
   { href: "/news", label: "الأخبار" },
   { href: "/store", label: "المتجر" },
-  { href: "/roleplay", label: "الرول بلاي" },
-  { href: "/about", label: "عن المجتمع" },
 ];
 
 export function isActivePath(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
+  if (href === "/roleplay" && ["/jobs", "/map"].includes(pathname)) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
