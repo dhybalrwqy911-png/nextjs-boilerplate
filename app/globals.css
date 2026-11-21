@@ -1,34 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #101619;
-  --surface: #182124;
-  --surface-2: #222d31;
-  --border: #37454a;
-  --foreground: #f5f3ed;
-  --muted: #b7c2c4;
-  --olive: #688447;
-  --olive-bright: #b9dc81;
-  --accent: #efbd79;
-  --accent-foreground: #101619;
+  --background: #120e09;
+  --surface: #20180f;
+  --surface-2: #2d2215;
+  --border: #634a2a;
+  --foreground: #f5eddf;
+  --muted: #cbbba3;
+  --olive: #8e6735;
+  --olive-bright: #dfbd82;
+  --accent: #deb576;
+  --accent-foreground: #120e09;
 }
 
-[data-section-theme="about"] { --accent: #d7a9ef; }
-[data-section-theme="roleplay"] { --accent: #56ddbf; }
-[data-section-theme="departments"] { --accent: #82b4ff; }
-[data-section-theme="police"] { --accent: #72a6ff; }
-[data-section-theme="ems"] { --accent: #ff929f; }
-[data-section-theme="government"] { --accent: #a7caff; }
-[data-section-theme="jobs"] { --accent: #b9dc81; }
-[data-section-theme="map"] { --accent: #68d9ef; }
-[data-section-theme="news"] { --accent: #ffab73; }
-[data-section-theme="rules"] { --accent: #f6cf78; }
-[data-section-theme="join"] { --accent: #a5ecba; }
-[data-section-theme="discord"] { --accent: #aab0ff; }
-[data-section-theme="gangs"] { --accent: #ff8f95; }
-[data-section-theme="contraband"] { --accent: #ff946b; }
+[data-section-theme="about"],
+[data-section-theme="departments"],
+[data-section-theme="police"],
+[data-section-theme="government"] { --accent: #d4a565; }
 
-[data-section-theme="home"] { --accent: #efbd79; }
+[data-section-theme="roleplay"],
+[data-section-theme="jobs"],
+[data-section-theme="map"] { --accent: #dfbd82; }
+
+[data-section-theme="rules"],
+[data-section-theme="join"],
+[data-section-theme="discord"] { --accent: #efd09b; }
+
+[data-section-theme="news"],
+[data-section-theme="ems"],
+[data-section-theme="gangs"],
+[data-section-theme="contraband"] { --accent: #e3a578; }
 
 .site-frame {
   background: radial-gradient(ellipse 70% 32rem at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent), var(--background);
