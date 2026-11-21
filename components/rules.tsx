@@ -59,19 +59,19 @@ export function Rules({ categoryId }: { categoryId?: string }) {
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             {sections.length > 0 && <details className="mb-3 border border-border px-3 lg:hidden"><summary className="min-h-11 cursor-pointer py-3 text-sm font-bold text-foreground marker:text-accent">فهرس القسم</summary><nav aria-label="فهرس القسم"><ul>{sections.map(s => <li key={s.id}><a href={`#${s.id}`} className={`flex min-h-11 items-center text-sm text-accent ${focus}`}>{s.title}</a></li>)}</ul></nav></details>}
-            <div className="grid items-start gap-3 md:grid-cols-2">
+            <div className="grid gap-4 lg:grid-cols-2">
               {sections.map(section => (
-                <section id={section.id} key={section.id} className="min-w-0 scroll-mt-24 overflow-hidden rounded-xl border border-accent/40 bg-surface">
-                  <h3 className="flex items-center gap-2 border-b border-border bg-accent/10 px-4 py-3 text-lg font-bold text-accent">
+                <section id={section.id} key={section.id} className="flex min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-xl border border-accent/40 bg-surface lg:last:odd:col-span-2">
+                  <h3 className="flex min-h-14 items-center gap-2 border-b border-border bg-accent/10 px-4 py-3 text-base font-bold leading-6 text-accent">
                     <CategoryIcon id={category.id} />
                     {section.title}
                   </h3>
-                  <ol className="divide-y divide-border">
+                  <ol className="flex flex-1 flex-col divide-y divide-border">
                     {section.rules.map(({ index, text }) => {
                       const titleEnd = text.indexOf("\n");
 
                       return (
-                        <li key={index} value={index + 1} className="flex items-start gap-2.5 px-4 py-2.5">
+                        <li key={index} value={index + 1} className="flex grow items-start gap-2.5 px-4 py-2.5">
                           <span aria-hidden="true" className="mt-0.5 grid min-w-6 shrink-0 place-items-center rounded bg-accent/10 px-1 text-sm font-bold text-accent">
                             {(index + 1).toLocaleString("ar-SA")}
                           </span>
