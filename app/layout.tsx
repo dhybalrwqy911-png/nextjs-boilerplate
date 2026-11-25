@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Oswald } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
+import { MobileNavigation } from "@/components/mobile-navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFrame } from "@/components/site-frame";
 import "./globals.css";
@@ -71,7 +72,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-screen font-sans antialiased"
+        className="min-h-screen font-sans antialiased max-xl:pb-[calc(3.5rem+env(safe-area-inset-bottom))]"
       >
         <a
           href="#main"
@@ -81,8 +82,9 @@ export default function RootLayout({
         </a>
         <SiteFrame>
           <SiteHeader />
-          <main id="main">{children}</main>
+          <main id="main" className="min-w-0 break-words">{children}</main>
           <SiteFooter />
+          <MobileNavigation />
         </SiteFrame>
       </body>
     </html>

@@ -95,6 +95,18 @@ export function EconomySimulator() {
     </section>
 
     <details className={`${box} mt-4 max-md:p-3 md:mt-5`}><summary className="cursor-pointer text-sm font-bold">كيف تقرأ الأرقام؟<span className="hidden md:inline"> وجدول مقارنة السوق</span></summary><div className="mt-5 space-y-4 text-sm leading-8 text-[#a6b3b9]"><p>اختر السلعة، ثم أدخل الكمية وتكلفة شرائها أو تجهيزها وتكلفة النقل والتشغيل. نوع السلعة يغيّر وصف الصفقة فقط؛ نفس المثال يُطبّق على الأنواع كلها.</p><p>١٠٠٪ هو المستوى المرجعي للعرض والطلب. المعروض يمثل حالة السوق بعد التوريد، والكمية الشخصية لا تغيّر مؤشره تلقائيًا. السعر الافتراضي = ١٠٠ × (الطلب ÷ المعروض) أس ١٫٢، ويُقرّب لأقرب عدد صحيح ضمن حدّي ١٠ و٢٠٠ عملة.</p><p>صافي العائد = دخل البيع − (تكلفة الوحدة × الكمية + النقل والتشغيل). اللوحة تشرح المبدأ ولا تتصل بمخزون التجار أو الأسعار الفعلية، ولا تحاكي تغير السعر أثناء بيع دفعة كبيرة. إعدادات السيرفر هي التي تحدد النظام الحقيقي.</p></div>
+      <ul aria-label="مقارنة السوق عند تغيّر المعروض" className="mt-4 grid gap-2 md:hidden">
+        {rows.map(row => (
+          <li key={row.s} className="rounded-lg border border-white/15 p-3 text-sm">
+            <h3 className="font-bold">المعروض {fmt(row.s)}٪</h3>
+            <dl className="mt-2 grid gap-1">
+              <div className="flex justify-between gap-2"><dt>سعر التاجر</dt><dd><bdi>{fmt(row.price)}</bdi></dd></div>
+              <div className="flex justify-between gap-2"><dt>دخل البيع</dt><dd><bdi>{fmt(row.revenue)}</bdi></dd></div>
+              <div className="flex justify-between gap-2"><dt>صافي العائد</dt><dd style={{color: row.net < 0 ? red : green}}><bdi>{fmt(row.net)}</bdi></dd></div>
+            </dl>
+          </li>
+        ))}
+      </ul>
       <div className="mt-5 hidden overflow-x-auto md:block"><table className="w-full min-w-[430px] text-right text-sm"><caption className="mb-4 text-right text-xs text-[#a6b3b9]">نفس الكمية والتكاليف والطلب الحالي؛ نغيّر المعروض فقط</caption><thead><tr className="border-b border-white/15">{["المعروض","سعر التاجر","دخل البيع","صافي العائد"].map(x => <th key={x} scope="col" className="p-3">{x}</th>)}</tr></thead><tbody>{rows.map(r => <tr key={r.s} className="border-b border-white/5"><th scope="row" className="p-3">{fmt(r.s)}٪</th><td className="p-3">{fmt(r.price)}</td><td className="p-3">{fmt(r.revenue)}</td><td className="p-3" style={{color:r.net < 0 ? red : green}}><bdi>{fmt(r.net)}</bdi></td></tr>)}</tbody></table></div>
     </details>
   </section>;

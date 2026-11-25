@@ -49,7 +49,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
         </div>
         {categories.length === 0 && <div role="status" className="border border-dashed border-border p-10 text-center text-muted">لا يوجد قسم يطابق بحثك.<button onClick={() => setQuery("")} className={`mx-auto mt-4 block text-accent ${focus}`}>عرض جميع الأقسام</button></div>}
       </> : <div className="mt-4 grid items-start gap-4 md:mt-5 md:gap-4 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <aside className="order-last rounded-lg border border-border bg-surface lg:sticky lg:top-24 lg:order-none">
+        <aside id="rule-sections" className="order-last scroll-mt-24 rounded-lg border border-border bg-surface lg:sticky lg:top-24 lg:order-none">
           <nav aria-labelledby="rule-category-navigation" className="p-4">
             <h2 id="rule-category-navigation" className="mb-3 text-sm font-bold">الانتقال بين الأقسام</h2>
             <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
@@ -80,7 +80,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
           </dl>
         </aside>
         <div className="min-w-0">
-          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-2xl font-bold">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
+          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><a href="#rule-sections" className="inline-flex min-h-11 items-center text-sm font-bold text-accent lg:hidden">انتقل إلى الأقسام</a><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             <div className="grid gap-4 lg:grid-cols-2">

@@ -85,7 +85,7 @@ export function InteractiveMap() {
         />
 
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="row-start-2 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-background lg:row-start-auto">
+          <div className="row-start-3 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-background lg:row-start-auto">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 px-3 py-2">
               <h3 className="font-bold text-foreground">مواقع المدينة</h3>
             </div>
@@ -178,7 +178,7 @@ export function InteractiveMap() {
               </div>
             </div>
 
-            <label className="grid gap-1 text-sm font-bold lg:hidden">
+            <label className="row-start-2 grid gap-1 text-sm font-bold lg:hidden">
               اختر موقعًا
               <select value={selectedId} onChange={(event) => selectLocation(event.target.value)} className="min-h-11 w-full rounded-lg border border-border bg-background px-3 text-base text-foreground focus-visible:outline-2 focus-visible:outline-accent">
                 {visible.map((loc) => <option key={loc.id} value={loc.id}>{loc.name}</option>)}

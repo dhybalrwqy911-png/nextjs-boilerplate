@@ -159,3 +159,9 @@ body {
   background-size: 10% 10%;
   opacity: 0.45;
 }
+
+@media (width < 48rem) {
+  main :is(input:not([type="range"]), select, textarea) {
+    font-size: max(1rem, 16px);
+  }
+}
