@@ -32,7 +32,18 @@
 [data-section-theme="contraband"] { --accent: #e3a578; }
 
 .site-frame {
+  isolation: isolate;
   background: radial-gradient(ellipse 70% 32rem at 100% 0%, color-mix(in srgb, var(--accent) 11%, transparent), transparent), var(--background);
+}
+
+.site-frame::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/images/server-logo.gif") center / min(72vw, 28rem, 58svh) no-repeat;
+  opacity: 0.09;
 }
 
 .section-card {
