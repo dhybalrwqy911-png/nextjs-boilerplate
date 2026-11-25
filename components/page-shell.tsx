@@ -11,10 +11,10 @@ type PageShellProps = {
 export function PageShell({ title, description, children, parent }: PageShellProps) {
   return (
     <>
-      <section aria-labelledby="page-title" className="border-b border-border bg-surface px-4 pb-6 pt-24 md:px-8 md:pb-9 md:pt-28">
+      <section aria-labelledby="page-title" className="border-b border-border bg-surface px-4 pb-5 pt-16 sm:pt-18 md:px-8 md:pb-8">
         <div className="mx-auto max-w-7xl">
           <nav aria-label="مسار التنقل" className="flex flex-wrap items-center gap-x-3">
-            <Link href="/explore" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">استكشف الموقع</Link>
+            <Link href="/explore" className="inline-flex min-h-11 items-center rounded-sm text-sm font-bold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">استكشف الموقع</Link>
             {parent && (
               <Link href={parent.href} className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
                 {parent.label}
@@ -22,7 +22,7 @@ export function PageShell({ title, description, children, parent }: PageShellPro
             )}
           </nav>
           <h1 id="page-title" className="text-2xl font-black leading-snug sm:text-4xl">{title}</h1>
-          <p className="mt-2 max-w-3xl text-sm leading-7 text-muted md:text-base">{description}</p>
+          <p className="mt-1.5 max-w-3xl text-sm leading-6 text-muted md:text-base">{description}</p>
         </div>
       </section>
       {children}

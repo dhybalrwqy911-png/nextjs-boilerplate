@@ -22,17 +22,12 @@ async function getMemberCount() {
 export async function DiscordMemberCount() {
   const count = await getMemberCount();
 
+  if (count === null) return null;
+
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-border bg-surface p-3">
-      <UsersIcon aria-hidden="true" className="size-6 shrink-0 text-accent" />
-      <dl>
-        <dt className="text-sm text-muted">أعضاء ديسكورد</dt>
-        <dd className="font-bold">
-          {count === null ? <span className="text-sm">العدد غير متاح مؤقتًا</span> : (
-            <><bdi className="text-xl tabular-nums">{count.toLocaleString("ar-SA")}</bdi> <span className="text-xs font-normal text-muted">عضو تقريبًا</span></>
-          )}
-        </dd>
-      </dl>
-    </div>
+    <p className="flex items-center gap-2 text-sm text-muted">
+      <UsersIcon aria-hidden="true" className="size-4 shrink-0 text-accent" />
+      <span><bdi className="font-bold tabular-nums text-foreground">{count.toLocaleString("ar-SA")}</bdi> عضو تقريبًا في ديسكورد</span>
+    </p>
   );
 }

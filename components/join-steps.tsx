@@ -1,36 +1,39 @@
 import Link from "next/link";
-import { DiscordButton } from "./buttons";
-import { BookIcon, ChatIcon, ShieldIcon } from "./icons";
+import { DISCORD_URL } from "@/lib/site";
+import { ArrowIcon, ChatIcon } from "./icons";
 
 const steps = [
-  { title: "راجع قوانين السيرفر", description: "اطّلع على قوانين المجتمع والرول بلاي قبل دخول السيرفر.", Icon: BookIcon },
-  { title: "انضم إلى ديسكورد", description: "افتح ديسكورد عرب ريفورجر وتوجّه إلى قسم التفعيل.", Icon: ChatIcon },
-  { title: "أكمل التفعيل", description: "اتبع تعليمات التفعيل داخل ديسكورد، وبعد قبولك تقدر تدخل السيرفر.", Icon: ShieldIcon },
+  { title: "اقرأ قوانين السيرفر", description: "راجع قوانين الرول بلاي وديسكورد قبل التفعيل.", href: "/rules" },
+  { title: "افتح قسم التفعيل", description: "انضم إلى ديسكورد عرب ريفورجر وتوجّه إلى قسم التفعيل." },
+  { title: "أكمل التفعيل", description: "اتبع تعليمات القسم. بعد قبولك تقدر تدخل السيرفر." },
 ];
 
-export function JoinSteps({ fullWidth = false }: { fullWidth?: boolean }) {
+export function JoinSteps() {
   return (
-    <section aria-labelledby="join-steps-title" className={`mx-auto px-4 pt-6 md:px-8 md:pt-9 ${fullWidth ? "max-w-7xl" : "max-w-6xl"}`}>
-      <div className="overflow-hidden rounded-xl border border-border bg-surface p-4 md:p-7">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-4 md:mb-6">
-          <h2 id="join-steps-title" className="text-xl font-black md:text-3xl">ابدأ رحلتك في ثلاث خطوات</h2>
-          <DiscordButton label="ابدأ عبر ديسكورد" />
-        </div>
-        <ol className="grid gap-2.5 md:grid-cols-3 md:gap-4">
-          {steps.map(({ title, description, Icon }, index) => (
-            <li key={title} className="flex min-w-0 items-start gap-3 rounded-lg border border-border bg-background p-3 md:p-5">
-              <span className="relative grid size-11 shrink-0 place-items-center rounded-lg border border-accent/30 text-accent">
-                <Icon aria-hidden="true" className="size-5" />
-                <span className="absolute -end-1.5 -top-1.5 grid size-5 place-items-center rounded-full bg-accent text-xs font-bold text-accent-foreground">{index + 1}</span>
-              </span>
-              <div className="min-w-0">
+    <section aria-labelledby="join-steps-title" className="mx-auto max-w-3xl px-4 py-5 sm:px-6 md:py-8">
+      <div className="rounded-2xl border border-border/75 bg-surface px-4 py-4 sm:px-6 sm:py-5">
+        <h2 id="join-steps-title" className="text-lg font-bold sm:text-xl">خطوات التفعيل</h2>
+        <ol className="mt-2 divide-y divide-border/70">
+          {steps.map(({ title, description, href }, index) => (
+            <li key={title} className="flex items-start gap-3 py-3">
+              <span aria-hidden="true" className="grid size-7 shrink-0 place-items-center rounded-full bg-accent/10 text-sm font-bold text-accent">{(index + 1).toLocaleString("ar-SA")}</span>
+              <div className="min-w-0 flex-1">
                 <h3 className="font-bold">{title}</h3>
-                <p className="mt-1 text-sm leading-6 text-muted">{description}</p>
-                {index === 0 && <Link href="/rules" className="inline-flex min-h-11 items-center text-sm font-bold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">عرض القوانين</Link>}
+                <p className="mt-0.5 text-sm leading-6 text-muted">{description}</p>
+                {href && (
+                  <Link href={href} className="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">
+                    عرض القوانين <ArrowIcon aria-hidden="true" className="size-4" />
+                  </Link>
+                )}
               </div>
             </li>
           ))}
         </ol>
+        {DISCORD_URL && (
+          <a href={DISCORD_URL} className="mt-2 flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-bold text-accent-foreground hover:bg-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+            <ChatIcon aria-hidden="true" className="size-5" /> انضم عبر ديسكورد
+          </a>
+        )}
       </div>
     </section>
   );

@@ -20,11 +20,43 @@ export function Rules({ categoryId }: { categoryId?: string }) {
   const categories = ruleCategories.filter(c => `${c.title} ${c.description} ${c.english}`.toLocaleLowerCase("ar").includes(normalizedQuery));
   const sections = category?.sections.map(s => ({ ...s, rules: s.rules.map((text, index) => ({ text, index })).filter(r => `${s.title} ${r.text}`.toLocaleLowerCase("ar").includes(normalizedQuery)) })).filter(s => s.rules.length > 0) ?? [];
 
-  return <div className="pb-8 pt-20 md:pb-12 md:pt-24">
+  const sectionNavigation = category && (
+    <>
+          <nav aria-label="الانتقال بين أقسام القوانين" className="px-3 pb-2 lg:p-4">
+            <ul className="grid grid-cols-2 gap-1 lg:grid-cols-1">
+              {ruleCategories.map(item => (
+                <li key={item.id}>
+                  <Link
+                    href={`/rules/${item.id}`}
+                    aria-current={item.id === category.id ? "page" : undefined}
+                    className={`flex min-h-11 items-center rounded border px-3 py-2 text-sm ${item.id === category.id ? "border-accent/40 bg-accent/10 text-accent" : "border-transparent text-muted hover:bg-white/5 hover:text-foreground"} ${focus}`}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <dl className="space-y-2 border-t border-border px-3 py-2.5 text-xs text-muted">
+            <div>
+              <dt>المسؤول عن القسم</dt>
+              <dd className="mt-1 text-sm font-bold text-foreground">{category.owner ?? "لم يُحدّد بعد"}</dd>
+            </div>
+            {category.updatedAt && (
+              <div className="flex flex-wrap gap-x-2">
+                <dt>آخر تحديث</dt>
+                <dd>{category.updatedAt}</dd>
+              </div>
+            )}
+          </dl>
+    </>
+  );
+
+  return <div className="pb-8 pt-16 sm:pt-18 md:pb-12">
     <div className="mx-auto max-w-7xl px-5 md:px-8">
-      <nav aria-label="مسار التصفح" className="mb-3 flex flex-wrap items-center gap-2 text-sm text-muted md:mb-4 md:gap-3">
-        <Link href="/explore" className={`hover:text-foreground ${focus}`}>استكشف الموقع</Link><span aria-hidden="true">/</span>
-        {category ? <><Link href="/rules" className={`hover:text-foreground ${focus}`}>مركز القوانين</Link><span aria-hidden="true">/</span><span aria-current="page" className="text-foreground">{category.title}</span></> : <span aria-current="page" className="text-foreground">مركز القوانين</span>}
+      <nav aria-label="مسار التصفح" className="mb-1 flex flex-wrap items-center gap-x-2 text-sm text-muted md:mb-4 md:gap-3">
+        <Link href="/explore" className={`inline-flex min-h-11 items-center hover:text-foreground ${focus}`}>استكشف الموقع</Link><span aria-hidden="true">/</span>
+        {category ? <><Link href="/rules" className={`inline-flex min-h-11 items-center hover:text-foreground ${focus}`}>مركز القوانين</Link><span aria-hidden="true">/</span><span aria-current="page" className="text-foreground">{category.title}</span></> : <span aria-current="page" className="text-foreground">مركز القوانين</span>}
       </nav>
 
       <header className="relative overflow-hidden border border-border bg-surface p-4 md:p-6">
@@ -49,38 +81,18 @@ export function Rules({ categoryId }: { categoryId?: string }) {
         </div>
         {categories.length === 0 && <div role="status" className="border border-dashed border-border p-10 text-center text-muted">لا يوجد قسم يطابق بحثك.<button onClick={() => setQuery("")} className={`mx-auto mt-4 block text-accent ${focus}`}>عرض جميع الأقسام</button></div>}
       </> : <div className="mt-4 grid items-start gap-4 md:mt-5 md:gap-4 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <aside id="rule-sections" className="order-last scroll-mt-24 rounded-lg border border-border bg-surface lg:sticky lg:top-24 lg:order-none">
-          <nav aria-labelledby="rule-category-navigation" className="p-4">
-            <h2 id="rule-category-navigation" className="mb-3 text-sm font-bold">الانتقال بين الأقسام</h2>
-            <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
-              {ruleCategories.map(item => (
-                <li key={item.id}>
-                  <Link
-                    href={`/rules/${item.id}`}
-                    aria-current={item.id === category.id ? "page" : undefined}
-                    className={`flex min-h-11 items-center rounded border px-3 py-2 text-sm ${item.id === category.id ? "border-accent/40 bg-accent/10 text-accent" : "border-transparent text-muted hover:bg-white/5 hover:text-foreground"} ${focus}`}
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <dl className="space-y-2 border-t border-border p-4 text-xs text-muted">
-            <div>
-              <dt>المسؤول عن القسم</dt>
-              <dd className="mt-1 text-sm font-bold text-foreground">{category.owner ?? "لم يُحدّد بعد"}</dd>
-            </div>
-            {category.updatedAt && (
-              <div className="flex flex-wrap gap-x-2">
-                <dt>آخر تحديث</dt>
-                <dd>{category.updatedAt}</dd>
-              </div>
-            )}
-          </dl>
+        <aside className="min-w-0 rounded-lg border border-border bg-surface lg:sticky lg:top-24">
+          <details className="lg:hidden">
+            <summary className={`cursor-pointer rounded-lg px-3 py-3 text-sm font-bold text-accent ${focus}`}>تغيير قسم القوانين</summary>
+            {sectionNavigation}
+          </details>
+          <div className="hidden lg:block">
+            <h2 className="px-4 pt-4 text-sm font-bold">الانتقال بين الأقسام</h2>
+            {sectionNavigation}
+          </div>
         </aside>
         <div className="min-w-0">
-          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><a href="#rule-sections" className="inline-flex min-h-11 items-center text-sm font-bold text-accent lg:hidden">انتقل إلى الأقسام</a><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
+          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             <div className="grid gap-4 lg:grid-cols-2">

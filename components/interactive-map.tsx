@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Reveal } from "./reveal";
-import { SectionHeading } from "./section-heading";
 
 type Category = "all" | "gov" | "civil" | "industry" | "danger";
 
@@ -75,15 +74,8 @@ export function InteractiveMap() {
   }
 
   return (
-    <section id="map" aria-labelledby="map-title" className="border-y border-border bg-[radial-gradient(ellipse_at_top,var(--surface-2),var(--background)_72%)] py-8 md:py-10">
+    <section id="map" aria-label="خريطة مواقع المدينة" className="border-y border-border bg-[radial-gradient(ellipse_at_top,var(--surface-2),var(--background)_72%)] py-4 md:py-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8">
-        <SectionHeading
-          index="06"
-          eyebrow="World Map"
-          title="خريطة العالم"
-          description="تعرّف على أهم المواقع قبل أن تبدأ رحلتك. المواقع الحالية مؤقتة وسيتم تحديثها مع إطلاق الخريطة الرسمية."
-        />
-
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="row-start-3 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-background lg:row-start-auto">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 px-3 py-2">

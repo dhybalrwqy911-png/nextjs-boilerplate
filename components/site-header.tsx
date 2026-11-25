@@ -2,15 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { isActivePath, navItems } from "@/lib/site";
-import { CloseIcon, MenuIcon } from "./icons";
+import { useEffect, useRef, useState } from "react";
+import { communityNavigation, isActivePath, navItems, worldNavigation } from "@/lib/site";
+import { ArrowIcon, CloseIcon, MenuIcon } from "./icons";
 import { Logo } from "./logo";
+
+const mobileGroups = [
+  { title: "المجتمع", links: [...communityNavigation, { href: "/about", label: "عن المجتمع" }] },
+  {
+    title: "داخل اللعبة",
+    links: [
+      ...worldNavigation,
+      { href: "/jobs", label: "الوظائف والاقتصاد" },
+      { href: "/map", label: "خريطة المدينة" },
+    ],
+  },
+];
+
+const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   if (pathname !== lastPath) {
     setLastPath(pathname);
@@ -25,14 +40,16 @@ export function SiteHeader() {
   }, [mobileOpen]);
 
   useEffect(() => {
+    if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileOpen(false);
+        menuButton.current?.focus();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [mobileOpen]);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 80rem)");
@@ -52,8 +69,8 @@ export function SiteHeader() {
     <header
       className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background"
     >
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
-        <Link href="/explore" aria-label="ARAB REFORGER - استكشف الموقع" className="shrink-0">
+      <div className="mx-auto flex h-16 max-w-7xl sm:h-18 items-center justify-between gap-3 px-4 md:px-8">
+        <Link href="/explore" onClick={closeMobileMenu} aria-label="ARAB REFORGER - استكشف الموقع" className={`min-w-0 rounded-sm ${focus}`}>
           <Logo />
         </Link>
 
@@ -61,7 +78,7 @@ export function SiteHeader() {
           <ul className="flex items-center gap-1">
             {navItems.map((item) => {
               const active = isActivePath(pathname, item.href);
-              const linkClass = `relative px-3 py-2 text-sm font-semibold transition-colors ${
+              const linkClass = `relative inline-flex min-h-11 items-center whitespace-nowrap rounded-sm px-3 text-sm font-semibold transition-colors ${focus} ${
                 active ? "text-foreground" : "text-foreground/70 hover:text-foreground"
               }`;
               const indicator = (
@@ -88,17 +105,18 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/join"
-            className="hidden bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground transition-colors hover:bg-foreground sm:inline-flex"
+            className={`hidden min-h-11 items-center whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-sm font-bold text-accent-foreground transition-colors hover:bg-foreground xl:inline-flex ${focus}`}
           >
             دليل الانضمام
           </Link>
           <button
+            ref={menuButton}
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            className="flex size-11 items-center justify-center border border-border text-foreground xl:hidden"
+            className={`flex size-11 items-center justify-center rounded-lg border border-border text-foreground xl:hidden ${focus}`}
           >
             {mobileOpen ? <CloseIcon className="size-5" /> : <MenuIcon className="size-5" />}
           </button>
@@ -107,33 +125,38 @@ export function SiteHeader() {
 
       <div
         id="mobile-menu"
-        inert={!mobileOpen}
-        className={`absolute inset-x-0 top-full h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain bg-background transition-all duration-300 xl:hidden ${
-          mobileOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
-        }`}
+        hidden={!mobileOpen}
+        className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-b border-border bg-background shadow-xl sm:max-h-[calc(100dvh-4.5rem)] xl:hidden"
       >
-        <nav aria-label="القائمة المحمولة" className="mx-auto flex max-w-7xl flex-col px-5 py-6 md:px-8">
-          <ul className="flex flex-col">
-            {navItems.map((item) => (
-              <li key={item.href} className="border-b border-border">
-                <Link
-                  href={item.href}
-                  onClick={closeMobileMenu}
-                  aria-current={pathname === item.href ? "page" : undefined}
-                  className={`flex min-h-12 items-center py-2 text-base font-bold ${isActivePath(pathname, item.href) ? "text-accent" : "text-foreground"}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <nav aria-label="القائمة المحمولة" className="mx-auto max-w-lg space-y-4 px-4 py-4 sm:px-6">
           <Link
             href="/join"
             onClick={closeMobileMenu}
-            className="mt-8 bg-accent px-6 py-4 text-center text-lg font-bold text-accent-foreground"
+            aria-current={pathname === "/join" ? "page" : undefined}
+            className={`flex min-h-11 items-center justify-between rounded-lg bg-accent px-3 py-2 text-sm font-bold text-accent-foreground ${focus}`}
           >
-            دليل الانضمام
+            دليل الانضمام <ArrowIcon aria-hidden="true" className="size-4" />
           </Link>
+          {mobileGroups.map(({ title, links }) => (
+            <section key={title} aria-label={title}>
+              <h2 className="mb-1.5 text-sm font-bold text-muted">{title}</h2>
+              <ul className="grid grid-cols-2 gap-1.5">
+                {links.map(({ href, label }) => {
+                  const active = href === "/roleplay" ? pathname === href : isActivePath(pathname, href);
+                  return (
+                    <li key={href} className="min-w-0">
+                      <Link
+                        href={href}
+                        onClick={closeMobileMenu}
+                        aria-current={pathname === href ? "page" : undefined}
+                        className={`flex min-h-11 items-center rounded-lg border px-2.5 py-2 text-sm font-bold leading-5 ${focus} ${active ? "border-accent/60 bg-accent/10 text-accent" : "border-border/60 bg-surface text-foreground hover:border-accent"}`}
+                      >{label}</Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
         </nav>
       </div>
     </header>
