@@ -5,6 +5,7 @@ export type NavItem = { href: string; label: string };
 
 export const navItems: NavItem[] = [
   { href: "/rules", label: "القوانين" },
+  { href: "/faq", label: "الأسئلة الشائعة" },
   { href: "/departments", label: "القطاعات الحكومية" },
   { href: "/roleplay", label: "عالم الرول بلاي" },
   { href: "/news", label: "الأخبار" },

@@ -29,6 +29,7 @@ export default async function Explore() {
               <BookIcon aria-hidden="true" className="size-5 text-accent" />
               اقرأ القوانين
             </Link>
+            <Link href="/faq" className="inline-flex min-h-11 items-center text-sm font-bold text-accent hover:underline">الأسئلة الشائعة</Link>
           </div>
         </div>
         <div className="grid gap-3">
