@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { DiscordMemberCount } from "@/components/discord-member-count";
 import { JoinSteps } from "@/components/join-steps";
 import Link from "next/link";
-import { DiscordButton } from "@/components/buttons";
 import { getAnnouncements } from "@/lib/announcement-content";
 import { BookIcon, BriefcaseIcon, BuildingIcon, MapPinIcon, ShieldIcon } from "@/components/icons";
 
@@ -21,13 +21,17 @@ export default async function Home() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 md:px-8 md:pb-12 md:pt-28">
-      <section aria-labelledby="portal-title" className="grid gap-5 rounded-2xl border border-border bg-[radial-gradient(ellipse_at_top_right,var(--surface-2),var(--background)_78%)] p-5 md:items-center md:p-9 lg:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="min-w-0">
+      <section aria-labelledby="portal-title" className="grid gap-6 rounded-2xl border border-border bg-[radial-gradient(ellipse_at_top_right,var(--surface-2),var(--background)_78%)] p-5 md:items-center md:p-9 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="flex min-w-0 flex-col items-center text-center">
+          <Image src="/images/server-logo.gif" alt="" width={450} height={450} unoptimized className="mb-4 size-24 object-contain sm:size-32" />
           <h1 id="portal-title" className="text-balance text-3xl font-black leading-tight sm:text-5xl">بوابة عرب ريفورجر</h1>
-          <p className="mt-3 max-w-lg text-sm leading-7 text-muted md:text-base">مجتمع رول بلاي عربي في Arma Reforger. استكشف القوانين والقطاعات، وابدأ التفعيل عبر ديسكورد.</p>
-          <div className="mt-4 grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
-            <DiscordButton label="انضم عبر ديسكورد" />
-            <Link href="/rules" className="inline-flex min-h-12 items-center justify-center gap-2 rounded border border-border bg-surface px-4 text-sm font-bold hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
+          <p className="mt-3 max-w-lg text-sm leading-7 text-muted md:text-base">مجتمع رول بلاي عربي في Arma Reforger.</p>
+          <a href="#welcome" className="mt-5 inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-sm font-bold text-accent-foreground hover:bg-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+            استكشف الموقع <span aria-hidden="true">↓</span>
+          </a>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link href="/join" className="inline-flex min-h-11 items-center text-sm font-bold text-accent hover:underline">دليل الانضمام</Link>
+            <Link href="/rules" className="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-bold hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
               <BookIcon aria-hidden="true" className="size-5 text-accent" />
               اقرأ القوانين
             </Link>
