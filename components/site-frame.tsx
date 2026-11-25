@@ -15,9 +15,9 @@ export function SiteFrame({ children, header, footer }: SiteFrameProps) {
   const landing = pathname === "/";
 
   return (
-    <div className={landing ? "bg-background" : "site-frame"} data-section-theme={sectionTheme(pathname)}>
+    <div className={landing ? "bg-background" : "site-frame flex min-h-svh flex-col"} data-section-theme={sectionTheme(pathname)}>
       {!landing && header}
-      <main id="main" className="min-w-0 break-words">{children}</main>
+      <main id="main" className="min-w-0 break-words xl:flex-1">{children}</main>
       {!landing && footer}
     </div>
   );

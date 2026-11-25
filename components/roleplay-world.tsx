@@ -33,7 +33,7 @@ export function RoleplayWorld() {
   return (
     <section id="world" aria-labelledby="world-title" className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-10">
       <h2 id="world-title" className="mb-4 text-xl font-black md:text-2xl">محاور عالم الرول بلاي</h2>
-      <div className="grid gap-3">
+      <div className="grid gap-3 xl:grid-cols-2 xl:gap-4">
         {topics.map(({ id, label, title, text, points }) => (
           <article key={id} aria-labelledby={`world-${id}`} className="rounded-lg border border-border border-s-2 border-s-accent/70 bg-surface p-4 md:p-5">
             <h3 id={`world-${id}`} className="text-lg font-bold">{label}</h3>

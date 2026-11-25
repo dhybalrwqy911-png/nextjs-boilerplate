@@ -64,13 +64,13 @@ export function SiteHeader() {
     <header
       className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background"
     >
-      <div className="mx-auto flex h-16 max-w-7xl sm:h-18 items-center justify-between gap-3 px-4 md:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl sm:h-18 items-center justify-between gap-3 px-4 md:px-8 xl:max-w-[104rem] xl:px-10 2xl:px-12">
         <Link href="/explore" onClick={closeMobileMenu} aria-label="ARAB REFORGER - استكشف الموقع" className={`min-w-0 rounded-sm ${focus}`}>
           <Logo />
         </Link>
 
         <nav aria-label="القائمة الرئيسية" className="hidden xl:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center gap-1 2xl:gap-2">
             {navItems.map((item) => {
               const active = isActivePath(pathname, item.href);
               const linkClass = `relative inline-flex min-h-11 items-center whitespace-nowrap rounded-sm px-3 text-sm font-semibold transition-colors ${focus} ${

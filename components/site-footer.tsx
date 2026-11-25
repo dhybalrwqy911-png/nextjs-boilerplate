@@ -11,8 +11,8 @@ const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/70 bg-surface">
-      <div className="mx-auto max-w-7xl px-4 pt-5 pb-4 sm:px-6 lg:px-8">
-        <nav aria-labelledby="footer-projects">
+      <div className="mx-auto max-w-7xl px-4 pt-5 pb-4 sm:px-6 lg:px-8 xl:grid xl:max-w-[104rem] xl:grid-cols-[minmax(0,2fr)_minmax(16rem,1fr)] xl:gap-x-8 xl:px-10 xl:py-6 2xl:px-12">
+        <nav aria-labelledby="footer-projects" className="xl:row-span-2">
           <h2 id="footer-projects" className="mb-2 text-base font-bold text-foreground">أبرز أعمالنا</h2>
           <ul className="grid gap-2 sm:grid-cols-2 sm:gap-3">
             {projects.map(({ name, description, href, domain, Icon }) => (
@@ -30,11 +30,11 @@ export function SiteFooter() {
             ))}
           </ul>
         </nav>
-        <nav aria-label="روابط الموقع" className="mt-3 flex flex-wrap items-center gap-x-5 border-t border-border/70">
+        <nav aria-label="روابط الموقع" className="mt-3 flex flex-wrap items-center gap-x-5 border-t border-border/70 xl:mt-0 xl:border-t-0">
           <Link href="/" className={`inline-flex min-h-11 items-center rounded-sm text-sm font-bold text-accent hover:underline ${focus}`}>بوابة عرب ريفورجر</Link>
           <Link href="/about" className={`inline-flex min-h-11 items-center rounded-sm text-sm font-bold hover:text-accent ${focus}`}>عن المجتمع</Link>
         </nav>
-        <div className="flex flex-col gap-1 text-xs leading-5 text-muted md:flex-row md:justify-between">
+        <div className="flex flex-col gap-1 text-xs leading-5 text-muted md:flex-row md:justify-between xl:flex-col">
           <p>© 2026 ARAB REFORGER. جميع الحقوق محفوظة.</p>
           <p>مجتمع مستقل غير تابع لـ Bohemia Interactive. جميع الشخصيات والتنظيمات في السيرفر خيالية.</p>
         </div>

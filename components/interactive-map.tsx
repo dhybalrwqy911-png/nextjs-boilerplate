@@ -75,7 +75,7 @@ export function InteractiveMap() {
 
   return (
     <section id="map" aria-label="خريطة مواقع المدينة" className="border-y border-border bg-[radial-gradient(ellipse_at_top,var(--surface-2),var(--background)_72%)] py-4 md:py-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:gap-12 md:px-8 xl:max-w-[104rem] xl:px-10 2xl:px-12">
         <Reveal className="grid gap-3 md:gap-4 lg:items-start lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="row-start-3 min-w-0 overflow-hidden rounded-xl border border-accent/35 bg-background lg:row-start-auto">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/15 px-3 py-2">

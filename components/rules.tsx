@@ -53,7 +53,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
   );
 
   return <div className="pb-8 pt-16 sm:pt-18 md:pb-12">
-    <div className="mx-auto max-w-7xl px-5 md:px-8">
+    <div className="mx-auto max-w-7xl px-5 md:px-8 xl:max-w-[94rem] xl:px-10">
       <nav aria-label="مسار التصفح" className="mb-1 flex flex-wrap items-center gap-x-2 text-sm text-muted md:mb-4 md:gap-3">
         <Link href="/explore" className={`inline-flex min-h-11 items-center hover:text-foreground ${focus}`}>استكشف الموقع</Link><span aria-hidden="true">/</span>
         {category ? <><Link href="/rules" className={`inline-flex min-h-11 items-center hover:text-foreground ${focus}`}>مركز القوانين</Link><span aria-hidden="true">/</span><span aria-current="page" className="text-foreground">{category.title}</span></> : <span aria-current="page" className="text-foreground">مركز القوانين</span>}
@@ -80,7 +80,7 @@ export function Rules({ categoryId }: { categoryId?: string }) {
           </Link>)}
         </div>
         {categories.length === 0 && <div role="status" className="border border-dashed border-border p-10 text-center text-muted">لا يوجد قسم يطابق بحثك.<button onClick={() => setQuery("")} className={`mx-auto mt-4 block text-accent ${focus}`}>عرض جميع الأقسام</button></div>}
-      </> : <div className="mt-4 grid items-start gap-4 md:mt-5 md:gap-4 lg:grid-cols-[13rem_minmax(0,1fr)]">
+      </> : <div className="mt-4 grid items-start gap-4 md:mt-5 md:gap-4 lg:grid-cols-[13rem_minmax(0,1fr)] xl:grid-cols-[16rem_minmax(0,1fr)] xl:gap-6">
         <aside className="min-w-0 rounded-lg border border-border bg-surface lg:sticky lg:top-24">
           <details className="lg:hidden">
             <summary className={`cursor-pointer rounded-lg px-3 py-3 text-sm font-bold text-accent ${focus}`}>تغيير قسم القوانين</summary>

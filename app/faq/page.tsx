@@ -90,8 +90,8 @@ export default function FaqPage() {
       title="الأسئلة الشائعة"
       description="دليلك للتفعيل والرول بلاي والتواصل مع الإدارة ومعرفة إجراءات الشكاوى والعقوبات."
     >
-      <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-10">
-        <ol aria-label="الأسئلة والأجوبة" className="grid list-none items-start gap-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-10 xl:max-w-[94rem] xl:px-10">
+        <ol aria-label="الأسئلة والأجوبة" className="grid list-none items-start gap-4 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3">
           {questions.map(({ id, emoji, question, answer, note, links }) => (
             <li key={id} id={id} className="scroll-mt-24 rounded-2xl border border-border bg-surface p-4 sm:p-5">
               <h2 className="flex items-start gap-3 border-s-4 border-accent ps-3 text-lg font-black leading-snug sm:text-xl">
