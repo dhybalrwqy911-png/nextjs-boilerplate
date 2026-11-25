@@ -12,7 +12,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-5 sm:py-10 md:px-8 md:py-16">
         <div className="grid gap-5 lg:grid-cols-[1fr_2fr] lg:gap-10">
           <div className="min-w-0">
-            <Link href="/" aria-label="ARAB REFORGER - الرئيسية" className="inline-block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+            <Link href="/explore" aria-label="ARAB REFORGER - استكشف الموقع" className="inline-block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
               <Logo />
             </Link>
             <p className="mt-2 max-w-sm text-sm leading-6 lg:mt-5 lg:leading-8 text-muted">

@@ -53,7 +53,7 @@ export function SiteHeader() {
       className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background"
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
-        <Link href="/" aria-label="ARAB REFORGER - الرئيسية" className="shrink-0">
+        <Link href="/explore" aria-label="ARAB REFORGER - استكشف الموقع" className="shrink-0">
           <Logo />
         </Link>
 

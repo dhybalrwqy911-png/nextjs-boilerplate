@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isActivePath } from "@/lib/site";
-import { BookIcon, BuildingIcon, ChatIcon, ShieldIcon } from "./icons";
+import { BookIcon, ChatIcon, ShieldIcon } from "./icons";
 
 const links = [
-  { href: "/", label: "الرئيسية", Icon: BuildingIcon },
   { href: "/rules", label: "القوانين", Icon: BookIcon },
   { href: "/departments", label: "القطاعات", Icon: ShieldIcon },
   { href: "/join", label: "الانضمام", Icon: ChatIcon },
@@ -17,7 +16,7 @@ export function MobileNavigation() {
 
   return (
     <nav aria-label="روابط الجوال السريعة" className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background px-2 pb-[env(safe-area-inset-bottom)] xl:hidden">
-      <ul className="mx-auto grid max-w-lg grid-cols-4">
+      <ul className="mx-auto grid max-w-lg grid-cols-3">
         {links.map(({ href, label, Icon }) => (
           <li key={href}>
             <Link

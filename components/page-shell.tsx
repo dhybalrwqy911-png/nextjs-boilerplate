@@ -14,7 +14,7 @@ export function PageShell({ title, description, children, parent }: PageShellPro
       <section aria-labelledby="page-title" className="border-b border-border bg-surface px-4 pb-6 pt-24 md:px-8 md:pb-9 md:pt-28">
         <div className="mx-auto max-w-7xl">
           <nav aria-label="مسار التنقل" className="flex flex-wrap items-center gap-x-3">
-            <Link href="/" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">الرئيسية</Link>
+            <Link href="/explore" className="inline-flex min-h-11 items-center text-sm font-bold text-accent">استكشف الموقع</Link>
             {parent && (
               <Link href={parent.href} className="inline-flex min-h-11 items-center rounded border border-border px-3 text-sm font-bold text-accent hover:border-accent focus-visible:outline-2 focus-visible:outline-accent">
                 {parent.label}

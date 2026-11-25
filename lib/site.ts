@@ -4,7 +4,6 @@ export const DISCORD_URL: string | null = "https://discord.gg/MFekRVgsP";
 export type NavItem = { href: string; label: string };
 
 export const navItems: NavItem[] = [
-  { href: "/", label: "الرئيسية" },
   { href: "/rules", label: "القوانين" },
   { href: "/departments", label: "القطاعات الحكومية" },
   { href: "/roleplay", label: "عالم الرول بلاي" },
