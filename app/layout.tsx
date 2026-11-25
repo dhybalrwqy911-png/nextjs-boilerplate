@@ -72,7 +72,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-screen font-sans antialiased max-xl:pb-[calc(3.5rem+env(safe-area-inset-bottom))]"
+        className="min-h-screen font-sans antialiased"
       >
         <a
           href="#main"
@@ -80,11 +80,8 @@ export default function RootLayout({
         >
           تخطَّ إلى المحتوى
         </a>
-        <SiteFrame>
-          <SiteHeader />
-          <main id="main" className="min-w-0 break-words">{children}</main>
-          <SiteFooter />
-          <MobileNavigation />
+        <SiteFrame header={<SiteHeader />} footer={<SiteFooter />} mobileNavigation={<MobileNavigation />}>
+          {children}
         </SiteFrame>
       </body>
     </html>
