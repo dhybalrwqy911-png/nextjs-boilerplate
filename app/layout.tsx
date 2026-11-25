@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic, Oswald } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
-import { MobileNavigation } from "@/components/mobile-navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFrame } from "@/components/site-frame";
 import "./globals.css";
@@ -80,7 +79,7 @@ export default function RootLayout({
         >
           تخطَّ إلى المحتوى
         </a>
-        <SiteFrame header={<SiteHeader />} footer={<SiteFooter />} mobileNavigation={<MobileNavigation />}>
+        <SiteFrame header={<SiteHeader />} footer={<SiteFooter />}>
           {children}
         </SiteFrame>
       </body>

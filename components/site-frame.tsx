@@ -8,19 +8,17 @@ type SiteFrameProps = {
   children: ReactNode;
   header: ReactNode;
   footer: ReactNode;
-  mobileNavigation: ReactNode;
 };
 
-export function SiteFrame({ children, header, footer, mobileNavigation }: SiteFrameProps) {
+export function SiteFrame({ children, header, footer }: SiteFrameProps) {
   const pathname = usePathname();
   const landing = pathname === "/";
 
   return (
-    <div className={landing ? "bg-background" : "site-frame max-xl:pb-[calc(3.5rem+env(safe-area-inset-bottom))]"} data-section-theme={sectionTheme(pathname)}>
+    <div className={landing ? "bg-background" : "site-frame"} data-section-theme={sectionTheme(pathname)}>
       {!landing && header}
       <main id="main" className="min-w-0 break-words">{children}</main>
       {!landing && footer}
-      {!landing && mobileNavigation}
     </div>
   );
 }
