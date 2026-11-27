@@ -101,13 +101,14 @@ export function Rules({ categoryId }: { categoryId?: string }) {
           <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
-            {category.id === "gangs" && sections.length > 0 && (
-              <nav aria-label="مواد قوانين العصابات" className="mb-4">
-                <ul className="grid grid-cols-2 gap-2 xl:grid-cols-4">
+            {(category.id === "gangs" || category.id === "police") && sections.length > 0 && (
+              <nav aria-label={`مواد ${category.title}`} className="mb-4">
+                <ul className={`grid grid-cols-2 gap-2 ${category.id === "police" ? "sm:grid-cols-3" : "xl:grid-cols-4"}`}>
                   {sections.map(({ id, title }) => (
                     <li key={id}>
-                      <a href={"#" + id} className={"flex h-full min-h-11 items-center rounded-lg border border-border bg-surface px-3 py-2 text-sm text-accent hover:border-accent " + focus}>
-                        {title.split(" | ")[0]}
+                      <a href={"#" + id} className={"flex h-full min-h-11 flex-col justify-center rounded-lg border border-border bg-surface px-3 py-2 text-sm text-accent hover:border-accent " + focus}>
+                        <span>{title.split(" | ")[0]}</span>
+                        <span className="font-bold leading-5 text-foreground">{title.split(" | ")[1]}</span>
                       </a>
                     </li>
                   ))}
