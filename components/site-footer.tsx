@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BuildingIcon, ChatIcon } from "./icons";
+import { ArrowIcon, BuildingIcon, ChatIcon } from "./icons";
 
 const projects = [
   {
@@ -39,7 +39,7 @@ export function SiteFooter() {
                   <span className="col-start-1 row-start-1 grid size-7 place-items-center rounded-md bg-accent/15 text-accent sm:size-8">
                     <Icon aria-hidden="true" className="size-4" />
                   </span>
-                  <span className="col-start-2 row-start-1 justify-self-end text-sm text-accent sm:col-start-3" aria-hidden="true">↗</span>
+                  <ArrowIcon className="col-start-2 row-start-1 size-4 rotate-135 justify-self-end text-accent [direction:ltr] sm:col-start-3" />
                   <span className="col-span-2 row-start-2 min-w-0 sm:col-span-1 sm:col-start-2 sm:row-start-1">
                     <span className="block text-sm font-bold leading-5 group-hover:text-accent">{name}</span>
                     <span className="block text-xs leading-4 text-muted">{description}</span>
