@@ -13,7 +13,7 @@ const destinations = [
   { href: "/jobs", label: "الوظائف والاقتصاد", description: "المهن والتجارة", Icon: BriefcaseIcon },
   { href: "/map", label: "خريطة المدينة", description: "المواقع والمرافق", Icon: MapPinIcon },
   { href: "/faq", label: "الأسئلة الشائعة", description: "التفعيل والبلاغات والعقوبات", Icon: ChatIcon },
-  { href: "/store", label: "المتجر", description: "معاينة الباقات", Icon: PackageIcon },
+  { href: "/store", label: "المتجر", description: "قريباً", Icon: PackageIcon },
 ];
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
