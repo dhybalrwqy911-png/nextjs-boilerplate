@@ -93,6 +93,12 @@ export function Rules({ categoryId }: { categoryId?: string }) {
         </aside>
         <div className="min-w-0">
           <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
+          {category.notice && (
+            <aside aria-labelledby="rule-notice" className="mb-4 rounded-xl border border-accent/40 border-s-4 bg-accent/10 px-4 py-3">
+              <h3 id="rule-notice" className="font-bold text-accent">{category.notice.title}</h3>
+              <p className="mt-1 text-sm leading-7 text-foreground md:text-base">{category.notice.text}</p>
+            </aside>
+          )}
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
             <div className="grid gap-4 lg:grid-cols-2">
