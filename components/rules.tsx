@@ -98,9 +98,22 @@ export function Rules({ categoryId }: { categoryId?: string }) {
               <p className="mt-1 text-sm leading-7 text-foreground md:text-base">{category.notice.text}</p>
             </aside>
           )}
-          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">{category.sectionsTitle ?? "القوانين الكاملة"}</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
+          <div className="mb-3 flex flex-wrap md:mb-5 items-center justify-between gap-3"><h2 className="text-xl font-bold md:text-2xl">القوانين الكاملة</h2><Link href="/rules" className={`text-sm text-accent ${focus}`}>جميع أقسام القوانين ←</Link></div>
           {category.sections.length === 0 ? <section className="flex flex-col items-center justify-center border border-dashed border-accent/35 bg-surface px-4 py-6 text-center md:px-6 md:py-8"><span className="mb-5 text-accent"><CategoryIcon id={category.id}/></span><h3 className="text-xl font-bold">قوانين هذا القسم بانتظار الإضافة</h3><p className="mt-4 max-w-md text-sm leading-8 text-muted">ستظهر هنا النسخة الكاملة من {category.title} بعد اعتمادها، مع ترتيب المواد وتوضيح الجهة المسؤولة عنها.</p><p className="mt-6 hidden text-xs text-muted md:block">لا توجد قوانين منشورة في هذا القسم حاليًا.</p></section> : <>
             <label htmlFor="rules-search" className="mb-2 block text-sm text-muted">بحث داخل قوانين القسم</label><input id="rules-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="ابحث بكلمة من القانون" className={`mb-6 w-full border border-border bg-surface px-4 py-3 ${focus}`}/>
+            {category.id === "gangs" && sections.length > 0 && (
+              <nav aria-label="مواد قوانين العصابات" className="mb-4">
+                <ul className="grid grid-cols-2 gap-2 xl:grid-cols-4">
+                  {sections.map(({ id, title }) => (
+                    <li key={id}>
+                      <a href={"#" + id} className={"flex h-full min-h-11 items-center rounded-lg border border-border bg-surface px-3 py-2 text-sm text-accent hover:border-accent " + focus}>
+                        {title.split(" | ")[0]}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
             <div className="grid gap-4 lg:grid-cols-2">
               {sections.map(section => (
                 <section id={section.id} key={section.id} className="flex min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-xl border border-accent/40 bg-surface lg:last:odd:col-span-2">
@@ -130,6 +143,14 @@ export function Rules({ categoryId }: { categoryId?: string }) {
             </div>
             {sections.length === 0 && <p role="status" className="border border-border p-8 text-center text-muted">لا توجد قوانين تطابق البحث.</p>}
           </>}
+          {category.notes && (
+            <aside aria-labelledby="rule-notes-title" className="mt-4 rounded-xl border border-s-4 border-accent/40 bg-accent/10 px-4 py-3">
+              <h2 id="rule-notes-title" className="font-bold text-accent">ملاحظات تنظيمية</h2>
+              <div className="mt-1 space-y-2 text-sm leading-7 text-foreground md:text-base">
+                {category.notes.map((note) => <p key={note}>{note}</p>)}
+              </div>
+            </aside>
+          )}
         </div>
       </div>}
     </div>
